@@ -1,0 +1,160 @@
+
+.navbar {
+	background-color: #6495ed;
+	color: white;
+}
+
+.navbar-color {
+	background-color: #1e90ff;
+}
+
+.header {
+	height: 300px;
+	display: flex;
+	background-color: #6495ed;
+}
+
+.infos {
+	margin-top: 40px;
+	color: white;
+}
+
+.container #custom-btn {
+	margin-top: 10px;
+	width: 100%;
+	color: #fff;
+	align-items: center;
+	background-color: #6495ed;
+}
+
+.img-profile {
+	margin-left: 0;
+}
+
+.imagePreview {
+	width: 100%;
+	height: 250px;
+	background-position: center center;
+	border: 5px solid #8a2be2;
+}
+
+.img-paginas {
+	background-color: white;
+
+	background-position: center center;
+	width: 100%;
+	height: 300px;
+}
+
+.preview {
+	width: 100%;
+	height: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 5px;
+}
+
+.card {
+	display: flex;
+	height: 100%;
+	margin-top: -150px;
+	margin-bottom: 50px;
+}
+
+.cadastro {
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-bottom: 40px;
+}
+
+.cadastro1 {
+	margin-top: 50px;
+	margin-bottom: 40px;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+.login,
+.image {
+	min-height: 100vh;
+}
+
+.bg-image {
+	background-image: url("../img/2.png");
+	background-size: cover;
+	background-position: center;
+}
+
+.login-heading {
+	font-weight: 300;
+}
+
+.btn-google {
+	color: white !important;
+	background-color: #ea4335 !important;
+	width: 100% !important;
+}
+
+.btn-facebook {
+	color: white !important;
+	background-color: #3b5998 !important;
+	width: 100% !important;
+}
+
+.form-check-input:checked[type="radio"] {
+	background-image: none !important;
+}
+
+.form-check-input:checked {
+	background-color: #32549b!important;
+	border-color: 0 !important;
+}
+
+.form-check-input {
+	margin-top: 8px !important;
+}
+
+.navegacao{
+	height: 250px;
+	width: 250px !important;
+	background: red;
+	border-radius: 7px;
+}
+
+@media (min-width: 1100px) {
+	.img-profile {
+		margin-left: 500px !important;
+	}
+}
+
+@media (min-width: 1100px) {
+/* 	img {
+		display: none !important;
+	} */
+}
+
+
+
+
+@media (min-width: 768px)  {
+	.cadastro {
+		margin-left: 50px !important;
+
+		margin-top: 50px;
+		margin-bottom: 80px;
+	}
+
+	
+
+	.cadastro1 {
+		margin-left: 50px !important;
+		margin-right: 50px !important;
+		margin-top: 50px;
+		margin-bottom: 80px;
+	}
+
+	.imagePreview {
+		width: 100% !important;
+		height: 150px !important;
+	}
+}
