@@ -7,6 +7,12 @@ class Runs extends CI_Controller
 		permission();
 
 		$this->load->model("quiz_model");
+
+		$this->load->library('session');
+
+		if ($this->session->logged_user['funcao'] == '2') {
+			redirect('index.php/dashboard/');
+		}
 	}
 
 	public function index()
@@ -15,7 +21,7 @@ class Runs extends CI_Controller
 		$this->load->model("Quiz_model");
 
 		$data["title"] = 'Pesquisa - Pesquisa-r';
-		$response = file_get_contents('http://157.245.219.190/api/runs.php');
+		$response = file_get_contents('http://3.226.10.237/api/runs.php');
 		$jsons = json_decode($response);
 		foreach ($jsons as $json) {
 			$pages = [

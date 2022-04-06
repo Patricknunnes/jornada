@@ -2,10 +2,8 @@
 class Usuarios extends CI_Controller
 {
 	public $perfil = [
-		1 => 'Super Administrador', 
-		2 => 'Administrador',
-		3 => 'Pesquisador',
-		4 => 'Usuário', 
+		1 => 'Administrador',
+		2 => 'Usuário',
 	];
 
 	public function __construct()
@@ -17,10 +15,14 @@ class Usuarios extends CI_Controller
 		$this->load->model("Termos_model");
 		$this->load->library('session');
 		$this->session_data = $this->session->userdata('message');
+		
 	}
 
 	public function index()
 	{
+		if ($this->session->logged_user['funcao'] == '2') {
+			redirect('index.php/dashboard/');
+		}
 		$data["users"] = $this->Users_model->index();
 		$data["termos"] = $this->Termos_model->index2();
 		$data["title"] = 'Usuarios - Pesquisa-r';
@@ -36,14 +38,17 @@ class Usuarios extends CI_Controller
 
 	public function cadastro()
 	{
+		//if ($this->session->logged_user['funcao'] == '2') {
+		//	redirect('index.php/dashboard/');
+		//}
 		$data["title"] = 'Cadastro - Pesquisa-r';
-		$data['perfil']= $this->perfil;
+		$data['perfil'] = $this->perfil;
 
 		$data['message'] = $this->session->flashdata('message');
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav-top');
-		$this->load->view('pages/usuarios/cadastro',$data);
+		$this->load->view('pages/usuarios/cadastro', $data);
 		$this->load->view('templates/footer');
 		$this->load->view('templates/js');
 	}
@@ -51,8 +56,11 @@ class Usuarios extends CI_Controller
 	public function editar($id)
 	{
 
+	//	if ($this->session->logged_user['funcao'] == '2') {
+	//		redirect('index.php/dashboard/');
+	//	}	
 		$data["users"] = $this->Users_model->show($id);
-		$data['perfil']= $this->perfil;
+		$data['perfil'] = $this->perfil;
 		$data["title"] = 'Editar - Pesquisa-r';
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav-top', $data);
@@ -63,7 +71,6 @@ class Usuarios extends CI_Controller
 
 	public function update($id, $perfil)
 	{
-
 		if (!empty($_FILES["img-upload"]["name"])) {
 			$tmp_name = $_FILES["img-upload"]["tmp_name"];
 
@@ -73,11 +80,19 @@ class Usuarios extends CI_Controller
 			$name = $_POST["d-img-upload"];
 		}
 
+		if (empty($_POST["cpf"])) {
+			$_POST["cpf"] = "";
+		}
+
+		if (empty($_POST["email"])) {
+			$_POST["email"] = "";
+		}
+
 		$user = array(
 			"name" => $_POST["name"],
-			"funcao" => $_POST["funcao"], 
+			// "funcao" => $_POST["funcao"],
 			"datanasc" => $_POST["datanasc"],
-			"email" => $_POST["email"],
+			"email" => $_POST["email"] ? $_POST["email"] : " ",
 			"cpf" => $_POST["cpf"],
 			"password" => md5($_POST["password"]),
 			"ativo" => 'S',
@@ -92,22 +107,43 @@ class Usuarios extends CI_Controller
 			unset($user["email"]);
 		}
 
+		if (empty($_POST["funcao"])) {
+			unset($user["funcao"]);
+		}
+
 		if (empty($_POST["cpf"])) {
 			unset($user["cpf"]);
 		}
+		// if (empty($_POST["password"])) {
+		// 	unset($user["password"]);
+		// }
 
-		if (empty($_POST["password"])) {
-			unset($user["password"]);
-		}
 
-		$this->Users_model->update($id, $user);
-		$this->session->set_flashdata("success", 'Usuário atualizado com sucesso');
+		// print_r(md5($_POST["password2"]));
 
-		if($perfil == 's'){
-			redirect("/index.php/dashboard/");
+		// echo '<pre>';
+		
+		// print_r($user["password"]);
+		
+		// exit;
+		$r = $this->Users_model->show($this->session->logged_user['id']);
+		if (md5($_POST["password2"]) == $r['password']) {
+			$this->Users_model->update($id, $user);
+			$this->session->set_flashdata("success", 'Usuário atualizado com sucesso');
+			if ($perfil == 's') {
+				redirect("/index.php/dashboard/perfil/".$id);
+			} else {
+				redirect("/index.php/usuarios/");
+			}
 		} else {
-			redirect("/index.php/usuarios/");
+			$this->session->set_flashdata("success", 'Sua senha atual não é valida');
+			if ($perfil == 's') {
+				redirect("/index.php/dashboard/perfil/".$id);
+			} else {
+				redirect("/index.php/usuarios/");
+			}
 		}
+		
 	}
 
 	public function store()
@@ -120,7 +156,7 @@ class Usuarios extends CI_Controller
 
 		$user = array(
 			"name" => $_POST["nome"],
-			"funcao" => $_POST["funcao"],
+			"funcao" => 2,
 			"datanasc" => $_POST["datanasc"],
 			"email" => $_POST["email"],
 			"password" => md5($_POST["password"]),
@@ -129,7 +165,7 @@ class Usuarios extends CI_Controller
 		);
 
 		$email = $this->Users_model->getEmail($user['email']);
-		if(!empty($email)){
+		if (!empty($email)) {
 
 			$this->session->set_flashdata('message', 'Esse email já esta cadastrado');
 			redirect("index.php/usuarios/cadastro");
@@ -137,9 +173,9 @@ class Usuarios extends CI_Controller
 			die();
 		}
 
-		if($this->Users_model->store($user)){
+		if ($this->Users_model->store($user)) {
 			$this->session->set_flashdata("success", 'Usuário criado com sucesso');
-			redirect("index.php/usuarios");		
+			redirect("index.php/usuarios");
 		}
 	}
 

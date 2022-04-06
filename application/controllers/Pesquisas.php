@@ -97,7 +97,7 @@ class Pesquisas extends CI_Controller
 			$datas['rest'] = true;
 		}
 
-		$content = file_get_contents('http://157.245.219.190/formr_org/tests/teste1.php/' . $_SESSION['unitid'] . '/' . $studies_id);
+		$content = file_get_contents('http://54.164.116.69/formr_org/tests/teste1.php/' . $_SESSION['unitid'] . '/' . $studies_id);
 
 		$datas["resultados"] = $this->Pesquisas_model->result($id_page, $studies_id);
 		$datas["resultados2"] = $content;
@@ -170,7 +170,7 @@ class Pesquisas extends CI_Controller
 								Você respondeu um questionário no site Idor Saúde Mental.
 								Veja o resultado através desse link: 
 							</p>
-							<a href="http://157.245.219.190/pesquisa/index.php/pesquisas/pdf/'.$id_page.'/'.$id_user.'/'.$studies_id.'" class="button-pesquisas mt-5" id="exo_subtitle" style="background: #2C234D; padding: 7px 63px; border-radius: 30px; color: #fff;">Resultado</a>	
+							<a href="http://3.226.10.237/index.php/pesquisas/pdf/'.$id_page.'/'.$id_user.'/'.$studies_id.'" class="button-pesquisas mt-5" id="exo_subtitle" style="background: #2C234D; padding: 7px 63px; border-radius: 30px; color: #fff;">Resultado</a>	
 					</div>
 
 				</div>
@@ -215,9 +215,9 @@ class Pesquisas extends CI_Controller
 		$this->email->message($message);
 
 
-		if ($this->email->send()) {
-		} else {
-		}
+		@$this->email->send();
+			
+
 	}
 
 	public function pdf($id_page, $id_user, $studies_id)
@@ -227,7 +227,7 @@ class Pesquisas extends CI_Controller
 		$datas['id_page'] = $id_page;
 		$datas["title"] = 'Respostas - Pesquisa-r';
 
-		$content = file_get_contents('http://157.245.219.190/formr_org/tests/teste1.php/' . $_SESSION['unitid'] . '/' . $studies_id);
+		$content = file_get_contents('http://54.164.116.69/formr_org/tests/teste1.php/' . $_SESSION['unitid'] . '/' . $studies_id);
 
 		$datas["resultados2"] = $content;
 
@@ -285,7 +285,8 @@ class Pesquisas extends CI_Controller
 		}
 
 		$resultTab = $this->Pesquisas_model->studiesTable($studies_id);
-		$result = $this->Pesquisas_model->getAllTables($resultTab[0]['results_table']);
+		$result = $this->Pesquisas_model->getAllTables($resultTab[0]['results_table'], $_SESSION['unitid']);
+		//print_r($resultTab[0]['results_table']);
 
 		if (count($result) == 0) {
 			redirect("/index.php/dashboard");
@@ -295,6 +296,7 @@ class Pesquisas extends CI_Controller
 
 		foreach ($result_perguntas as $result_pergunta) {
 			$resultList = $this->Pesquisas_model->choiceList($result_pergunta['choice_list']);
+			//print_r($resultList);
 			$result_pergunta['list'] = $resultList;
 			$perguntas[] =  $result_pergunta;
 		}
@@ -314,5 +316,11 @@ class Pesquisas extends CI_Controller
 		$this->load->view('pages/pesquisas/resposta', $datas);
 		$this->load->view('templates/footer', $datas);
 		$this->load->view('templates/js', $datas);
+	}
+
+	public function pesquisashowif(){
+		$resultList = $this->Pesquisas_model->showif($_POST['campo']);
+
+		echo $resultList[0]['name'];
 	}
 }

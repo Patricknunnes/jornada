@@ -27,7 +27,7 @@ class Graphic extends CI_Controller
             $this->Pesquisas_model->graficos_insert($data);
 			
             $image = file_get_contents($_POST['url']);
-            file_put_contents($_SERVER['DOCUMENT_ROOT'].'/pesquisa-r/uploads/graphic//'.$data['imagem'], $image);
+            file_put_contents($_SERVER['DOCUMENT_ROOT'].'/uploads/graphic//'.$data['imagem'], $image);
         }
         
 

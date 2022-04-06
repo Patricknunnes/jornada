@@ -9,10 +9,8 @@ class Dashboard extends CI_Controller
 		5 => ['titulo' => 'Crenças', 'icone' => 'icones/regiao-crencas.png', 'banner' => 'espiritualidade.png'],
 	];
 	public $perfil = [
-		1 => 'Super Administrador',
-		2 => 'Administrador',
-		3 => 'Pesquisador',
-		4 => 'Usuário',
+		1 => 'Administrador',
+		2 => 'Usuário',
 	];
 	private $loggedUser;
 	public function __construct()
@@ -183,6 +181,8 @@ class Dashboard extends CI_Controller
 
 	public function perfil($id)
 	{
+		$id = $this->session_data['id'];
+		$data['message'] = $this->session->flashdata('success');
 		$this->load->model("Users_model");
 		$data["users"] = $this->Users_model->show($id);
 		$data['perfil'] = $this->perfil;
@@ -259,7 +259,7 @@ class Dashboard extends CI_Controller
 		$this->load->library('email');
 
 		$this->email->from($_SESSION['logged_user']['email'], $_SESSION['logged_user']['name']);
-		$this->email->to('gabriel.carmo@devcodes.com.br');
+		$this->email->to('saudemental@idor.org');
 
 		$this->email->subject('FeedBacks');
 		$this->email->message($message);

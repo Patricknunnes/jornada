@@ -42,6 +42,13 @@ class Users_model extends CI_model
 		))->row_array();
 	}
 
+	public function getFacebook($id)
+	{
+		return $this->db->get_where("users", array(
+			"token" => $id
+		))->row_array();
+	}
+
 	public function getCPF($cpf)
 	{
 		return $this->db->get_where("users", array(
@@ -98,7 +105,7 @@ class Users_model extends CI_model
 
 	public function getsRegioes($orderregiao)
 	{
-		$sql = "SELECT * FROM orderregiao WHERE use_id = {$orderregiao['use_id']} ORDER BY orr_ordem ASC";
+		$sql = "SELECT * FROM orderregiao WHERE use_id = {$orderregiao['use_id']}  and orr_ordem <> 0 ORDER BY orr_ordem ASC";
 		$retorno = $this->db->query($sql);
 
 		/* 		$this->db->select('*');

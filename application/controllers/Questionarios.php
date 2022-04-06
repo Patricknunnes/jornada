@@ -7,14 +7,17 @@ class Questionarios extends CI_Controller
 		permission();
 
 		$this->load->model("quiz_model");
+		
 	}
 
 	public function index()
 	{
 
-		
+		if ($this->session->logged_user['funcao'] == '2') {
+			redirect('index.php/dashboard/');
+		}
 		$data["title"] = 'Questionarios - Pesquisa-r';
-		$response = file_get_contents('http://157.245.219.190/api/surveys.php');
+		$response = file_get_contents('http://3.226.10.237/api/surveys.php');
 		//print_r($response);
 		$jsons = json_decode($response);
 		foreach($jsons as $json){
@@ -44,6 +47,9 @@ class Questionarios extends CI_Controller
 
 	public function cadastro()
 	{
+		if ($this->session->logged_user['funcao'] == '2') {
+			redirect('index.php/dashboard/');
+		}
 		$data["title"] = 'Cadastro - Pesquisa-r';
 
 		$this->load->view('templates/header', $data);
@@ -56,6 +62,9 @@ class Questionarios extends CI_Controller
 	public function editar($id)
 	{
 
+		if ($this->session->logged_user['funcao'] == '2') {
+			redirect('index.php/dashboard/');
+		}
 		$data["quiz"] = $this->quiz_model->show($id);
 		$data["title"] = 'Editar - Pesquisa-r';
 
@@ -96,14 +105,18 @@ class Questionarios extends CI_Controller
 
 	public function destroy($id)
 	{
-
+		if ($this->session->logged_user['funcao'] == '2') {
+			redirect('index.php/dashboard/');
+		}
 		$this->quiz_model->destroy($id);
 		redirect("/index.php/questionarios/");
 	}
 	
 	public function active($id)
 	{
-
+		if ($this->session->logged_user['funcao'] == '2') {
+			redirect('index.php/dashboard/');
+		}
 		$this->quiz_model->active($id);
 		redirect("/index.php/questionarios/");
 	}

@@ -76,28 +76,28 @@ class CI_Email {
 	 *
 	 * @var	string
 	 */
-	public $smtp_host	= 'smtp.office365.com';
+	public $smtp_host	= 'email-smtp.us-east-1.amazonaws.com';
 
 	/**
 	 * SMTP Username
 	 *
 	 * @var	string
 	 */
-	public $smtp_user	= 'saudemental@idor.org';
+	public $smtp_user	= 'ses-smtp-user-saudemental-idor';
 
 	/**
 	 * SMTP Password
 	 *
 	 * @var	string
 	 */
-	public $smtp_pass	= '2niBDZ@3c1f#gu';
+	public $smtp_pass	= 'AKIAXOW3YNHWEB5ARNAA,BMbdV+5d2oupVpdvyNLwTFNDG9gPWhzHFvLBDPKHcUT9';
 
 	/**
 	 * SMTP Server port
 	 *
 	 * @var	int
 	 */
-	public $smtp_port	= 587;
+	public $smtp_port	= 567;
 
 	/**
 	 * SMTP connection timeout in seconds
@@ -118,7 +118,7 @@ class CI_Email {
 	 *
 	 * @var	string	empty, 'tls' or 'ssl'
 	 */
-	public $smtp_crypto	= 'tls';
+	public $smtp_crypto	= 'ssl';
 
 	/**
 	 * Whether to apply word-wrapping to the message body.
@@ -279,7 +279,7 @@ class CI_Email {
 	 *
 	 * @var	bool
 	 */
-	protected $_smtp_auth		= FALSE;
+	protected $_smtp_auth		= true;
 
 	/**
 	 * Whether to send a Reply-To header

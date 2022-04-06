@@ -26,12 +26,13 @@
 
 						<?php
 						$retirarTexto = array("#", 'tel', 'multiple', '-', '_', 'button 5', 'button', 'note', 'selectmultiple', 'multiplebutton', 'select', '![puppy]', '![kitten]', ')', '(', 'timezone', 'oraddone', 'oradd', 'color', 'mc', 'check', 'month', '`', 'text', 'area', 'rating', 'https://upload.wikimedia.org/wikipedia/commons/thumb/', '5/50/Pugglepuppy%28cropped%29.jpg/395pxPugglepuppy%28cropped%29.jpg', 'f/f3/Youngkitten.JPG/320pxYoungkitten.JPG');
+						
 						?>
 
 						<?php if ($pergunta['name'] != 'fbnumber' && $pergunta['name'] != 'note_feedback' && $pergunta['type'] != "submit") { ?>
-							<div class="resposta-container-<?php echo $i; ?>">
-								<label class="pb-3 pt-4" for="live" style="font-weight: 500;"><?php echo $pergunta['label'] ?></label>
-								<?php if ($pergunta['type'] != 'note' && $pergunta['type'] != 'mc' && $pergunta['type'] != 'check' && $pergunta['type'] != 'check_button' ) { ?>
+							<div class="resposta-container-<?php echo $i; ?>" >
+								<label class="pb-3 pt-4" for="live" style="font-weight: 500;"><?php echo utf8_encode($pergunta['label']) ?></label>
+								<?php if ($pergunta['type'] != 'note' && $pergunta['type'] != 'mc' && $pergunta['type'] != 'check' && $pergunta['type'] != 'check_button') { ?>
 									<input type="text" name="" class="form-control trocar_cor" placeholder="" value="<?php echo $resposta[$pergunta['name']]; ?> ">
 								<?php } ?>
 
@@ -39,11 +40,11 @@
 									<?php foreach ($pergunta['list'] as $list) { ?>
 										<?php if ($resposta[$pergunta['name']] != $list['name']) { ?>
 											<div class="form-check form-check-inline d-flex align-items-center">
-												<input class="form-check-input" id="inlineRadioOptions" type="radio" name="<?php echo $list['list_name']  ?>" value="<?php echo $list['name']  ?>">&nbsp&nbsp&nbsp<?php echo $list['label']  ?>
+												<input class="form-check-input" id="inlineRadioOptions" type="radio" name="<?php echo $list['list_name']  ?>" value="<?php echo $list['name']  ?>">&nbsp&nbsp&nbsp<?php echo utf8_encode($list['label']);  ?>
 											</div>
 										<?php } else { ?>
 											<div class="form-check form-check-inline d-flex align-items-center">
-												<input class="form-check-input" id="inlineRadioOptions" type="radio" name="<?php echo $list['list_name']  ?>" value="<?php echo $list['name']  ?>" checked>&nbsp&nbsp&nbsp<?php echo $list['label'] ?>
+												<input class="form-check-input" id="inlineRadioOptions" type="radio" name="<?php echo $list['list_name']  ?>" value="<?php echo $list['name']  ?>" checked>&nbsp&nbsp&nbsp<?php echo utf8_encode($list['label']); ?>
 											</div>
 										<?php } ?>
 									<?php } ?>
@@ -53,7 +54,7 @@
 					<?php } ?>
 				<?php } ?>
 
-				<button type="submit" class="btn mb-5 mt-5" id="exo_subtitle" style="width: 200px; height: 45px; padding: 10px 20px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;">Proxima</button>
+				<button type="submit" class="btn mb-5 mt-5" id="exo_subtitle" style="width: 200px; height: 45px; padding: 10px 20px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;">Mostrar resultados</button>
 			</form>
 		</div>
 	</div>

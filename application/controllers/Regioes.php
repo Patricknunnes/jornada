@@ -13,41 +13,58 @@ class Regioes extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		//permission();
+		permission();
 
 		$this->load->library('session');
 		$this->session_data = $this->session->userdata('logged_user');
 
 		$this->load->model("Users_model");
+
+		//if ($this->session->logged_user['funcao'] == '2') {
+		//	redirect('index.php/dashboard/');
+		//}
 	}
 
 	public function store2()
 	{
 
 		$id = $this->session_data['id'];
+		try{ 
+			//$this->Users_model->deleteOrderUser($id);
+			for ($i = 1; $i <= 5; $i++) {
+				$re[$i] = $_POST['ordem_' . $i];
+			}
 
-		$this->Users_model->deleteOrderUser($id);
+			$uni = array_unique($re);
+			if(count($uni)<=4){
+				echo "Uma ou mais regiões estão ordenadas com o número, por favor escolha outro";
+				return http_response_code(200);
+			}
 
-		for ($i = 1; $i <= 5; $i++) {
-			$regioes = [
-				'use_id' => $id,
-				'orr_ordem' => $_POST['ordem_' . $i],
-				'tipo' => $i,
-			];
+			for ($i = 1; $i <= 5; $i++) {
+				$regioes = [
+					'use_id' => $id,
+					'orr_ordem' => $_POST['ordem_' . $i],
+					'tipo' => $i,
+				];
 
-			$return = $this->Users_model->regioes($regioes);
+				$return = $this->Users_model->regioes($regioes);
+			}
 
+			if (!$return) {
 
-		}
+				echo "Uma ou mais regiões estão ordenadas com o número, por favor escolha outro";
+				return http_response_code(200);
+			}
 
-		if (!$return) {
-
-			echo "Já existe uma região nesta ordem, por favor, escolha outra";
-
-		}
-
-		if ($return) {
-			echo "index.php/dashboard";
+			if ($return) {
+				echo "index.php/dashboard";
+				return http_response_code(200);
+			}
+			return http_response_code(200);
+		}catch (Exception $e) {
+			echo 'Exceção capturada: ',  $e->getMessage(), "\n";
+			return http_response_code(401);
 		}
 	}
 
@@ -65,7 +82,7 @@ class Regioes extends CI_Controller
 
 		if (!$return) {
 
-			echo "Já existe uma região nesta ordem, por favor, escolha outra";
+			echo "Uma ou mais regiões estão ordenadas com o número, por favor escolha outro";
 			$this->Users_model->regiaoUniqueDestroy($regioes['use_id'], $regioes['orr_ordem']);
 		}
 	}

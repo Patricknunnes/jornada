@@ -20,7 +20,7 @@ $name = $session['name'];
 		<div class="row">
 			<div class="row-container-img">
 				<!--width alterado de 80% para 70%-->
-				<div class="col-9" id="texte55">
+				<div class="col-9 text-center" id="texte55">
 					<p class="mt-5" id="exo_title">Bem Vindo!</p>
 					<!--Melhorando a intensidade da fonte-->
 					<div class="mt-5">
@@ -45,6 +45,10 @@ $name = $session['name'];
 						</p>
 						<p class="text-1" id="poppins_text" style=" margin-top: -10px;">
 							Para <span id="poppins_title" style="color: #424f8b;"> conquistar uma região</span> você precisa <span id="poppins_title" style="color: #424f8b;">responder todas </span><span id="poppins_title" style="color: #424f8b;">as pesquisas</span> que fazem parte daquela área.
+						</p>
+						<br>
+						<p class="text-1" id="poppins_text" style=" margin-top: -10px;">
+						    Ao conquistar uma região você desbloqueia o Dashboard com todos os gráficos daquela área.
 						</p>
 					</div>
 				</div>
@@ -181,7 +185,7 @@ $name = $session['name'];
 			</div>
 		</div>
 	</div>
-	<hr style="margin-left: 30px!important; margin-right: 30px!important;">
+	<hr id="dashboard" style="margin-left: 30px!important; margin-right: 30px!important;">
 	<p class="text-1" id="poppins_text" style="color: #989999; margin-left:30px;">Regiões finalizadas:</p>
 
 

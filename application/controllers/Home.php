@@ -6,6 +6,12 @@ class Home extends CI_Controller
 	{
 		parent::__construct();
 		permission();
+
+		$this->load->library('session');
+
+		if ($this->session->logged_user['funcao'] == '2') {
+			redirect('index.php/dashboard/');
+		}
 	}
 
 	public function index()
@@ -19,5 +25,4 @@ class Home extends CI_Controller
 		$this->load->view('templates/footer', $data);
 		$this->load->view('templates/js', $data);
 	}
-
 }

@@ -1,14 +1,41 @@
 </body>
 
 <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
-<script src="http://code.jquery.com/jquery-3.5.1.js"></script>
+<!--<script src="http://code.jquery.com/jquery-3.5.1.js"></script>-->
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <!-- <script type="text/javascript" src="<?= base_url() ?>assets/js/img-upload1.js"></script> -->
 <script type="text/javascript" src="<?= base_url() ?>assets/js/perguntas.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
+function showif(campo){
+$.ajax({
+				url: "<?php echo  base_url() ?>index.php/pesquisas/pesquisashowif",
+				type: "POST",
+				data: 'campo='+campo,
+				beforeSend: function() {
+					console.log('Carregando')
+				},
+				success: function(data) {
+					var at = $("#div_"+data).attr('data-showif'); 
+					var retorno = at.split(" ");
+					console.log($("input[name="+retorno[0]+"]:checked").val() );
+					if($("input[name="+retorno[0]+"]:checked").val() >= retorno[2]){
+						$("#div_"+data).show();	
+					}else{
+						$("#div_"+data).hide();	
+					}
+					
+					console.log(retorno);
 
+				},
+				error: function(e) {
+					console.log(e);
+				}
+			});
+
+}
 <?php if(isset($page_id2) && isset($page_id)){ ?>
 
 document.querySelectorAll('img').forEach((item, index) => {

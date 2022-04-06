@@ -18,7 +18,7 @@ class Termos extends CI_Controller
 	public function index()
 	{
 		$id = @$this->session_data['id'];
-
+		
 		$return = $this->Termos_model->index($id);
 
 		 if (count($return) > 0) {
@@ -36,6 +36,7 @@ class Termos extends CI_Controller
 
 	public function store()
 	{
+		print_r($this->session_data);
 		$id = $this->session_data['id'];
 
 		if ($_POST["flexRadioDefault"] != 'n') {

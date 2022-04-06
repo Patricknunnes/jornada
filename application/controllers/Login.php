@@ -15,6 +15,7 @@ class Login extends CI_Controller
 
 	public function index()
 	{
+		@session_destroy($this->session_data);
 		$data['message'] = $this->session->flashdata('message');
 		$data['successLogin'] = $this->session->flashdata('successLogin');
 		//	print_r($data);
@@ -54,18 +55,7 @@ class Login extends CI_Controller
 		$this->load->model("Users_model");
 		$this->load->model("Login_model");
 
-		// $user = array(
-		// 	"name" => $_POST["nome"],
-		// 	"funcao" => 'P',
-		// 	"datanasc" => $_POST["datanasc"],
-		// 	"email" => $_POST["email"],
-		// 	"password" => md5($_POST["password"]),
-		// 	"ativo" => 'S',
-		// 	"img_user" => ''
-		// );
-
 		$users = $this->Users_model->getEmail($_POST['email']);
-		print_r($users['id']);
 
 		$token = sha1(mt_rand(1, 90000) . 'SALT');
 		$password = md5($token);
@@ -91,7 +81,7 @@ class Login extends CI_Controller
 							<p>
 								Clique no botão abaixo, faça login, entre no seu perfil e redefina sua senha: 
 							</p>
-							<a href="http://157.245.219.190/pesquisa/index.php/login" class="button-pesquisas mt-5" id="exo_subtitle" style="background: #2C234D; padding: 7px 63px; border-radius: 30px; color: #fff;">Login</a>	
+							<a href="http://3.226.10.237/index.php/login" class="button-pesquisas mt-5" id="exo_subtitle" style="background: #2C234D; padding: 7px 63px; border-radius: 30px; color: #fff;">Login</a>	
 					</div>
 
 				</div>
@@ -134,13 +124,11 @@ class Login extends CI_Controller
 			$this->email->message($message);
 
 			$this->email->send();
-			$this->session->set_userdata("successLogin", 'Senha enviado no email sugerido');
-			redirect("index.php/login");
+			echo '';
 			die();
 		}
 
-		$this->session->set_userdata("danger", 'Senha enviado no email sugerido');
-		redirect("index.php/login");
+		echo 'error';
 		die();
 	}
 
@@ -156,7 +144,7 @@ class Login extends CI_Controller
 			$password = md5($_POST["token"]);
 			$user = $this->login_model->store2($email, $password);
 		}
-		
+
 
 
 		if ($user) {
@@ -175,7 +163,23 @@ class Login extends CI_Controller
 
 		$password = md5($_POST["token"]);
 		$user = $this->login_model->store2($email, $password);
+
+		if ($user) {
+			$this->session->set_userdata("logged_user", $user);
+			echo 'success';
+		} else {
+			echo 'error';
+		}
+	}
+
+	public function store3()
+	{
+		$this->load->model("Users_model");
 		
+		$password = $_POST["id"];
+		$user = $this->Users_model->getFacebook($password);
+	//	print_r($user);
+			
 		if ($user) {
 			$this->session->set_userdata("logged_user", $user);
 			echo 'success';
@@ -198,7 +202,7 @@ class Login extends CI_Controller
 		$user = array(
 			"name" => $_POST["nome"],
 			"cpf" => $_POST["cpf"],
-			"funcao" => 'P',
+			"funcao" => 2,
 			"datanasc" => $_POST["datanasc"],
 			"email" => $_POST["email"],
 			"password" => md5($_POST["password"]),
@@ -230,7 +234,7 @@ class Login extends CI_Controller
 		}
 	}
 
-	
+
 	public function gravar2()
 	{
 		$this->load->model("Users_model");
@@ -244,6 +248,31 @@ class Login extends CI_Controller
 		);
 
 		$email = $this->Users_model->getEmail($user['email']);
+
+		if (!empty($email)) {
+			echo 'error';
+			die();
+		}
+
+		if ($this->Users_model->storeLogin($user)) {
+			echo 'success';
+		} else {
+			echo 'error';
+		}
+	}
+
+	public function gravar3()
+	{
+		$this->load->model("Users_model");
+		$this->load->model("Login_model");
+
+		$user = array(
+			"name" => $_POST["namefacebook"],
+			"token" => $_POST["id"],
+			"ativo" => 'S',
+		);
+
+		$email = $this->Users_model->getFacebook($user['token']);
 
 		if (!empty($email)) {
 			echo 'error';
@@ -274,7 +303,7 @@ class Login extends CI_Controller
 								Você se cadastrou no site Idor Saúde Mental.
 								Faça login no nosso site através desse link: 
 							</p>
-							<a href="http://157.245.219.190/pesquisa/" class="button-pesquisas mt-5" id="exo_subtitle" style="background: #2C234D; padding: 7px 63px; border-radius: 30px; color: #fff;">Login</a>	
+							<a href="http://3.226.10.237/" class="button-pesquisas mt-5" id="exo_subtitle" style="background: #2C234D; padding: 7px 63px; border-radius: 30px; color: #fff;">Login</a>	
 					</div>
 
 				</div>

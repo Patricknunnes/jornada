@@ -28,7 +28,7 @@
       gapi.load('auth2', function() {
         // Retrieve the singleton for the GoogleAuth library and set up the client.
         auth2 = gapi.auth2.init({
-          client_id: '17890980418-1pe7e87hdgrhs408mb3mo13ogpl3trn1.apps.googleusercontent.com',
+          client_id: '379505546713-e1pksnsi221287dto2ign9s6mes39s0m.apps.googleusercontent.com',
           cookiepolicy: 'single_host_origin',
           // Request scopes in addition to 'profile' and 'email'
           //scope: 'additional_scope'
@@ -42,7 +42,7 @@
       gapi.load('auth2', function() {
         // Retrieve the singleton for the GoogleAuth library and set up the client.
         auth2 = gapi.auth2.init({
-          client_id: '17890980418-1pe7e87hdgrhs408mb3mo13ogpl3trn1.apps.googleusercontent.com',
+          client_id: '379505546713-e1pksnsi221287dto2ign9s6mes39s0m.apps.googleusercontent.com',
           cookiepolicy: 'single_host_origin',
           // Request scopes in addition to 'profile' and 'email'
           //scope: 'additional_scope'
@@ -134,6 +134,65 @@
         function(error) {
           alert(JSON.stringify(error, undefined, 2));
         });
+    }
+
+    function storefblogin(element) {
+          console.log('--------------');
+          console.log(element.id);
+           $.ajax({
+             url: '<?php echo $this->config->base_url(); ?>index.php/login/gravar3/',
+             type: "POST",
+             data: {
+               namefacebook: element.name,
+               id: element.id
+             },
+             success: function(data) {
+               console.log(data);
+              if (data != 'error') {
+                //window.location.href = '<?php echo $this->config->base_url(); ?>index.php/termos'
+              } else {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Não foi possível criar sua conta pois esse email já esta cadastrado'
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    window.location.href = "<?php echo $this->config->base_url(); ?>index.php/termos"
+                  }
+                })
+              }
+
+            }
+           })
+        
+    }
+
+    function fblogin(element) {
+          console.log('--------------');
+          console.log(element.id);
+           $.ajax({
+             url: '<?php echo $this->config->base_url(); ?>index.php/login/store3/',
+             type: "POST",
+             data: {
+               namefacebook: element.name,
+               id: element.id
+             },
+             success: function(data) {
+              if (data != 'error') {
+                window.location.href = '<?php echo $this->config->base_url(); ?>index.php/termos'
+              } else {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Você não possui uma conta cadastrada na plataforma. <?php echo '<br>'; ?> Crie sua conta!'
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    window.location.href = ""
+                  }
+                })
+              }
+
+            }
+           })
+        
     }
   </script>
 

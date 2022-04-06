@@ -19,9 +19,6 @@ $perfild = 's';
 
 <!-- <?php print_r($termos)  ?>
 
-<?php print_r($users['email'])  ?>
-
-<?php print_r($termos['id'])  ?>
 
 <?php echo $users['id']  ?> -->
 
@@ -32,6 +29,8 @@ $perfild = 's';
 			<form action="<?= base_url() ?>index.php/usuarios/update/<?= $users['id'] ?>/<?php echo $perfild ?>" enctype="multipart/form-data" method="post" class="cadastro mt-4">
 				<div class="row mb-3">
 					<div class="col-md-2 mt-3 justify-content-center" style="margin-right: 20px;">
+					
+					
 						<!-- <div class="rounded-circle imagePreview shadow "><img class="rounded-circle preview" src="<?php echo base_url("uploads/") . $users['img_user'] ?>" alt="" /></div> -->
 						<input class="default-btn" id="img-upload" name="img-upload" type="file" hidden>
 						<input type="hidden" id="d-img-upload" name="d-img-upload" value="<?php echo $users['img_user'] ?>">
@@ -41,6 +40,11 @@ $perfild = 's';
 					<div class="col-md-8">
 						<h5 class="mt-5 mb-5" style="font-family: Exo, Sans-serif; font-weight: 600; font-size: 30px;">Informações do Perfil</h5>
 						<div class="form-group mt-5">
+						<?php if(strlen($message)>0){ ?>
+						<div class="alert alert-warning" role="alert">
+							<?php echo $message; ?>
+						</div>
+						<?php } ?>
 							<label for="nome">Nome</label>
 							<input type="text" class="form-control" name="name" value="<?php echo $users['name'] ?>" placeholder="Digite o nome: ">
 
@@ -96,7 +100,9 @@ $perfild = 's';
 						<h5 class="mt-5">Trocar senha</h5>
 						<div class="row">
 							<div class="form-group  mt-3">
-								<label for="password">Defina senha</label>
+								<label for="password">Senha Atual</label>
+								<input type="password" class="form-control" name="password2" placeholder="">
+								<label class="mt-3" for="password">Nova senha</label>
 								<input type="password" class="form-control" name="password" placeholder="">
 							</div>
 						</div>

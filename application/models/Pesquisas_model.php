@@ -8,7 +8,8 @@ class Pesquisas_model extends CI_model
 		parent::__construct();
 		permission();
 
-		$this->banco = new mysqli("formr.ceopv2fs3ucf.us-east-1.rds.amazonaws.com", "admin", "FormR2021", "BDFormR");
+	 	@$this->banco = new mysqli("formr.ceopv2fs3ucf.us-east-1.rds.amazonaws.com", "admin", "FormR2021", "formr");
+		// $this->banco = new mysqli("157.245.219.190", "formr", "dev123", "formr");
 	}
 
 	public function index($run_id , $studies_id = null)
@@ -114,9 +115,14 @@ class Pesquisas_model extends CI_model
 
 	}
 
-	public function getAllTables($tables){
+	public function getAllTables($tables, $unit_session = null){
 		$itens =  null;
-		$sql = "SELECT * FROM {$tables} limit 1 ";
+		if(!empty($unit_session)){
+			$where = " AND session_id =  {$unit_session}";
+		}
+		$sql = "SELECT * FROM {$tables} where 1=1 {$where} limit 1 ";
+		
+		
 		$result = $this->banco->query($sql);
 		$itens = $result->fetch_all(MYSQLI_ASSOC);
 		
@@ -157,6 +163,14 @@ class Pesquisas_model extends CI_model
         $query = $this->db->query($sql);
 		$result = $query->result();
         return $result; 
+	}
+
+	public function showif($campo){
+		$sql = "SELECT x.* FROM formr.survey_items x
+		WHERE showif like '{$campo}%'";
+		$result = $this->banco->query($sql);
+		$itens = $result->fetch_all(MYSQLI_ASSOC);
+		return $itens;
 	}
 	
 }

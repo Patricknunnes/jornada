@@ -19,7 +19,7 @@ $name = $session['name'];
 	<div class="container text-left mt-5 pt-5 pb-5">
 		<form action="Javascript:Void(0)" method="POST" id="form-escolha">
 			<div class="container text-left mt-5">
-				<h5 class="mt-5 mb-5 mt-5" id="exo_subtitle" style="text-align: justify; font-size: 20px; font-weight: bold;">Personalize sua trilha de autoconhecimento escolhendo a ordem das regiões conforme sua preferência: a região número 1 aparecerá primeiro, enquanto que a região número 5 aparecerá por último</h5>
+				<h5 class="mt-5 mb-5 mt-5" style="text-align: justify; font-size: 20px; font-family: Poppins, sans-serif;">Personalize sua trilha de autoconhecimento escolhendo a ordem das regiões conforme sua preferência: a região número 1 aparecerá primeiro, enquanto que a região número 5 aparecerá por último</h5>
 				<div class="perguntas mt-5" id="perguntas" style="margin-left: 0px!important; margin-right: 0px!important">
 					<?php foreach ($tipos as $key => $tp) {  	?>
 						<div class="perguntas-1">
@@ -43,7 +43,7 @@ $name = $session['name'];
 							<hr>
 						</div>
 					<?php } ?>
-					<div class="alert alert-light msg-tipo" role="alert" id="msg-tipo">
+					<div class="alert alert-primary msg-tipo" role="alert" style="display:none" id="msg-tipo">
 					</div>
 				</div>
 			</div>
@@ -52,7 +52,7 @@ $name = $session['name'];
 					<div class="alert alert-danger" role="alert" id="msg-avanca" style="display:none">
 					</div>
 					<div class="mb-4" id="buttons_alinhar">
-						<button type="button" class="btn" id="exo_subtitle" style="padding: 10px 40px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;" onclick="javascript:limpar()">Cancelar</button>
+						<button type="button" class="btn" id="exo_subtitle" style="padding: 10px 40px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;" onclick="javascript:limpar()">Resetar ordem</button>
 						<button type="button" class="btn" id="exo_subtitle" style="padding: 10px 40px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;" onclick="javascript:gravar2()">Avançar</button>
 					</div>
 				</div>
@@ -61,7 +61,7 @@ $name = $session['name'];
 	</div>
 </div>
 <script>
-	$('.msg-tipo').hide();
+	$('#msg-tipo').hide();
 
 	function gravar2() {
 		$(function() {
@@ -70,10 +70,11 @@ $name = $session['name'];
 				type: "POST",
 				data: $("#form-escolha").serialize(),
 				success: function(data) {
-					$('#msg-tipo').html(data);
-					$('#msg-tipo').show();
+					
+					if (data == 'Uma ou mais regiões estão ordenadas com o número, por favor escolha outro') {
+						$('#msg-tipo').html(data);
+  					    $('#msg-tipo').show();
 
-					if (data == 'Já existe uma região nesta ordem, por favor, escolha outra') {
 						return 0;
 					}
 					if (data == 'index.php/dashboard') {
@@ -96,7 +97,7 @@ $name = $session['name'];
 					$('#msg-tipo').show();
 					$('#ordem').attr("disabled", "disabled");
 
-					if (data == 'Já existe uma região nesta ordem, por favor, escolha outra') {
+					if (data == 'Uma ou mais regiões estão ordenadas com o número, por favor escolha outro') {
 						$('#ordem' + ordem).removeAttr('disabled');
 					}
 				}

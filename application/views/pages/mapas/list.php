@@ -124,20 +124,14 @@ $name = $session['name'];
 						<br />
 
 						<?php if ($page->percent_new < 100.00 && $page->percent_new > 0.00) { ?>
-							<button type="button" class="btn mt-5" id="exo_subtitle" style="width: 100% !important; padding: 10px 20px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;">
-								<a href="<?= base_url() ?>index.php/pesquisas/index/<?= $page->run_id; ?>/<?= $page->pag_id ?>" id="button-color-list">Continuar</a>
-							</button>
+								<a href="<?= base_url() ?>index.php/pesquisas/index/<?= $page->run_id; ?>/<?= $page->pag_id ?>" id="button-color-list"><button type="button" class="btn mt-5" id="exo_subtitle" style="width: 100% !important; padding: 10px 20px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;">Continuar</button></a>
 						<?php }  ?>
 						<?php if ($page->percent_new == 0.00) { ?>
-							<button type="button" class="btn mt-5" id="exo_subtitle" style="width: 100% !important; padding: 10px 20px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;">
-								<a href="<?= base_url() ?>index.php/pesquisas/index/<?= $page->run_id; ?>/<?= $page->pag_id ?>" id="button-color-list">Iniciar</a>
-							</button>
+								<a href="<?= base_url() ?>index.php/pesquisas/index/<?= $page->run_id; ?>/<?= $page->pag_id ?>" id="button-color-list"><button type="button" class="btn mt-5" id="exo_subtitle" style="width: 100% !important; padding: 10px 20px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;">Iniciar</button></a>
 						<?php } ?>
 
 						<?php if ($page->percent_new >= 100.00) { ?>
-							<button type="button" class="btn mt-5" id="exo_subtitle" style="width: 100% !important; padding: 10px 20px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;">
-								<a href="<?= base_url() ?>index.php/pesquisas/respostas/<?= $page->run_id; ?>/<?= $page_id; ?>" id="button-color-list">Ver Respostas</a>
-							</button>
+								<a href="<?= base_url() ?>index.php/pesquisas/respostas/<?= $page->run_id; ?>/<?= $page_id; ?>" id="button-color-list">	<button type="button" class="btn mt-5" id="exo_subtitle" style="width: 100% !important; padding: 10px 20px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;">Ver Respostas</button></a>
 						<?php } ?>
 					</div>
 					<div class="col-5" id="p_mobile">
@@ -177,20 +171,20 @@ $name = $session['name'];
 						<br />
 
 						<?php if ($page->percent_new < 100.00 && $page->percent_new > 0.00) { ?>
-							<button type="button" class="btn mt-5" id="exo_subtitle" style="width: 100% !important; padding: 10px 20px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;">
-								<a href="<?= base_url() ?>index.php/pesquisas/index/<?= $page->run_id; ?>/<?= $page->pag_id ?>" id="button-color-list">Continuar</a>
-							</button>
+							
+								<a href="<?= base_url() ?>index.php/pesquisas/index/<?= $page->run_id; ?>/<?= $page->pag_id ?>" id="button-color-list"><button type="button" class="btn mt-5" id="exo_subtitle" style="width: 100% !important; padding: 10px 20px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;">Continuar</button></a>
+							
 						<?php }  ?>
 						<?php if ($page->percent_new == 0.00) { ?>
-							<button type="button" class="btn mt-5" id="exo_subtitle" style="width: 100% !important; padding: 10px 20px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;">
-								<a href="<?= base_url() ?>index.php/pesquisas/index/<?= $page->run_id; ?>/<?= $page->pag_id ?>" id="button-color-list">Iniciar</a>
-							</button>
+							
+								<a href="<?= base_url() ?>index.php/pesquisas/index/<?= $page->run_id; ?>/<?= $page->pag_id ?>" id="button-color-list"><button type="button" class="btn mt-5" id="exo_subtitle" style="width: 100% !important; padding: 10px 20px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;">Iniciar</button></a>
+							
 						<?php } ?>
 
 						<?php if ($page->percent_new >= 100.00) { ?>
-							<button type="button" class="btn mt-5" id="exo_subtitle" style="width: 100% !important; padding: 10px 20px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;">
-								<a href="<?= base_url() ?>index.php/pesquisas/respostas/<?= $page->run_id; ?>/<?= $page_id; ?>" id="button-color-list">Ver Respostas</a>
-							</button>
+							
+								<a href="<?= base_url() ?>index.php/pesquisas/respostas/<?= $page->run_id; ?>/<?= $page_id; ?>" id="button-color-list"><button type="button" class="btn mt-5" id="exo_subtitle" style="width: 100% !important; padding: 10px 20px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;">Ver respostas</button></a>
+							
 						<?php } ?>
 					</div>
 

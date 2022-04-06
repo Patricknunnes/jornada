@@ -8,9 +8,10 @@
 
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<div class="navbar-nav">
+			<a class="nav-link" target="_blank" style="color:#fff" href="https://saudemental.idor.org/">Portal de Saúde Mental</a>
 				<a class="nav-link" style="color:#fff" href="<?= base_url('') ?>index.php/dashboard/">Jornada de Autoconhecimento</a>
+				<a class="nav-link" style="color:#fff" href="<?= base_url('') ?>index.php/dashboard/#dashboard">Dashboard</a>
 				<a class="nav-link" style="color:#fff" href="<?= base_url('') ?>index.php/dashboard/feedback/<?php echo $_SESSION['logged_user']['id']; ?>">Contato</a>
-				<a class="nav-link" target="_blank" style="color:#fff" href="https://saudemental.idor.org/">Portal de Saúde Mental</a>
 			</div>
 			 <div class="navbar-nav" style="margin-left: auto !important;">
 				<div class="nav-item dropdown">
