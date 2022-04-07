@@ -67,17 +67,31 @@
               token: token
             },
             success: function(data) {
-              if (data != 'error') {
+                
+              alert(data);
+              if (data == 'success') {
                 window.location.href = '<?php echo $this->config->base_url(); ?>index.php/termos'
+                
+              } else if (data == 'criado') {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Conta criada com sucesso, agora você pode fazer login'
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    window.location.href = '<?php echo $this->config->base_url(); ?>index.php/login';
+                  }
+                });
+                
               } else {
                 Swal.fire({
                   icon: 'error',
-                  title: 'Você não possui uma conta cadastrada na plataforma. <?php echo '<br>'; ?> Crie sua conta!'
+                  title: 'O email retornado pela rede social já está sendo usado em uma conta!'
                 }).then((result) => {
                   if (result.isConfirmed) {
                     window.location.href = ""
                   }
-                })
+                });
+                
               }
 
             }
@@ -110,7 +124,7 @@
 
                 Swal.fire({
                   icon: 'success',
-                  title: 'Conta criada com sucesso, agora você pode fazer login',
+                  title: 'Conta criada com sucesso, agora você pode fazer login'
                 }).then((result) => {
                   if (result.isConfirmed) {
                     window.location.href = '<?php echo $this->config->base_url(); ?>index.php/login'
@@ -120,7 +134,7 @@
               } else {
                 Swal.fire({
                   icon: 'error',
-                  title: 'Não foi possível criar sua conta pois esse email já esta cadastrado'
+                  title: 'Não foi possível criar sua conta pois esse email já está cadastrado'
                 }).then((result) => {
                   if (result.isConfirmed) {
                     window.location.href = ""

@@ -156,6 +156,9 @@ class Login extends CI_Controller
 		}
 	}
 
+        /*
+         * Logando com o Google
+         */
 	public function store2()
 	{
 		$this->load->model("login_model");
@@ -164,11 +167,46 @@ class Login extends CI_Controller
 		$password = md5($_POST["token"]);
 		$user = $this->login_model->store2($email, $password);
 
+                /*
+                 * Caso o usuário já esteja cadastrado
+                 */
 		if ($user) {
 			$this->session->set_userdata("logged_user", $user);
 			echo 'success';
 		} else {
-			echo 'error';
+                    /*
+                     *  Cadastro em caso contrário
+                     */
+                        $this->load->model("Users_model");
+
+                        $user = array(
+                                "name" => $_POST["nameGoogle"],
+                                "email" => $email,
+                                "token" => $password,
+                                "ativo" => 'S',
+                        );
+
+                        $email = $this->Users_model->getEmail($user['email']);
+                        
+                        /*
+                         * Verifica se o email já é usado em uma conta existente
+                         */
+                        if (!empty($email)) {
+                                echo 'error';
+                                die();
+                        }
+
+                        /*
+                         * Grava o usuário
+                         */
+                        if ($this->Users_model->storeLogin($user)) {
+                            
+                                echo 'criado';
+                                
+                        } else {
+                                echo 'error';
+                        }
+                    
 		}
 	}
 
