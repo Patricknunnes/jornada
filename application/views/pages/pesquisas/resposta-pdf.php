@@ -27,7 +27,7 @@
             <?php foreach ($pages_runs as $pager) { ?>
                 <?php if ($pager->run_id = $id_page) { ?>
                     <center>
-                        <h3 class="mt-5" style="color:#000; font-size: 18px;"><?php echo $pager->run_titulo; ?></h3>
+                        <h3 class="mt-5" style="color:#000; font-size: 18px; font-family:Arial;"><?php echo $pager->run_titulo; ?></h3>
                     </center>
                 <?php } ?>
             <?php } ?>
@@ -36,7 +36,7 @@
             <div class="container" id="main_c">
                 <form>
 
-                    <div><?php echo $resultados2; ?></div>
+                    <div style="color:#000; font-size: 14px; font-family:Arial; line-height:24px;"><?php echo $resultados2; ?></div>
 
                 </form>
             </div>

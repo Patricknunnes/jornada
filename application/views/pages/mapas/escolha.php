@@ -19,7 +19,7 @@ $name = $session['name'];
 	<div class="container text-left mt-5 pt-5 pb-5">
 		<form action="Javascript:Void(0)" method="POST" id="form-escolha">
 			<div class="container text-left mt-5">
-				<h5 class="mt-5 mb-5 mt-5" style="text-align: justify; font-size: 20px; font-family: Poppins, sans-serif;">Personalize sua trilha de autoconhecimento escolhendo a ordem das regiões conforme sua preferência: a região número 1 aparecerá primeiro, enquanto que a região número 5 aparecerá por último</h5>
+				<h5 class="mt-5 mb-5 mt-5" style="text-align: justify; font-size: 20px; font-family: Poppins, sans-serif;">Personalize sua trilha de autoconhecimento escolhendo a ordem das regiões conforme sua preferência: a região número 1 aparecerá primeiro, enquanto que a região número 5 aparecerá por último.</h5>
 				<div class="perguntas mt-5" id="perguntas" style="margin-left: 0px!important; margin-right: 0px!important">
 					<?php foreach ($tipos as $key => $tp) {  	?>
 						<div class="perguntas-1">
@@ -71,7 +71,7 @@ $name = $session['name'];
 				data: $("#form-escolha").serialize(),
 				success: function(data) {
 					
-					if (data == 'Uma ou mais regiões estão ordenadas com o número, por favor escolha outro') {
+					if (data == 'Uma ou mais regiões estão ordenadas com o mesmo número ou não foram ordenadas. Por favor, revise antes de avançar.') {
 						$('#msg-tipo').html(data);
   					    $('#msg-tipo').show();
 
@@ -97,7 +97,7 @@ $name = $session['name'];
 					$('#msg-tipo').show();
 					$('#ordem').attr("disabled", "disabled");
 
-					if (data == 'Uma ou mais regiões estão ordenadas com o número, por favor escolha outro') {
+					if (data == 'Uma ou mais regiões estão ordenadas com o mesmo número ou não foram ordenadas. Por favor, revise antes de avançar.') {
 						$('#ordem' + ordem).removeAttr('disabled');
 					}
 				}

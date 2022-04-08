@@ -12,6 +12,7 @@
 				<div class="text_gif">
 					<p>Parabéns!</p>
 					<p> Você completou a região <?php echo $tipo ?>!</p>
+					<p> Acesse o <a href="/index.php/dashboard/#dashboard">Dashboard</a> e veja os resultados!</p>
 				</div>
 			</div>
 			<div class="container" style="position:absolute">
@@ -271,6 +272,6 @@ $name = $session['name'];
 				url: "<?php echo  base_url() ?>index.php/dashboard/update_gif_regiao/<?php echo $page_id ?>",
 				type: "POST",
 			});
-		}, 10000);
+		}, 30000);
 	}
 </script>

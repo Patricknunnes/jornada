@@ -5,6 +5,7 @@ class Login_model extends CI_Model
 	public function store($email, $password){
 		$this->db->where("email", $email);
 		$this->db->where("password", $password);
+		$this->db->where("ativo", 'S');
 		$user = $this->db->get("users")->row_array();
 		return $user;
 	}
@@ -12,6 +13,7 @@ class Login_model extends CI_Model
 	public function store2($email, $password){
 		$this->db->where("email", $email);
 		$this->db->where("token", $password);
+		$this->db->where("ativo", 'S');
 		$user = $this->db->get("users")->row_array();
 		return $user;
 	}

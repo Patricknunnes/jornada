@@ -18,8 +18,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-md-10 col-lg-6 mx-auto mt-5">
-							<h3 class="login-heading" style="text-align: center;">Bem-vindo(a)!</h3>
-							<h3 class="login-heading mb-4" style="text-align: center;">Crie uma conta.</h3>
+							<h3 class="login-heading" style="text-align: center;">Bem-vindo(a)! Crie uma conta:</h3>
 							<?php if (!empty($message)) : ?>
 								<div class="alert alert-danger alert-dismissible fade show mb-2" role="alert" style="display: flex; justify-content: space-between; margin-top: 10px; padding-right: 1rem!important; align-items: center;">
 									<?php print_r($message); ?>
@@ -30,27 +29,27 @@
 							<?php endif; ?>
 							<form method="post" action="<?= base_url() ?>index.php/login/gravar">
 								<div class="form-label-group  mt-3">
-									<label for="inputEmail">Seu nome</label>
+									<label for="inputEmail">Seu nome:</label>
 									<input type="text" name="nome" id="inputNome" class="form-control" placeholder="Nome" required autofocus>
 								</div>
 
 								<div class="form-label-group  mt-3">
-									<label for="inputEmail">Seu CPF</label>
+									<label for="inputEmail">Seu CPF:</label>
 									<input type="text" name="cpf" id="cpf" class="form-control" onkeyup=" mascaraCpf('___.___.___-__', this)" placeholder="CPF" required autofocus>
 								</div>
 
 								<div class="form-label-group  mt-3">
-									<label for="inputEmail">Data de nascimento</label>
+									<label for="inputEmail">Data de nascimento:</label>
 									<input type="date" name="datanasc" id="inputDataNascimento" class="form-control" placeholder="DD/MM/AAAA" required autofocus>
 								</div>
 
 								<div class="form-label-group  mt-3">
-									<label for="inputEmail">Seu e-mail</label>
+									<label for="inputEmail">Seu e-mail:</label>
 									<input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
 								</div>
 
 								<div class="form-label-group mt-3">
-									<label for="inputPassword">Sua senha</label>
+									<label for="inputPassword">Sua senha:</label>
 									<input type="password" name="password" id="inputPassword" class="form-control mb-3" placeholder="Senha" required>
 								</div>
 
@@ -71,7 +70,7 @@
 										startApp1();
 									</script>
 								</center>
-								<br>
+								
 								<center>
 									<div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" style="
 												background: #0d6efd;
@@ -94,7 +93,7 @@
 												" 
 												></div>
 
-<div id="status">
+<div id="status" hidden>
 </div>
 								 <!-- <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" style="
 												border-radius: 5px;
@@ -116,7 +115,7 @@
 								
 
 								<div class="text-center  mb-3">
-									<a class="button" href="<?= base_url() ?>index.php/login" style="text-decoration:none;">Voltar</a>
+									<a class="button" href="<?= base_url() ?>index.php/login" style="text-decoration:none;">Possui uma conta cadastrada? Faça o login</a>
 								</div>
 							</form>
 						</div>

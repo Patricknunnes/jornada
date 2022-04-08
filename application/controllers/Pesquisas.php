@@ -273,9 +273,12 @@ class Pesquisas extends CI_Controller
 		if ($studies_id == 'finish') {
 			redirect("/index.php/dashboard");
 		}
+		$this->load->model("Quiz_model");
+		$this->load->model("Pesquisas_model");
 
+		$datas['pages_runs'] = $this->Quiz_model->showRuns($id_page);	
 		$datas["studies"] = $this->Pesquisas_model->studies($id_page);
-
+		//$datas["page_id"] = $id_page;
 		if (empty($studies_id)) {
 			$studies = $datas["studies"];
 			$studies_id = $studies[0]['unit_id'];

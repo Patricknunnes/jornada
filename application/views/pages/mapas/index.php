@@ -21,7 +21,7 @@ $name = $session['name'];
 			<div class="row-container-img">
 				<!--width alterado de 80% para 70%-->
 				<div class="col-9 text-center" id="texte55">
-					<p class="mt-5" id="exo_title">Bem Vindo!</p>
+					<p class="mt-5" id="exo_title">Bem-vindo(a)!</p>
 					<!--Melhorando a intensidade da fonte-->
 					<div class="mt-5">
 						<p class="text-1" id="poppins_text">
@@ -198,8 +198,8 @@ $name = $session['name'];
 	) { ?>
 		<div class="container text-center mt-3 pb-3">
 			<div class="mt-3">
-				<p class="text-1" id="exo_subtitle" style=" margin-top: -10px;">
-					Não existem regiões finalizadas
+				<p class="text-235" id="exo_subtitle" style=" margin-top: -10px; ">
+					Não existem regiões finalizadas 😔 <br>Responda todas as pesquisas de uma região para desbloquear o Dashboard.
 				</p>
 			</div>
 		</div>

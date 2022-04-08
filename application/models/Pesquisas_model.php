@@ -117,6 +117,7 @@ class Pesquisas_model extends CI_model
 
 	public function getAllTables($tables, $unit_session = null){
 		$itens =  null;
+		$where = null;
 		if(!empty($unit_session)){
 			$where = " AND session_id =  {$unit_session}";
 		}

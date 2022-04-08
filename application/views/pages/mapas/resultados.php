@@ -49,7 +49,7 @@ $name = $session['name'];
 			<?php foreach ($graficos as $grafico) { ?>
 				<div class="col-6" id='graf1_mobile' style="padding-left: 0;">
 					<div class="card col-12" id='sombra' style="border-radius: 6px;">
-						<div class="card-body" style="width: 100%; height: 400px;">
+						<div class="card-body" style="width: 100%; height: 100%;">
 							<img width="100%" class="img-fluid"  src="<?= base_url() ?>/uploads/graphic/<?php echo $grafico->imagem; ?>">
 						</div>
 					</div>

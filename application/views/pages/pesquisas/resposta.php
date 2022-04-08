@@ -6,7 +6,12 @@
 <div class="container content " style="height: 100%!important">
 	<div class="container pt-3">
 		<div class="container" id="main_c">
+		<?php foreach ($pages_runs as $pager) { ?>
 
+			<?php if ($pager->run_id = $id_page) { ?>
+				<h3 class="mt-5" style="color:#000; text-align: center; font-size: 30px; font-weight: bold; font-family: Exo, Sans-serif;"><?php echo $pager->run_titulo; ?></h3>
+			<?php } ?>
+			<?php } ?>
 			<form method="post" action="<?= base_url() ?>index.php/pesquisas/resultado/<?php echo $id_page; ?>/<?php echo $unit_id; ?>/<?php echo $id_page2; ?>" style="padding-top: 15%;    padding-bottom: 15%;">
 				<?php
 				$next = false;

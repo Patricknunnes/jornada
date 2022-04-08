@@ -37,7 +37,7 @@ class Regioes extends CI_Controller
 
 			$uni = array_unique($re);
 			if(count($uni)<=4){
-				echo "Uma ou mais regiões estão ordenadas com o número, por favor escolha outro";
+				echo "Uma ou mais regiões estão ordenadas com o mesmo número ou não foram ordenadas. Por favor, revise antes de avançar.";
 				return http_response_code(200);
 			}
 
@@ -53,7 +53,7 @@ class Regioes extends CI_Controller
 
 			if (!$return) {
 
-				echo "Uma ou mais regiões estão ordenadas com o número, por favor escolha outro";
+				echo "Uma ou mais regiões estão ordenadas com o mesmo número ou não foram ordenadas. Por favor, revise antes de avançar.";
 				return http_response_code(200);
 			}
 
@@ -82,7 +82,7 @@ class Regioes extends CI_Controller
 
 		if (!$return) {
 
-			echo "Uma ou mais regiões estão ordenadas com o número, por favor escolha outro";
+			echo "Uma ou mais regiões estão ordenadas com o mesmo número ou não foram ordenadas. Por favor, revise antes de avançar.";
 			$this->Users_model->regiaoUniqueDestroy($regioes['use_id'], $regioes['orr_ordem']);
 		}
 	}
@@ -95,7 +95,7 @@ class Regioes extends CI_Controller
 		if ($return >= count($this->tipo)) {
 			echo "go";
 		} else {
-			echo "Falta selecionar ordem de região";
+			echo "Uma ou mais regiões estão ordenadas com o mesmo número ou não foram ordenadas. Por favor, revise antes de avançar.";
 		}
 	}
 
@@ -108,7 +108,7 @@ class Regioes extends CI_Controller
 		if ($return >= 1) {
 			echo "go";
 		} else {
-			echo "Falta selecionar ordem de região";
+			echo "Uma ou mais regiões estão ordenadas com o mesmo número ou não foram ordenadas. Por favor, revise antes de avançar.";
 		}
 
 		$this->Users_model->regiaoDestroy($id_usuario);

@@ -22,7 +22,9 @@ class Users_model extends CI_model
 
 	public function storeLogin($user)
 	{
-		if ($this->db->insert("users", $user)) {
+                $ret = $this->db->insert("users", $user);
+                        
+		if ($ret) {
 			return true;
 		}
 		return false;
