@@ -226,7 +226,7 @@ $name = $session['name'];
 						</div>
 					<?php } ?>
 
-					<p class="mt-2"><span id="exo_title" style="color: #000;!important"><?php print_r($tipos[$regiao->tipo]['titulo']) ?></span></p>
+					<p class="mt-2"><span id="exo_title" style="color: #000 !important;"><?php print_r($tipos[$regiao->tipo]['titulo']) ?></span></p>
 
 					<div class="mt-3">
 						<p id="poppins_text" class="text-1">
