@@ -52,7 +52,7 @@
     };
 
     function attachSignin(element) {
-      console.log(element.id);
+      //console.log(element.id);
       auth2.attachClickHandler(element, {},
         function(googleUser) {
           var nameGoogle = googleUser.getBasicProfile().getName();
@@ -68,14 +68,14 @@
             },
             success: function(data) {
                 
-              alert(data);
+              //alert(data);
               if (data == 'success') {
                 window.location.href = '<?php echo $this->config->base_url(); ?>index.php/termos'
                 
               } else if (data == 'criado') {
                 Swal.fire({
-                  icon: 'error',
-                  title: 'Conta criada com sucesso, agora você pode fazer login'
+                  icon: 'success',
+                  title: 'Conta criada com sucesso, agora você pode fazer login.'
                 }).then((result) => {
                   if (result.isConfirmed) {
                     window.location.href = '<?php echo $this->config->base_url(); ?>index.php/login';
@@ -105,7 +105,7 @@
 
 
     function attachSignup(element) {
-      console.log(element.id);
+      //console.log(element.id);
       auth2.attachClickHandler(element, {},
         function(googleUser) {
           var nameGoogle = googleUser.getBasicProfile().getName();
@@ -124,7 +124,7 @@
 
                 Swal.fire({
                   icon: 'success',
-                  title: 'Conta criada com sucesso, agora você pode fazer login'
+                  title: 'Conta criada com sucesso, agora você pode fazer login.'
                 }).then((result) => {
                   if (result.isConfirmed) {
                     window.location.href = '<?php echo $this->config->base_url(); ?>index.php/login'
@@ -134,7 +134,7 @@
               } else {
                 Swal.fire({
                   icon: 'error',
-                  title: 'Não foi possível criar sua conta pois esse email já está cadastrado'
+                  title: 'Não foi possível criar sua conta pois o email retornado pela rede social já está sendo usado em uma conta!'
                 }).then((result) => {
                   if (result.isConfirmed) {
                     window.location.href = ""
@@ -151,8 +151,8 @@
     }
 
     function storefblogin(element) {
-          console.log('--------------');
-          console.log(element.id);
+          //console.log('--------------');
+          //console.log(element.id);
            $.ajax({
              url: '<?php echo $this->config->base_url(); ?>index.php/login/gravar3/',
              type: "POST",
@@ -161,13 +161,20 @@
                id: element.id
              },
              success: function(data) {
-               console.log(data);
+               //console.log(data);
               if (data != 'error') {
-                //window.location.href = '<?php echo $this->config->base_url(); ?>index.php/termos'
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Conta criada com sucesso, agora você pode fazer login.'
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    window.location.href = '<?php echo $this->config->base_url(); ?>index.php/login';
+                  }
+                });
               } else {
                 Swal.fire({
                   icon: 'error',
-                  title: 'Não foi possível criar sua conta pois esse email já esta cadastrado'
+                  title: 'Não foi possível criar sua conta pois esse usuário já está cadastrado!'
                 }).then((result) => {
                   if (result.isConfirmed) {
                     window.location.href = "<?php echo $this->config->base_url(); ?>index.php/termos"
@@ -181,8 +188,8 @@
     }
 
     function fblogin(element) {
-          console.log('--------------');
-          console.log(element.id);
+          //console.log('--------------');
+          //console.log(element.id);
            $.ajax({
              url: '<?php echo $this->config->base_url(); ?>index.php/login/store3/',
              type: "POST",
@@ -191,12 +198,24 @@
                id: element.id
              },
              success: function(data) {
-              if (data != 'error') {
+                 
+              if (data == 'success') {
                 window.location.href = '<?php echo $this->config->base_url(); ?>index.php/termos'
+
+              } else if (data == 'criado') {
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Conta criada com sucesso, agora você pode fazer login.'
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    window.location.href = '<?php echo $this->config->base_url(); ?>index.php/login';
+                  }
+                });
+
               } else {
                 Swal.fire({
                   icon: 'error',
-                  title: 'Você não possui uma conta cadastrada na plataforma. <?php echo '<br>'; ?> Crie sua conta!'
+                  title: 'Você não possui uma conta cadastrada na plataforma.<br />Crie sua conta!'
                 }).then((result) => {
                   if (result.isConfirmed) {
                     window.location.href = ""

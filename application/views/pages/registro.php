@@ -72,44 +72,23 @@
 								</center>
 								
 								<center>
-									<div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" style="
-												background: #0d6efd;
-												border-radius: 5px;
-												color: white;
-												height: 40px;
-												text-align: center;
-												width: 100%;" hidden></div>
-									<div id="fb-root" hidden></div>
 									<script async defer crossorigin="anonymous" src="https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v11.0&appId=269594148410799&autoLogAppEvents=1" nonce="XWgDyiNR"></script>
-									<center>
-									<div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" onclick="checkLoginState();" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" style="
-												border-radius: 5px;
-												color: white;
-												height: 40px;
-												text-align: center;
-												width: 100%;
-												margin-top: 10px;
-    										margin-bottom: 5px;
-												" 
-												></div>
+									<button onclick="loginFB(); return false;" style="background-color: #1877f2;
+                                                                border: 0px;
+                                                                border-radius: 5px;
+                                                                color: white;
+                                                                height: 40px;
+                                                                text-align: center;
+                                                                width: 236px;
+                                                                margin-top: 10px;
+                                                                margin-bottom: 5px;
+                                                                font-weight: bold;"><img class="img" style="margin-right: 11px;
+                                                                margin-top: -4px;" 
+                                                                src="https://static.xx.fbcdn.net/rsrc.php/v3/yN/r/szGrb_tkxMW.png" 
+                                                                alt="" width="24" height="24">Entrar com o Facebook</button>
 
 <div id="status" hidden>
 </div>
-								 <!-- <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" style="
-												border-radius: 5px;
-												color: white;
-												height: 40px;
-												text-align: center;
-												width: 100%;
-												margin-top: 10px;
-    										margin-bottom: 5px;
-												" 
-												></div>
-								<div id="fb-root" hidden></div> 
-									<script async defer crossorigin="anonymous" src="https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v11.0&appId=269594148410799&autoLogAppEvents=1" nonce="XWgDyiNR"></script>
-							 -->
-								</center>
-									<!-- <button class="btn btn-facebook mt-3" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button> -->
 								</center>
 
 								
@@ -126,10 +105,111 @@
 	</div>
 </div>
 <script>
+/*
+ * 
+ * reescrevendo
+ */    
+    
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '269594148410799',
+            cookie     : true,                     // Enable cookies to allow the server to access the session.
+            xfbml      : true,                     // Parse social plugins on this webpage.
+            version    : 'v12.0',           // Use this Graph API version for this call.
+            channelUrl : 'https://www..idor.org/channel.html'
+        });
 
+
+        
+//        FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
+//            if (response.status === 'connected') { 
+//                deconect();
+//            }
+//
+//        });
+        
+        
+   };
+
+   
+    function loginFB() {
+                
+        //Verifica se já está logado
+        FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
+           
+            if (response.status === 'connected') {
+                
+                statusChangeCallback(response, false);
+                
+            } else {
+                FB.login(function(response){
+
+                    statusChangeCallback(response, true);
+
+                });
+            }
+        });
+    }
+    
+    function checkLoginState() {               // Called when a person is finished with the Login Button.
+        
+        FB.getLoginStatus(function(response) {   // See the onlogin handler
+            statusChangeCallback(response);
+        });
+    }    
+
+    function deconect(){
+        FB.logout(function(response) {
+            Swal.fire("Facebook", "Usuário desconectado!" );
+        });
+    }
+
+    function statusChangeCallback(response, login) {
+                
+        if(login) {
+            titulo = 'Login Realizado!';
+        } else {
+            titulo = 'Usuário está logado!';
+        }
+        
+        if (response.status === 'connected') {            
+            Swal.fire({
+                icon: 'question',
+                title: titulo,
+                html: 'Olá, percebemos que você já está conectado com sua conta Facebook.<br /><br /> ' +
+                        'Se deseja continuar, clique Ok.<br />' +  
+                        'Para criar ou logar com outra conta, clique em Cancelar.',
+                showCancelButton: true,
+                cancelButtonText: "Cancelar",
+                confirmButtonText: "Ok"
+                          
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        testAPI();
+                    } else {
+                        deconect();
+                    }
+                });        
+        } else {
+            Swal.fire("Facebook", "Usuário não logou no facebook!" );
+        }
+    }
+    
+    function testAPI() {
+        
+        FB.api('/me', function(response) {
+            storefblogin(response);
+        });
+    }  
+    
+/*
+ * Antigo
+ */
+
+/*
   function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
-    console.log('statusChangeCallback');
-    console.log(response.authResponse);                   // The current login status of the person.
+    alert('statusChangeCallback');
+    alert(response.authResponse);                   // The current login status of the person.
     if (response.status === 'connected') {   // Logged into your webpage and Facebook.
       testAPI(response);  
     } else {                                 // Not logged into your webpage or we are unable to tell.
@@ -140,6 +220,7 @@
 
 
   function checkLoginState() {               // Called when a person is finished with the Login Button.
+    alert("checkLoginState");
     FB.getLoginStatus(function(response) {   // See the onlogin handler
       statusChangeCallback(response);
     });
@@ -155,13 +236,14 @@
     });
 
 
-    FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
-      statusChangeCallback(response);        // Returns the login status.
-    });
+//    FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
+//      statusChangeCallback(response);        // Returns the login status.
+//    });
+    
   };
  
   function testAPI(outher) {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
-    console.log('Welcome!  Fetching your information.... ');
+    alert('Welcome!  Fetching your information.... ');
 	
     FB.api('/me', function(response) {
 	  console.log(response);
@@ -171,7 +253,7 @@
         'Thanks for logging in, ' + response.name + '!';
     });
   }
-
+*/
 </script>
 <script>
 	function onSignIn(googleUser) {

@@ -216,13 +216,31 @@ class Login extends CI_Controller
 		
 		$password = $_POST["id"];
 		$user = $this->Users_model->getFacebook($password);
-	//	print_r($user);
 			
 		if ($user) {
 			$this->session->set_userdata("logged_user", $user);
 			echo 'success';
 		} else {
-			echo 'error';
+
+                        $user = array(
+                                "name" => $_POST["namefacebook"],
+                                "token" => $password,
+                                "ativo" => 'S',
+                        );
+
+                        $userFacebook = $this->Users_model->getFacebook($user['token']);
+
+                        if (!empty($userFacebook)) {
+                                echo 'error';
+                                die();
+                        }
+
+                        if ($this->Users_model->storeLogin($user)) {
+                                echo 'criado';
+                        } else {
+                                echo 'error';
+                        }
+
 		}
 	}
 
@@ -310,9 +328,9 @@ class Login extends CI_Controller
 			"ativo" => 'S',
 		);
 
-		$email = $this->Users_model->getFacebook($user['token']);
+		$userFacebook = $this->Users_model->getFacebook($user['token']);
 
-		if (!empty($email)) {
+		if (!empty($userFacebook)) {
 			echo 'error';
 			die();
 		}

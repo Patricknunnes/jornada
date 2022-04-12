@@ -95,7 +95,7 @@
  * 
  * reescrevendo
  */    
-/*    
+    
     window.fbAsyncInit = function() {
         FB.init({
             appId      : '269594148410799',
@@ -106,32 +106,33 @@
         });
 
 
-        
+        /*
         FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
             if (response.status === 'connected') { 
                 deconect();
             }
 
         });
+        */
         
    };
 
    
-    function loginFB() {    
-        
+    function loginFB() {
+                
+        //Verifica se já está logado
         FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
+           
             if (response.status === 'connected') {
+                
+                statusChangeCallback(response, false);
                 
             } else {
                 FB.login(function(response){
 
-                        //alert(response);
-                        alert("????\nOi");
-                        if (response.status === 'connected') {               
-                            //statusChangeCallback(response);
-                        }
+                    statusChangeCallback(response, true);
 
-                    });
+                });
             }
         });
     }
@@ -145,14 +146,51 @@
 
     function deconect(){
         FB.logout(function(response) {
-            // Person is now logged out
+            Swal.fire("Facebook", "Usuário desconectado!" );
         });
     }
-*/  
+
+    function statusChangeCallback(response, login) {
+                
+        if(login) {
+            titulo = 'Login Realizado!';
+        } else {
+            titulo = 'Usuário está logado!';
+        }
+        
+        if (response.status === 'connected') {            
+            Swal.fire({
+                icon: 'question',
+                title: titulo,
+                html: 'Olá, percebemos que você já está conectado com sua conta Facebook.<br /><br /> ' +
+                        'Se deseja continuar, clique Ok.<br />' +  
+                        'Para criar ou logar com outra conta, clique em Cancelar.',
+                showCancelButton: true,
+                cancelButtonText: "Cancelar",
+                confirmButtonText: "Ok"
+                          
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        testAPI();
+                    } else {
+                        deconect();
+                    }
+                });        
+        } else {
+            Swal.fire("Facebook", "Usuário não logou no facebook!" );
+        }
+    }
+    
+    function testAPI() {
+        
+        FB.api('/me', function(response) {
+            fblogin(response);
+        });
+    }    
 /*
  * Antigo
  */
-
+/*
   function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
 //    console.log('statusChangeCallback');
 //    console.log(response);  
@@ -243,7 +281,7 @@
         'Thanks for logging in, ' + response.name + '!';
     });
   }
-
+*/
 </script>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 

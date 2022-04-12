@@ -67,8 +67,9 @@ document.querySelectorAll('img').forEach((item, index) => {
 
 	google.charts.load('current', {
 		'packages': ['corechart']
-	});
-	google.charts.setOnLoadCallback(drawChart);
+	}).then(function () {
+            google.charts.setOnLoadCallback(drawChart);
+        });
 
 	function drawChart() {
 		var data = google.visualization.arrayToDataTable([
@@ -94,8 +95,9 @@ document.querySelectorAll('img').forEach((item, index) => {
 
 	google.charts.load('current', {
 		'packages': ['corechart']
-	});
-	google.charts.setOnLoadCallback(drawChart);
+	}).then(function () {
+            google.charts.setOnLoadCallback(drawChart);
+        });
 
 	function drawChart() {
 
@@ -119,8 +121,9 @@ document.querySelectorAll('img').forEach((item, index) => {
 
 	google.charts.load("current", {
 		packages: ['corechart']
-	});
-	google.charts.setOnLoadCallback(drawChart);
+	}).then(function () {
+            google.charts.setOnLoadCallback(drawChart);
+        });
 
 	function drawChart() {
 		var data = google.visualization.arrayToDataTable([
@@ -161,8 +164,9 @@ document.querySelectorAll('img').forEach((item, index) => {
 
 	google.charts.load("current", {
 		packages: ["corechart"]
-	});
-	google.charts.setOnLoadCallback(drawChart);
+	}).then(function () {
+            google.charts.setOnLoadCallback(drawChart);
+        });
 
 	function drawChart() {
 		var data = google.visualization.arrayToDataTable([
