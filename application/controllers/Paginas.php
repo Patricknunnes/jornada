@@ -44,7 +44,7 @@ class Paginas extends CI_Controller
 		$data["title"] = 'Cadastro - Pesquisa-r';
 		$data["quiz"] = $this->Quiz_model->index();
 
-		$response = file_get_contents('http://3.226.10.237/api/runs.php');
+		$response = file_get_contents(''. $this->config->base_url() .'api/runs.php');
 		$jsons = json_decode($response);
 		foreach ($jsons as $json) {
 			$pages[] = [
@@ -92,7 +92,7 @@ class Paginas extends CI_Controller
 
 		$data["pages"] = $this->Pages_model->show($id);
 		$data["quiz"] = $this->Quiz_model->showsRuns();
-		$response = file_get_contents('http://3.226.10.237/api/runs.php');
+		$response = file_get_contents(''. $this->config->base_url() .'api/runs.php');
 		$jsons = json_decode($response);
 		foreach ($jsons as $json) {
 			$pages[] = [
@@ -197,7 +197,7 @@ class Paginas extends CI_Controller
 							<p>
 								Para acessar clique no botão abaixo:
 							</p>
-							<a href="http://3.226.10.237/" class="button-pesquisas mt-5" id="exo_subtitle" style="background: #2C234D; padding: 7px 63px; border-radius: 30px; color: #fff;">Acessar</a>	
+							<a href="'. $this->config->base_url() .'" class="button-pesquisas mt-5" id="exo_subtitle" style="background: #2C234D; padding: 7px 63px; border-radius: 30px; color: #fff;">Acessar</a>	
 					</div>
 
 				</div>

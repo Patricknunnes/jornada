@@ -170,7 +170,7 @@ class Pesquisas extends CI_Controller
 								Você respondeu um questionário no site Idor Saúde Mental.
 								Veja o resultado através desse link: 
 							</p>
-							<a href="http://3.226.10.237/index.php/pesquisas/pdf/'.$id_page.'/'.$id_user.'/'.$studies_id.'" class="button-pesquisas mt-5" id="exo_subtitle" style="background: #2C234D; padding: 7px 63px; border-radius: 30px; color: #fff;">Resultado</a>	
+							<a href="'. $this->config->base_url() .'index.php/pesquisas/pdf/'.$id_page.'/'.$id_user.'/'.$studies_id.'" class="button-pesquisas mt-5" id="exo_subtitle" style="background: #2C234D; padding: 7px 63px; border-radius: 30px; color: #fff;">Resultado</a>	
 					</div>
 
 				</div>
@@ -208,7 +208,7 @@ class Pesquisas extends CI_Controller
 
 		$this->load->library('email');
 
-		$this->email->from('gabriel.carmo@devcodes.com.br');
+		$this->email->from('saudemental@idor.org', 'Contato Saúde Mental Idor');
 		$this->email->to($_SESSION['logged_user']['email']);
 
 		$this->email->subject('Questinário completo com sucesso!');

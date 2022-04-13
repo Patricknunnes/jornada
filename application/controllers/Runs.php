@@ -21,7 +21,7 @@ class Runs extends CI_Controller
 		$this->load->model("Quiz_model");
 
 		$data["title"] = 'Pesquisa - Pesquisa-r';
-		$response = file_get_contents('http://3.226.10.237/api/runs.php');
+		$response = file_get_contents(''. $this->config->base_url() .'api/runs.php');
 		$jsons = json_decode($response);
 		foreach ($jsons as $json) {
 			$pages = [

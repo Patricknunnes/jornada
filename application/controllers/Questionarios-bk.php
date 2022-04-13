@@ -17,7 +17,7 @@ class Questionarios extends CI_Controller
 
 		
 		$data["title"] = 'Questionarios - Pesquisa-r';
-		$response = file_get_contents('http://3.226.10.237/api/surveys.php');
+		$response = file_get_contents(''. $this->config->base_url() .'api/surveys.php');
 		//print_r($response);
 		$jsons = json_decode($response);
 		foreach($jsons as $json){

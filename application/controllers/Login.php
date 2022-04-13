@@ -61,13 +61,15 @@ class Login extends CI_Controller
 		$password = md5($token);
 
 		foreach ($users as $user) {
+                    if ( $users['password'] != '') {
+                        
 			$this->Users_model->update($users['id'], ['email' => $_POST['email']]);
 
 			$message =
 				'<div style="display: flex; background: #f5f5f5; width: 100%; height: 600px; flex-direction: column; position: relative; justify-content: space-between">
 				<div class="text26982" style="">
 					<div style="display: flex; background-color: #32549b; height: 50px; width: 100%;">
-						<img width="100" height="45" src="<?= base_url() ?>assets/img/logo.png" />
+						<img width="100" height="45" src="'. $this->config->base_url() .'assets/img/logo.png" />
 					</div>
 
 					<div class="text1549">
@@ -81,7 +83,7 @@ class Login extends CI_Controller
 							<p>
 								Clique no botão abaixo, faça login, entre no seu perfil e redefina sua senha: 
 							</p>
-							<a href="http://3.226.10.237/index.php/login" class="button-pesquisas mt-5" id="exo_subtitle" style="background: #2C234D; padding: 7px 63px; border-radius: 30px; color: #fff;">Login</a>	
+							<a href="'. $this->config->base_url() .'index.php/login" class="button-pesquisas mt-5" id="exo_subtitle" style="background: #2C234D; padding: 7px 63px; border-radius: 30px; color: #fff;">Login</a>	
 					</div>
 
 				</div>
@@ -89,43 +91,48 @@ class Login extends CI_Controller
 				<div style="display: flex; background-color: rgb(237,237,237); height: 80px; width: 100%; align-items: center; justify-content: center;">
 					<span style="text-align: center; font-size: 15px; color: rgb(140,140,140)">IDOR Saúde Mental</span>
 				</div>
-			</div>
-		</div>
-		
-		<style>
-			.text26982 {
-				width: 100%; height: 100%; flex-direction: column; padding: 0 25%;
-				display: flex;
-				align-items: center;
-				
-			}
+                                </div>
+                            </div>
 
-			.text1549 {
-				width: 100%; height: 60%; flex-direction: column; padding: 0 25%;
-				align-items: center;
-				display: flex;
-				justify-content: space-around;
-				text-align: center;
-			}
+                            <style>
+                                    .text26982 {
+                                            width: 100%; height: 100%; flex-direction: column; padding: 0 25%;
+                                            display: flex;
+                                            align-items: center;
 
-			@media(max-width: 800px) {
-				.text26982 {
-					padding: 0 10% 0 7%;
-				}
-			}
-		</style>
-		';
+                                    }
+
+                                    .text1549 {
+                                            width: 100%; height: 60%; flex-direction: column; padding: 0 25%;
+                                            align-items: center;
+                                            display: flex;
+                                            justify-content: space-around;
+                                            text-align: center;
+                                    }
+
+                                    @media(max-width: 800px) {
+                                            .text26982 {
+                                                    padding: 0 10% 0 7%;
+                                            }
+                                    }
+                            </style>
+                            ';
 
 			$this->Login_model->update($users['id'], $password);
-			$this->email->from('anderson.felix@devcodes.com.br', 'Anderson Felix');
+			$this->email->from('saudemental@idor.org', 'Contato Saúde Mental Idor');
 			$this->email->to($_POST['email']);
 
 			$this->email->subject('Nova senha');
 			$this->email->message($message);
 
 			$this->email->send();
-			echo '';
+			echo 'success';
 			die();
+                    } else {
+			echo 'social';
+			die();                        
+                    }
+                        
 		}
 
 		echo 'error';
@@ -359,7 +366,7 @@ class Login extends CI_Controller
 								Você se cadastrou no site Idor Saúde Mental.
 								Faça login no nosso site através desse link: 
 							</p>
-							<a href="http://3.226.10.237/" class="button-pesquisas mt-5" id="exo_subtitle" style="background: #2C234D; padding: 7px 63px; border-radius: 30px; color: #fff;">Login</a>	
+							<a href="'. $this->config->base_url() .'" class="button-pesquisas mt-5" id="exo_subtitle" style="background: #2C234D; padding: 7px 63px; border-radius: 30px; color: #fff;">Login</a>	
 					</div>
 
 				</div>
@@ -397,7 +404,7 @@ class Login extends CI_Controller
 
 		$this->load->library('email');
 
-		$this->email->from('gabriel.carmo@devcodes.com.br');
+		$this->email->from('saudemental@idor.org', 'Contato Saúde Mental Idor');
 		$this->email->to($user['email']);
 
 		$this->email->subject('Cadastro realizado com sucesso!');

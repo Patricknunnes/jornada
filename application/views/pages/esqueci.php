@@ -51,34 +51,54 @@
 
 
 	function forgot() {
+            
+            if ( ($("#inputEmail").val()).trim() == "") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Informar o email!'
+                });
+            } else {
 		$.ajax({
 			url: '<?php echo $this->config->base_url(); ?>index.php/login/forgot_request',
 			type: "POST",
 			data: $("#form-forgot").serialize(),
 			success: function(data) {
-				if (data != 'error') {
+                            
+				if (data == 'success') {
 
 					Swal.fire({
 						icon: 'success',
 						title: 'Sua nova senha foi enviada com sucesso',
 					}).then((result) => {
 						if (result.isConfirmed) {
-							window.location.href = '<?php echo $this->config->base_url(); ?>index.php/login'
+							window.location.href = '<?php echo $this->config->base_url(); ?>index.php/login';
 						}
 					})
 
-				} else {
+				} else if (data == 'social'){
+                                
 					Swal.fire({
 						icon: 'error',
-						title: 'Não foi possível enviar esse e-mail'
+						title: 'O email informado é usado no login do Gmail.<br />Não pode se alterado.',
 					}).then((result) => {
 						if (result.isConfirmed) {
-							window.location.href = ""
+							window.location.href = "";
+						}
+					})
+                                
+                                } else {
+					Swal.fire({
+						icon: 'error',
+						title: 'Não foi possível enviar esse <span style="white-space: nowrap;">e-mail</span>'
+					}).then((result) => {
+						if (result.isConfirmed) {
+							window.location.href = "";
 						}
 					})
 				}
 
 			}
 		})
+            }
 	}
 </script>
