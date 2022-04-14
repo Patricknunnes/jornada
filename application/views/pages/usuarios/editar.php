@@ -22,6 +22,11 @@
 			<div class="col-md-8">
 				<h5 class="mt-5 mb-5">Informações do Perfil</h5>
 				<div class="form-group mt-5">
+                                        <?php if(strlen($message)>0){ ?>
+                                        <div class="alert alert-warning" role="alert">
+                                                <?php echo $message; ?>
+                                        </div>
+                                        <?php } ?>
 					<label for="nome">Nome</label>
 					<input type="text" class="form-control" name="name" value="<?php echo $users['name'] ?>" placeholder="Digite o nome: ">
 
@@ -33,8 +38,7 @@
 					</div>
 					<div class="form-group mt-3 col-md-6">
 						<label for="funcao">Função</label>
-						<select name="funcao" id="funcao" class="form-select">
-						<option></option>
+						<select name="funcao" id="funcao" class="form-select">						
 						<?php for($i=1;$i<=(count($perfil));$i++){ ?>
 							<option value='<?php echo $i; ?>'<?php echo $i==$users['funcao'] ? 'selected="selected"' : ''; ?> ><?php echo $perfil[$i]; ?></option>
 						<?php } ?>
@@ -69,3 +73,4 @@
 	</form>
 
 </div>
+

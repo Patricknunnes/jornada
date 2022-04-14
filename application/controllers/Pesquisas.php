@@ -206,17 +206,24 @@ class Pesquisas extends CI_Controller
 		';
 
 
-		$this->load->library('email');
+//		$this->load->library('email');
+//
+//		$this->email->from('saudemental@idor.org', 'Contato Saúde Mental Idor');
+//		$this->email->to($_SESSION['logged_user']['email']);
+//
+//		$this->email->subject('Questinário completo com sucesso!');
+//		$this->email->message($message);
+//
+//
+//		@$this->email->send();
+                
+                $headers[] = 'MIME-Version: 1.0';
+                $headers[] = 'Content-type: text/html; charset=utf-8';
+                // Additional headers
+                $headers[] = 'To: ' . $_SESSION['logged_user']['email'];
+                $headers[] = 'From: Contato Saúde Mental Idor <saudemental@idor.org>';
 
-		$this->email->from('saudemental@idor.org', 'Contato Saúde Mental Idor');
-		$this->email->to($_SESSION['logged_user']['email']);
-
-		$this->email->subject('Questinário completo com sucesso!');
-		$this->email->message($message);
-
-
-		@$this->email->send();
-			
+                mail( $_SESSION['logged_user']['email'], 'Questinário completo com sucesso!', $message, implode("\r\n", $headers));			
 
 	}
 

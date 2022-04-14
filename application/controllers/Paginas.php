@@ -231,18 +231,24 @@ class Paginas extends CI_Controller
 
 		$users = $this->Users_model->index();
 
-		$this->load->library('email');
+//		$this->load->library('email');
 
 		foreach ($users as $user) {
-			$this->email->from('saudemental@idor.org');
-			$this->email->to($user['email']);
+//			$this->email->from('saudemental@idor.org');
+//			$this->email->to($user['email']);
+//
+//			$this->email->subject('Novos Questionários');
+//			$this->email->message($message);
+                        
 
-			$this->email->subject('Novos Questionários');
-			$this->email->message($message);
+                        $headers[] = 'MIME-Version: 1.0';
+                        $headers[] = 'Content-type: text/html; charset=utf-8';
+                        // Additional headers
+                        $headers[] = 'To: ' . $user['email'];
+                        $headers[] = 'From: Contato Saúde Mental Idor <saudemental@idor.org>';
 
-			if ($this->email->send()) {
-			} else {
-			}
+                        mail( $user['email'], 'Novos Questionários', $message, implode("\r\n", $headers));
+                
 		}
 	}
 }

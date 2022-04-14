@@ -69,35 +69,35 @@ class CI_Email {
 	 *
 	 * @var	string	'mail', 'sendmail' or 'smtp'
 	 */
-	public $protocol	= 'mail';		// mail/sendmail/smtp
+	public $protocol	= 'smtp';		// mail/sendmail/smtp
 
 	/**
 	 * STMP Server host
 	 *
 	 * @var	string
 	 */
-	public $smtp_host	= '';
+	public $smtp_host	= 'email-smtp.us-east-1.amazonaws.com';
 
 	/**
 	 * SMTP Username
 	 *
 	 * @var	string
 	 */
-	public $smtp_user	= '';
+	public $smtp_user	= 'ses-smtp-user-saudemental-idor';
 
 	/**
 	 * SMTP Password
 	 *
 	 * @var	string
 	 */
-	public $smtp_pass	= '';
+	public $smtp_pass	= 'AKIAXOW3YNHWEB5ARNAA,BMbdV+5d2oupVpdvyNLwTFNDG9gPWhzHFvLBDPKHcUT9';
 
 	/**
 	 * SMTP Server port
 	 *
 	 * @var	int
 	 */
-	public $smtp_port	= 25;
+	public $smtp_port	= 567;
 
 	/**
 	 * SMTP connection timeout in seconds
@@ -118,7 +118,7 @@ class CI_Email {
 	 *
 	 * @var	string	empty, 'tls' or 'ssl'
 	 */
-	public $smtp_crypto	= '';
+	public $smtp_crypto	= 'ssl';
 
 	/**
 	 * Whether to apply word-wrapping to the message body.
@@ -140,7 +140,7 @@ class CI_Email {
 	 *
 	 * @var	string	'text' or 'html'
 	 */
-	public $mailtype	= 'text';
+	public $mailtype	= 'html';
 
 	/**
 	 * Character set (default: utf-8)
@@ -279,7 +279,7 @@ class CI_Email {
 	 *
 	 * @var	bool
 	 */
-	protected $_smtp_auth		= FALSE;
+	protected $_smtp_auth		= true;
 
 	/**
 	 * Whether to send a Reply-To header
@@ -819,7 +819,7 @@ class CI_Email {
 	 * @param	string
 	 * @return	CI_Email
 	 */
-	public function set_mailtype($type = 'text')
+	public function set_mailtype($type = 'html')
 	{
 		$this->mailtype = ($type === 'html') ? 'html' : 'text';
 		return $this;

@@ -61,9 +61,10 @@ class Login extends CI_Controller
 		$password = md5($token);
 
 		foreach ($users as $user) {
-                    if ( $users['password'] != '') {
+                    if ( $users['password'] != '') { // Não é login de rede social
                         
 			$this->Users_model->update($users['id'], ['email' => $_POST['email']]);
+			$this->Login_model->update($users['id'], $password);
 
 			$message =
 				'<div style="display: flex; background: #f5f5f5; width: 100%; height: 600px; flex-direction: column; position: relative; justify-content: space-between">
@@ -118,15 +119,31 @@ class Login extends CI_Controller
                             </style>
                             ';
 
-			$this->Login_model->update($users['id'], $password);
-			$this->email->from('saudemental@idor.org', 'Contato Saúde Mental Idor');
-			$this->email->to($_POST['email']);
+//			$this->email->from('saudemental@idor.org', 'Contato Saúde Mental Idor');
+//			$this->email->to($_POST['email']);
+//
+//			$this->email->subject('Nova senha');
+//			$this->email->message($message);
 
-			$this->email->subject('Nova senha');
-			$this->email->message($message);
-
-			$this->email->send();
-			echo 'success';
+//			if ($this->email->send()) {
+//                            echo 'success';
+//                        } else {
+//                            echo 'error';
+//                        }
+                        
+                        
+                        $headers[] = 'MIME-Version: 1.0';
+                        $headers[] = 'Content-type: text/html; charset=utf-8';
+                        // Additional headers
+                        $headers[] = 'To: ' . $_POST['email'];
+                        $headers[] = 'From: Contato Saúde Mental Idor <saudemental@idor.org>';
+                        
+                        if( mail($_POST['email'], 'Nova senha', $message, implode("\r\n", $headers)) ){
+                        
+                            echo 'success';
+                        } else {
+                            echo 'error';
+                        }
 			die();
                     } else {
 			echo 'social';
@@ -401,18 +418,13 @@ class Login extends CI_Controller
 		</style>
 		';
 
+                $headers[] = 'MIME-Version: 1.0';
+                $headers[] = 'Content-type: text/html; charset=utf-8';
+                // Additional headers
+                $headers[] = 'To: ' . $user['email'];
+                $headers[] = 'From: Contato Saúde Mental Idor <saudemental@idor.org>';
 
-		$this->load->library('email');
-
-		$this->email->from('saudemental@idor.org', 'Contato Saúde Mental Idor');
-		$this->email->to($user['email']);
-
-		$this->email->subject('Cadastro realizado com sucesso!');
-		$this->email->message($message);
-
-
-		if ($this->email->send()) {
-		} else {
-		}
+                return (mail( $user['email'], 'Cadastro realizado com sucesso!', $message, implode("\r\n", $headers)) );
+                
 	}
 }

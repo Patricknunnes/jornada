@@ -8,6 +8,16 @@ class Users_model extends CI_model
 		return $this->db->get_where("users", array('ativo' => 'S'))->result_array();
 	}
 
+	public function listar()
+	{
+                $this->db->select('*');
+                $this->db->from('users');
+                $this->db->join('termos', 'users.id = termos.id_user', 'right outer');
+                $this->db->where('ativo', 'S');
+                
+		return $this->db->get()->result_array();
+	}
+
 
 	public function store($user)
 	{
@@ -64,6 +74,19 @@ class Users_model extends CI_model
 		return $this->db->update("users", $user);
 	}
 
+        public function updateNoPassword($id, $user){
+
+            $data = array(
+			"name" => $user["name"],
+                        "funcao" => $user["funcao"],                    
+			"datanasc" => $user["datanasc"],
+			"email" => $user["email"],
+			"cpf" => $user["cpf"]
+                );
+
+            return $this->db->replace('users', $data);
+        }
+        
 	public function destroy($id)
 	{
 		$this->db->set("ativo", "N");

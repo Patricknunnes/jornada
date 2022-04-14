@@ -97,8 +97,11 @@
             }
           })
         },
-        function(error) {
-          alert(JSON.stringify(error, undefined, 2));
+        function() {
+            Swal.fire({
+                  icon: 'erro',
+                  title: 'Não foi realizado o login pelo Google.'
+                })
         });
     }
 
@@ -146,7 +149,10 @@
           })
         },
         function(error) {
-          alert(JSON.stringify(error, undefined, 2));
+            Swal.fire({
+                  icon: 'erro',
+                  title: 'Não foi realizado o login pelo Google.'
+                })
         });
     }
 

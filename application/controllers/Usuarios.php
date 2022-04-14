@@ -58,7 +58,9 @@ class Usuarios extends CI_Controller
 
 	//	if ($this->session->logged_user['funcao'] == '2') {
 	//		redirect('index.php/dashboard/');
-	//	}	
+	//	}
+            
+                $data['message'] = $this->session->flashdata('success');
 		$data["users"] = $this->Users_model->show($id);
 		$data['perfil'] = $this->perfil;
 		$data["title"] = 'Editar - Pesquisa-r';
@@ -80,69 +82,56 @@ class Usuarios extends CI_Controller
 			$name = $_POST["d-img-upload"];
 		}
 
-		if (empty($_POST["cpf"])) {
-			$_POST["cpf"] = "";
-		}
-
-		if (empty($_POST["email"])) {
-			$_POST["email"] = "";
-		}
 
 		$user = array(
 			"name" => $_POST["name"],
 			// "funcao" => $_POST["funcao"],
 			"datanasc" => $_POST["datanasc"],
 			"email" => $_POST["email"] ? $_POST["email"] : " ",
-			"cpf" => $_POST["cpf"],
-			"password" => md5($_POST["password"]),
-			"ativo" => 'S',
-			"img_user" => $name
 		);
 
-		if (empty($_POST["funcao"])) {
-			unset($user["funcao"]);
-		}
-
+                if ( ! empty($_POST["password"])) {
+			
+			$user["password"] = md5($_POST["password"]);
+                }
+                
 		if (empty($_POST["email"])) {
 			unset($user["email"]);
 		}
 
-		if (empty($_POST["funcao"])) {
-			unset($user["funcao"]);
-		}
+                if ($perfil == 's') {
+                    
+                    $user["cpf"] = $_POST["cpf"];
+                    $user["ativo"] = 'S';
+                    $user["img_user"] = $name;
+                
+                    if (empty($_POST["cpf"])) {
+                            unset($user["cpf"]);
+                    }
+                    
+                    $r = $this->Users_model->show($this->session->logged_user['id']);
+                    if (md5($_POST["password2"]) == $r['password']) {
+                            $this->Users_model->update($id, $user);
+                            $this->session->set_flashdata("success", 'Usuário atualizado com sucesso');
+                            redirect("/index.php/dashboard/perfil/".$id);
+                    } else {
+                            $this->session->set_flashdata("success", 'Sua senha atual não é valida');
+                            redirect("/index.php/dashboard/perfil/".$id);
+                    }
+                } else {
+                    $user["funcao"] = $_POST["funcao"];
+                    
+//                    echo '<pre>'; print_r($user); echo '</pre>';
+//                    exit();
 
-		if (empty($_POST["cpf"])) {
-			unset($user["cpf"]);
-		}
-		// if (empty($_POST["password"])) {
-		// 	unset($user["password"]);
-		// }
-
-
-		// print_r(md5($_POST["password2"]));
-
-		// echo '<pre>';
-		
-		// print_r($user["password"]);
-		
-		// exit;
-		$r = $this->Users_model->show($this->session->logged_user['id']);
-		if (md5($_POST["password2"]) == $r['password']) {
-			$this->Users_model->update($id, $user);
-			$this->session->set_flashdata("success", 'Usuário atualizado com sucesso');
-			if ($perfil == 's') {
-				redirect("/index.php/dashboard/perfil/".$id);
-			} else {
-				redirect("/index.php/usuarios/");
-			}
-		} else {
-			$this->session->set_flashdata("success", 'Sua senha atual não é valida');
-			if ($perfil == 's') {
-				redirect("/index.php/dashboard/perfil/".$id);
-			} else {
-				redirect("/index.php/usuarios/");
-			}
-		}
+                    if($this->Users_model->update($id, $user)){
+                        $this->session->set_flashdata("success", 'Usuário atualizado com sucesso');
+                    } else {
+                        $this->session->set_flashdata("success", 'Ocorreu um problema na gravação');
+                    }
+                    redirect("/index.php/usuarios/editar/$id");
+                    
+                }
 		
 	}
 

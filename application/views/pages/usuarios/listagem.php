@@ -35,7 +35,9 @@
 
 					<td><?php echo $user['email'] ?></td>
 
-					<?php foreach ($termos as $termo) { ?>
+					<?php 
+                                            $achado = 0;
+                                            foreach ($termos as $termo) { ?>
 						<?php if ($termo['id_user'] == $user['id']) { ?>
 							<td>
 								<?php if ($termo['status'] == 'sc') {
@@ -48,8 +50,14 @@
 									echo 'Termo não aceito.';
 								} ?>
 							</td>
-						<?php } ?>
+						<?php 
+                                                    $achado = 1;
+                                                    } ?>
 					<?php } ?>
+                                                        
+                                        <?php if ( $achado == 0){ ?>
+                                                        <td> &nbsp;</td>          
+                                        <?php } ?>               
 
 					<td>
 						<a href="<?= base_url() ?>index.php/usuarios/editar/<?= $user["id"] ?>" class="btn btn-warning mb-2 mt-2"><i class="fas fa-pencil-alt"></i></a>
