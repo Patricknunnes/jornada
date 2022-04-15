@@ -76,8 +76,9 @@ class Pesquisas_model extends CI_model
 		
 	}
 
-	public function getSession($user_id,$unit_id){
-		$sql = "SELECT * FROM survey_unit_sessions WHERE use_id = {$user_id} AND ";								
+	public function getSessions($user_id){
+		$sql = "SELECT session_id FROM survey_unit_sessions "
+                        . "WHERE use_id = {$user_id} ";								
 		$query = $this->db->query($sql);
 		$result = $query->result();
         return $result; 
@@ -124,6 +125,31 @@ class Pesquisas_model extends CI_model
 		$sql = "SELECT * FROM {$tables} where 1=1 {$where} limit 1 ";
 		
 		
+		$result = $this->banco->query($sql);
+		$itens = $result->fetch_all(MYSQLI_ASSOC);
+		
+		return $itens;
+	}
+
+	public function getAllTablesFindSession($tables, $unit_sessions){
+		$itens =  null;
+		$where = null;
+
+//echo '$unit_sessions<br/>';                 
+//echo print_r($unit_sessions);
+//echo  '<br/>';                
+                $sessionsIn = "(". implode(",", $unit_sessions) . ")";
+//echo '$sessionsIn<br/>';                 
+//echo $sessionsIn;
+//echo  '<br/>';                
+                
+		if(!empty($unit_sessions)){
+			$in = " AND session_id IN {$sessionsIn} ";
+		}
+		$sql = "SELECT * FROM {$tables} where 1=1 {$in} limit 1 ";
+		
+//echo $sql;
+//echo  '<br/>';
 		$result = $this->banco->query($sql);
 		$itens = $result->fetch_all(MYSQLI_ASSOC);
 		

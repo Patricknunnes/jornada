@@ -15,7 +15,7 @@ class Pesquisas extends CI_Controller
 		$this->load->model("Quiz_model");
 		if (!isset($_SESSION['unitid'])) {
 			$this->unitid = $this->Pesquisas_model->createSession($this->session_data['id']);
-			$_SESSION['unitid']	 = $this->unitid;
+			$_SESSION['unitid'] = $this->unitid;
 		}
 	}
 

@@ -57,6 +57,24 @@ class Pages_model extends CI_model
 		$result = $query->result();
         return $result; 
 	}
+        
+        public function showQuestionsUserStudiesId($id)
+        {
+            //Recuperando o id na tabela survey_studies no banco fromR
+            
+            $sql = "SELECT * FROM page p
+                    INNER JOIN survey_studies ss 
+                        ON ss.id_page = p.id
+                        
+                    WHERE p.pag_id = {$id['pag_id']} 
+                        AND ss.use_id = {$id['use_id']} ;            
+				 ";
+				 
+	    $query = $this->db->query($sql);
+            $result = $query->result();
+            
+        return $result;             
+        }
 
 	public function setPage($pages)
 	{

@@ -83,3 +83,26 @@ defined('EXIT_USER_INPUT')     OR define('EXIT_USER_INPUT', 7); // invalid user 
 defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
+
+
+defined('SHOW_DEBUG_BACKTRACE') OR define('SHOW_DEBUG_BACKTRACE', TRUE);
+
+/*
+ * 
+ * EMAIL
+ * 
+ * 
+ */
+
+defined('EMAIL_SMTP')        OR define('EMAIL_SMTP', 'ssl://pop.secureserv.net'); 
+defined('EMAIL_USER')        OR define('EMAIL_USER', 'saudemental@opendorhealth.org'); 
+defined('EMAIL_PWD')         OR define('EMAIL_PWD', 'qMC^4I8TkX!o'); 
+defined('EMAIL_PORT')        OR define('EMAIL_PORT', '465'); 
+defined('EMAIL_CONTATO')     OR define('EMAIL_CONTATO', 'saudemental@idor.org'); 
+
+
+
+
+
+
+

@@ -270,15 +270,15 @@ class Dashboard extends CI_Controller
 //
 //		if ($this->email->send()) {
                     
-                    
-                
+                                    
                 $headers[] = 'MIME-Version: 1.0';
                 $headers[] = 'Content-type: text/html; charset=utf-8';
                 // Additional headers
                 $headers[] = 'To: saudemental@idor.org';
                 $headers[] = 'From: '. $_SESSION['logged_user']['name'] . ' <' . $_SESSION['logged_user']['email'] . '>' ;
 
-                if( mail('Contato Saúde Mental Idor <saudemental@idor.org>', 'FeedBacks', $message, implode("\r\n", $headers)) ){                    
+                if( mail('Contato Saúde Mental Idor <saudemental@idor.org>', 'FeedBacks', $message, implode("\r\n", $headers)) ){  
+                    
 			redirect("/index.php/dashboard/feedback/$id_user");
 		} else {
 			redirect("/index.php/dashboard/feedback/$id_user");
@@ -340,7 +340,17 @@ class Dashboard extends CI_Controller
 			}
 		}
 
+//echo  'Início<br />';
+//echo 'User Id: ' . $id;
+//echo  '<br /><br />';
+                
 		$questionsAll =  $this->Pages_model->showQuestions(['pag_id' => $regiao, 'use_id' => $id]);
+
+//echo '$questionsAll<br />';
+//echo '<pre>';
+//print_r($questionsAll);
+//echo  '</pre>';
+//echo  '<br /><br />';
 		$conta = 0;
 		$percent = 0;
 		foreach ($questionsAll as $question) {
@@ -352,35 +362,81 @@ class Dashboard extends CI_Controller
 			}
 		}
 
-		$filter['pag_id'] = $regiao;
+//echo '$data["countpesquisa"]: ' . $data["countpesquisa"];
+//echo  '<br /><br />';
                 
-		$results = $this->Pages_model->showQuestions($filter);
+		//$filter['pag_id'] = $regiao;
+                
+                //$results = $this->Pages_model->showQuestions($filter);
+		$results = $this->Pages_model->showQuestionsUserStudiesId(
+                                        ['pag_id' => $regiao, 'use_id' => $id]);
 
-//echo  'Início<br />';
-
+//echo '$results<br />';
+//echo '<pre>';
+//print_r($results);
+//echo  '</pre>';
+//echo  '<br /><br />';                
+                
+                $sessionsIds = $this->Pesquisas_model->getSessions($id);
+//echo '$sessionsIds<br />';
+//echo '<pre>';
+//print_r($sessionsIds);
+//echo  '</pre>';
+//echo  '<br /><br />'; 
+                $sessions = array();
+                foreach ($sessionsIds as $sessionId) {
+                    $sessions[] = $sessionId->session_id;
+                }
+// echo  '$sessions <br />';
+//echo  print_r($sessions) . '<br /><br />';
 
 		foreach ($results as $ret) {
-//echo  $ret->run_id . '<br />';
+//echo  '$ret->run_id <br />';
+//echo  $ret->studies_id . '<br /><br />';
 
-			$resultTab = $this->Pesquisas_model->studiesTable($ret->run_id);
+
+			$resultTab = $this->Pesquisas_model->studiesTable($ret->studies_id);
+                        
+//echo '$resultTab<br />';
 //echo '<pre>';
-//print_r($resultTab);
+////print_r($resultTab);
 //echo  '</pre>';
 //echo  '<br /><br />';
 
-			if (!empty($resultTab)) {
 
-				$result_respostas = $this->Pesquisas_model->getAllTables($resultTab[0]['results_table']);
+			if (!empty($resultTab)) {
+//echo 'Existe $resultTab<br />';
+//echo $resultTab[0]['results_table'] . '<br />';
+                            
+
+				$result_respostas = $this->Pesquisas_model->getAllTablesFindSession(
+                                                                $resultTab[0]['results_table'],
+                                                                $sessions);
+
+//echo '$results<br />';
+//echo '<pre>';
+//print_r($result_respostas);
+//echo  '</pre>';
 
 				foreach ($result_respostas as $rrep) {
 					$total_questoes[] = count($rrep);
 				}
-				$data['total_questoes'] = array_sum($total_questoes);
+
+//echo '$total_questoes<br />';
+//echo '<pre>';
+//print_r($total_questoes);
+//echo  '</pre>';
+                                    //Foram reduzidas 9 colunas da tabela
+                                    // que estavam sendo contadas como respostas
+                                    // session_id, study_id, created, modified, ended, fbnumber
+                                    // note_fb_2, note_fb_3, note_fb_4
+				$data['total_questoes'] = array_sum($total_questoes) - 9 ;
 			} else {
 				$data['total_questoes'] = 0;
 			}
 		}
 
+//echo '$results<br />';
 //echo '<pre>';
 //print_r($results);
 //echo  '</pre>';

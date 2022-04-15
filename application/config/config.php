@@ -526,3 +526,19 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
+
+
+
+/*
+ * Email 
+ * 
+ * 
+ */
+
+$config['protocol'] = 'smtp';
+$config['mailtype'] = 'html';
+$config['smtp_host'] = EMAIL_SMTP;
+$config['smtp_user'] = EMAIL_USER;
+$config['smtp_pass'] = EMAIL_PWD;
+$config['smtp_port'] = EMAIL_PORT;
+

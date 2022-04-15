@@ -51,7 +51,6 @@ class Login extends CI_Controller
 
 	public function forgot_request()
 	{
-		$this->load->library('email');
 		$this->load->model("Users_model");
 		$this->load->model("Login_model");
 
@@ -118,27 +117,45 @@ class Login extends CI_Controller
                                     }
                             </style>
                             ';
-
+                        
+//                        $this->load->library('email');
+//
+////                        $config['protocol']    = 'smtp';
+////                        $config['smtp_host']    = EMAIL_SMTP;
+////                        $config['smtp_port']    = EMAIL_PORT;
+////                        $config['smtp_timeout'] = '7';
+////                        $config['smtp_user']    = EMAIL_USER;
+////                        $config['smtp_pass']    = EMAIL_PWD;
+//                        $config['charset']    = 'utf-8';
+////                        $config['newline']    = "\r\n";
+//                        $config['mailtype'] = 'html'; // or html
+////                        $config['validation'] = TRUE; // bool whether to validate email or not      
+////
+//                        $this->email->initialize($config);
+//                        
 //			$this->email->from('saudemental@idor.org', 'Contato Saúde Mental Idor');
 //			$this->email->to($_POST['email']);
 //
-//			$this->email->subject('Nova senha');
+//			$this->email->subject('Nova Senha');
 //			$this->email->message($message);
-
+//                      
+//
 //			if ($this->email->send()) {
-//                            echo 'success';
-//                        } else {
-//                            echo 'error';
-//                        }
+
+                        if( email_padrao( EMAIL_CONTATO, 
+                                        'Contato Saúde Mental Idor', 
+                                        $_POST['email'],'', 
+                                        $message, 
+                                        'Nova senha') ){
                         
                         
-                        $headers[] = 'MIME-Version: 1.0';
-                        $headers[] = 'Content-type: text/html; charset=utf-8';
-                        // Additional headers
-                        $headers[] = 'To: ' . $_POST['email'];
-                        $headers[] = 'From: Contato Saúde Mental Idor <saudemental@idor.org>';
-                        
-                        if( mail($_POST['email'], 'Nova senha', $message, implode("\r\n", $headers)) ){
+//                        $headers[] = 'MIME-Version: 1.0';
+//                        $headers[] = 'Content-type: text/html; charset=utf-8';
+//                        // Additional headers
+//                        $headers[] = 'To: ' . $_POST['email'];
+//                        $headers[] = 'From: Contato Saúde Mental Idor <saudemental@idor.org>';
+//                        
+//                        if( mail($_POST['email'], 'Nova senha', $message, implode("\r\n", $headers)) ){
                         
                             echo 'success';
                         } else {
