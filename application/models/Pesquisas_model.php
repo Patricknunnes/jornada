@@ -137,8 +137,8 @@ class Pesquisas_model extends CI_model
 		// limit 1";
 		// echo 
 		$result = $this->banco->query("SELECT * FROM survey_studies
-										where id = {$study_id}
-										limit 1");
+                                                        where id = {$study_id}
+                                                        limit 1");
 		$itens = $result->fetch_all(MYSQLI_ASSOC);									
 		return $itens;
 	}

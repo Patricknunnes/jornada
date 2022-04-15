@@ -353,13 +353,20 @@ class Dashboard extends CI_Controller
 		}
 
 		$filter['pag_id'] = $regiao;
-
+                
 		$results = $this->Pages_model->showQuestions($filter);
 
+//echo  'Início<br />';
+
+
 		foreach ($results as $ret) {
+//echo  $ret->run_id . '<br />';
 
 			$resultTab = $this->Pesquisas_model->studiesTable($ret->run_id);
-			// print_r($resultTab);
+//echo '<pre>';
+//print_r($resultTab);
+//echo  '</pre>';
+//echo  '<br /><br />';
 
 			if (!empty($resultTab)) {
 
@@ -373,6 +380,11 @@ class Dashboard extends CI_Controller
 				$data['total_questoes'] = 0;
 			}
 		}
+
+//echo '<pre>';
+//print_r($results);
+//echo  '</pre>';
+//exit();
 
 
 		$data["tipos"] = $this->tipo;
