@@ -18,10 +18,15 @@ class Runs extends CI_Controller
 	public function index()
 	{
 
+                $data['success'] = $this->session->flashdata('success');
+                
 		$this->load->model("Quiz_model");
 
 		$data["title"] = 'Pesquisa - Pesquisa-r';
 		$response = file_get_contents(''. $this->config->base_url() .'api/runs.php');
+                
+                //Adiciona Pesquisas novas do formr
+                // que ainda não existam em BDFormR
 		$jsons = json_decode($response);
 		foreach ($jsons as $json) {
 			$pages = [
@@ -108,7 +113,15 @@ class Runs extends CI_Controller
 		$this->quiz_model->destroy($id);
 		redirect("/index.php/questionarios/");
 	}
+        
+        public function destroyRun($id)
+	{
 
+		$this->quiz_model->destroyRun($id);
+                $this->session->set_flashdata("success", 'Pesquisa deletada com sucesso');
+		redirect("/index.php/runs/");
+	}
+        
 	public function active($id)
 	{
 

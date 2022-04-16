@@ -46,6 +46,14 @@ class Quiz_model extends CI_model
 		return $this->db->update("questionnaires");
 	}
 
+	public function destroyRun($id)
+	{
+		$this->db->set("run_ativo", "N");
+		$this->db->where("run_id", $id);
+                
+                return $this->db->update("run");
+	}
+
 	public function active($id)
 	{
 		$this->db->set("ativo", "S");
@@ -71,8 +79,11 @@ class Quiz_model extends CI_model
 
 	public function showsRuns()
 	{
-		$sql = "SELECT * FROM run where run_id != 6 and run_id != 7 and run_id != 9";
-        $query = $this->db->query($sql);
+		$sql = "SELECT * FROM run where run_id != 6 and run_id != 7 and run_id != 9 "
+                        . " AND run_ativo = 'S'";
+                
+                $query = $this->db->query($sql);
+        
 		$result = $query->result();
         return $result; 
 	}

@@ -34,30 +34,27 @@
 					<td style="text-transform: capitalize!important;"><?php echo $user['name'] ?></td>
 
 					<td><?php echo $user['email'] ?></td>
+                                        
+                                        <td>
+                                        <?php
+                                        switch ($user["status"]){
+                                            case 'sc':
+                                                echo 'Termo aceito e ser contatado.';
+                                                break;
+                                            
+                                            case 'sn':
+                                                echo 'Termo aceito e contato não aceito.';
+                                                break;
+                                            
+                                            case 'n':
+                                                echo 'Termo não aceito.';
+                                                break;
 
-					<?php 
-                                            $achado = 0;
-                                            foreach ($termos as $termo) { ?>
-						<?php if ($termo['id_user'] == $user['id']) { ?>
-							<td>
-								<?php if ($termo['status'] == 'sc') {
-									echo 'Termo aceito e ser contatado.';
-								} ?>
-								<?php if ($termo['status'] == 'sn') {
-									echo 'Termo aceito e contato não aceito.';
-								} ?>
-								<?php if ($termo['status'] == 'n') {
-									echo 'Termo não aceito.';
-								} ?>
-							</td>
-						<?php 
-                                                    $achado = 1;
-                                                    } ?>
-					<?php } ?>
-                                                        
-                                        <?php if ( $achado == 0){ ?>
-                                                        <td> &nbsp;</td>          
-                                        <?php } ?>               
+                                            default:
+                                                echo "&nbsp;";
+                                        }
+                                        ?>    
+                                        </td>
 
 					<td>
 						<a href="<?= base_url() ?>index.php/usuarios/editar/<?= $user["id"] ?>" class="btn btn-warning mb-2 mt-2"><i class="fas fa-pencil-alt"></i></a>

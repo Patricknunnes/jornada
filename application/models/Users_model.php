@@ -10,11 +10,12 @@ class Users_model extends CI_model
 
 	public function listar()
 	{
-                $this->db->select('*');
+                $this->db->select('users.*, termos.status');
                 $this->db->from('users');
-                $this->db->join('termos', 'users.id = termos.id_user', 'right outer');
+                $this->db->join('termos', 'users.id = termos.id_user', 'left outer');
                 $this->db->where('ativo', 'S');
-                
+                $this->db->order_by('users.id');                
+ 
 		return $this->db->get()->result_array();
 	}
 

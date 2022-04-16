@@ -23,7 +23,10 @@ class Usuarios extends CI_Controller
 		if ($this->session->logged_user['funcao'] == '2') {
 			redirect('index.php/dashboard/');
 		}
-		$data["users"] = $this->Users_model->index();
+                
+
+                $data["users"] = $this->Users_model->listar();
+                
 		$data["termos"] = $this->Termos_model->index2();
 		$data["title"] = 'Usuarios - Pesquisa-r';
 
