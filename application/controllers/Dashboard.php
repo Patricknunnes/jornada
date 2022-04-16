@@ -260,29 +260,17 @@ class Dashboard extends CI_Controller
 			}
 		</style>
 		';
-
-
-//		$this->load->library('email');
-//
-//		$this->email->from($_SESSION['logged_user']['email'], $_SESSION['logged_user']['name']);
-//		$this->email->to('saudemental@idor.org');
-//
-//		$this->email->subject('FeedBacks');
-//		$this->email->message($message);
-//
-//
-//
-//		if ($this->email->send()) {
-                    
-                                    
-                $headers[] = 'MIME-Version: 1.0';
-                $headers[] = 'Content-type: text/html; charset=utf-8';
-                // Additional headers
-                $headers[] = 'To: saudemental@idor.org';
-                $headers[] = 'From: '. $_SESSION['logged_user']['name'] . ' <' . $_SESSION['logged_user']['email'] . '>' ;
-
-                if( mail('Contato Saúde Mental Idor <saudemental@idor.org>', 'FeedBacks', $message, implode("\r\n", $headers)) ){  
-                    
+                
+                //email_padrao( $emailRemetente, $nomeRemetente, 
+                //              $emailDestinatario, $nomeDestinatario, 
+                //              $mensagem_html, $titulo)
+                if( email_padrao( 
+                                $_SESSION['logged_user']['email'],
+                                $_SESSION['logged_user']['name'], 
+                                EMAIL_CONTATO, 
+                                'Contato Saúde Mental Idor', 
+                                $message, 
+                                'FeedBacks') ){                    
 			redirect("/index.php/dashboard/feedback/$id_user");
 		} else {
 			redirect("/index.php/dashboard/feedback/$id_user");

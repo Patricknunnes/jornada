@@ -205,26 +205,16 @@ class Pesquisas extends CI_Controller
 		</style>
 		';
 
-
-//		$this->load->library('email');
-//
-//		$this->email->from('saudemental@idor.org', 'Contato Saúde Mental Idor');
-//		$this->email->to($_SESSION['logged_user']['email']);
-//
-//		$this->email->subject('Questinário completo com sucesso!');
-//		$this->email->message($message);
-//
-//
-//		@$this->email->send();
-                
-                $headers[] = 'MIME-Version: 1.0';
-                $headers[] = 'Content-type: text/html; charset=utf-8';
-                // Additional headers
-                $headers[] = 'To: ' . $_SESSION['logged_user']['email'];
-                $headers[] = 'From: Contato Saúde Mental Idor <saudemental@idor.org>';
-
-                mail( $_SESSION['logged_user']['email'], 'Questinário completo com sucesso!', $message, implode("\r\n", $headers));			
-
+                //email_padrao( $emailRemetente, $nomeRemetente, 
+                //              $emailDestinatario, $nomeDestinatario, 
+                //              $mensagem_html, $titulo)
+                email_padrao( 
+                            EMAIL_CONTATO, 
+                            'Contato Saúde Mental Idor', 
+                            $_SESSION['logged_user']['email'],
+                            $_SESSION['logged_user']['name'], 
+                            $message, 
+                            'Questinário completo com sucesso!') ;              
 	}
 
 	public function pdf($id_page, $id_user, $studies_id)
