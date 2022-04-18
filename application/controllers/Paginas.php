@@ -241,13 +241,24 @@ class Paginas extends CI_Controller
 //			$this->email->message($message);
                         
 
-                        $headers[] = 'MIME-Version: 1.0';
-                        $headers[] = 'Content-type: text/html; charset=utf-8';
-                        // Additional headers
-                        $headers[] = 'To: ' . $user['email'];
-                        $headers[] = 'From: Contato Saúde Mental Idor <saudemental@idor.org>';
-
-                        mail( $user['email'], 'Novos Questionários', $message, implode("\r\n", $headers));
+//                        $headers[] = 'MIME-Version: 1.0';
+//                        $headers[] = 'Content-type: text/html; charset=utf-8';
+//                        // Additional headers
+//                        $headers[] = 'To: ' . $user['email'];
+//                        $headers[] = 'From: Contato Saúde Mental Idor <saudemental@idor.org>';
+//
+//                        mail( $user['email'], 'Novos Questionários', $message, implode("\r\n", $headers));
+                        
+                //email_padrao( $emailRemetente, $nomeRemetente, 
+                //              $emailDestinatario, $nomeDestinatario, 
+                //              $mensagem_html, $titulo)
+                email_padrao( 
+                            EMAIL_CONTATO, 
+                            'Contato Saúde Mental Idor', 
+                            $user['email'],
+                            $user['nome'], 
+                            $message, 
+                            'Novos Questionários') ;                         
                 
 		}
 	}

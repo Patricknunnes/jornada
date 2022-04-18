@@ -8,16 +8,16 @@ if(! function_exists('email_padrao')){
         $CI =& get_instance();
         $CI->load->library('email');
 
-//        $config['protocol']    = 'smtp';
-//        $config['smtp_host']    = EMAIL_SMTP;
-//        $config['smtp_port']    = EMAIL_PORT;
-//        $config['smtp_timeout'] = '7';
-//        $config['smtp_user']    = EMAIL_USER;
-//        $config['smtp_pass']    = EMAIL_PWD;
+        $config['protocol']    = 'smtp';
+        $config['smtp_host']    = EMAIL_SMTP;
+        $config['smtp_port']    = EMAIL_PORT;
+        $config['smtp_timeout'] = '7';
+        $config['smtp_user']    = EMAIL_USER;
+        $config['smtp_pass']    = EMAIL_PWD;
         $config['charset']    = 'utf-8';
-//        $config['newline']    = "\r\n";
+        $config['newline']    = "\r\n";
         $config['mailtype'] = 'html'; // or html
-//        $config['validation'] = TRUE; // bool whether to validate email or not      
+        $config['validation'] = TRUE; // bool whether to validate email or not      
 //
         $CI->email->initialize($config);
 

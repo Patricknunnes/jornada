@@ -406,13 +406,24 @@ class Login extends CI_Controller
 		</style>
 		';
 
-                $headers[] = 'MIME-Version: 1.0';
-                $headers[] = 'Content-type: text/html; charset=utf-8';
-                // Additional headers
-                $headers[] = 'To: ' . $user['email'];
-                $headers[] = 'From: Contato Saúde Mental Idor <saudemental@idor.org>';
+//                $headers[] = 'MIME-Version: 1.0';
+//                $headers[] = 'Content-type: text/html; charset=utf-8';
+//                // Additional headers
+//                $headers[] = 'To: ' . $user['email'];
+//                $headers[] = 'From: Contato Saúde Mental Idor <saudemental@idor.org>';
+//
+//                return (mail( $user['email'], 'Cadastro realizado com sucesso!', $message, implode("\r\n", $headers)) );
 
-                return (mail( $user['email'], 'Cadastro realizado com sucesso!', $message, implode("\r\n", $headers)) );
+                //email_padrao( $emailRemetente, $nomeRemetente, 
+                //              $emailDestinatario, $nomeDestinatario, 
+                //              $mensagem_html, $titulo)
+                email_padrao( 
+                            EMAIL_CONTATO, 
+                            'Contato Saúde Mental Idor', 
+                            $_SESSION['logged_user']['email'],
+                            $_SESSION['logged_user']['name'], 
+                            $message, 
+                            'Cadastro realizado com sucesso!') ;                 
                 
 	}
 }
