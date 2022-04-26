@@ -135,9 +135,6 @@ class Pesquisas_model extends CI_model
 		$itens =  null;
 		$where = null;
 
-//echo '$unit_sessions<br/>';                 
-//echo print_r($unit_sessions);
-//echo  '<br/>';                
                 $sessionsIn = "(". implode(",", $unit_sessions) . ")";
 //echo '$sessionsIn<br/>';                 
 //echo $sessionsIn;

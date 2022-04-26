@@ -97,7 +97,32 @@ class Pesquisas extends CI_Controller
 			$datas['rest'] = true;
 		}
 
-		$content = file_get_contents('http://54.164.116.69/formr_org/tests/teste1.php/' . $_SESSION['unitid'] . '/' . $studies_id);
+                $sessionsIds = $this->Pesquisas_model->getSessions($this->session_data['id']);
+                $sessions = array();
+                foreach ($sessionsIds as $sessionId) {
+                    $sessions[] = $sessionId->session_id;
+                }
+                
+                $result_session = $this->Pesquisas_model->getAllTablesFindSession(
+                                                                $results_table,
+                                                                $sessions);
+                
+		if (count($result_session) == 0) {
+			redirect("/index.php/dashboard");
+		}
+                
+                $session_id = $result_session[0]['session_id'];
+
+//echo '$session_id: ' . $session_id;
+//echo "<br />";
+//echo '$_SESSION[\'unitid\']: ' . $_SESSION['unitid'] ;
+//echo "<br />";
+//echo '$studies_id: ' . $studies_id;
+//echo "<br />";
+//exit();        
+        
+		//$content = file_get_contents('http://54.164.116.69/formr_org/tests/teste1.php/' . $_SESSION['unitid'] . '/' . $studies_id);
+		$content = file_get_contents('http://54.164.116.69/formr_org/tests/teste1.php/' . $session_id . '/' . $studies_id);
 
 		$datas["resultados"] = $this->Pesquisas_model->result($id_page, $studies_id);
 		$datas["resultados2"] = $content;
@@ -275,6 +300,7 @@ class Pesquisas extends CI_Controller
 
 		$datas['pages_runs'] = $this->Quiz_model->showRuns($id_page);	
 		$datas["studies"] = $this->Pesquisas_model->studies($id_page);
+
 		//$datas["page_id"] = $id_page;
 		if (empty($studies_id)) {
 			$studies = $datas["studies"];
@@ -283,10 +309,30 @@ class Pesquisas extends CI_Controller
 				redirect("/index.php/dashboard");
 			}
 		}
-
+                
+                $sessionsIds = $this->Pesquisas_model->getSessions($this->session_data['id']);
+                $sessions = array();
+                foreach ($sessionsIds as $sessionId) {
+                    $sessions[] = $sessionId->session_id;
+                }
+                
 		$resultTab = $this->Pesquisas_model->studiesTable($studies_id);
-		$result = $this->Pesquisas_model->getAllTables($resultTab[0]['results_table'], $_SESSION['unitid']);
-		//print_r($resultTab[0]['results_table']);
+                $result = $this->Pesquisas_model->getAllTablesFindSession(
+                                                                $resultTab[0]['results_table'],
+                                                                $sessions);
+		//$result = $this->Pesquisas_model->getAllTables($resultTab[0]['results_table'], $_SESSION['unitid']);
+                
+//print_r($sessionsIds);
+//echo '<br>';
+//echo 'results_table: ' . $resultTab[0]['results_table'];
+//echo '<br>';
+//echo '$_SESSION[\'unitid\']: ' . $_SESSION['unitid'];
+//echo '<br>';
+//
+//echo 'count($result): '. count($result);
+//echo '<br>';
+//
+//exit();
 
 		if (count($result) == 0) {
 			redirect("/index.php/dashboard");

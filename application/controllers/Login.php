@@ -146,6 +146,7 @@ class Login extends CI_Controller
 
 	public function store()
 	{
+                unset($_SESSION['unitid']);
 		$this->load->model("login_model");
 		$email = $_POST["email"];
 
@@ -173,7 +174,8 @@ class Login extends CI_Controller
          */
 	public function store2()
 	{
-		$this->load->model("login_model");
+		unset($_SESSION['unitid']);
+                $this->load->model("login_model");
 		$email = $_POST["email"];
 
 		$password = md5($_POST["token"]);
@@ -224,7 +226,8 @@ class Login extends CI_Controller
 
 	public function store3()
 	{
-		$this->load->model("Users_model");
+		unset($_SESSION['unitid']);
+                $this->load->model("Users_model");
 		
 		$password = $_POST["id"];
 		$user = $this->Users_model->getFacebook($password);
