@@ -50,9 +50,11 @@ class Pesquisas extends CI_Controller
 		$datas['error'] = $this->session->flashdata('error');
 
 		foreach ($survey as $questao) {
-			$resultList = $this->Pesquisas_model->choiceList($questao['choice_list']);
+                    
+			$resultList = $this->Pesquisas_model->choiceList($questao['choice_list'], $studies_id);
 			$questao['list'] = $resultList;
 			$questoes[] =  $questao;
+                        
 		}
 		$datas['questoes'] = $questoes;
 
@@ -341,7 +343,7 @@ class Pesquisas extends CI_Controller
 		$result_perguntas = $this->Pesquisas_model->index($id_page, $studies_id);
 
 		foreach ($result_perguntas as $result_pergunta) {
-			$resultList = $this->Pesquisas_model->choiceList($result_pergunta['choice_list']);
+			$resultList = $this->Pesquisas_model->choiceList($result_pergunta['choice_list'], $studies_id );
 			//print_r($resultList);
 			$result_pergunta['list'] = $resultList;
 			$perguntas[] =  $result_pergunta;

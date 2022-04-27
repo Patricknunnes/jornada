@@ -166,9 +166,11 @@ class Pesquisas_model extends CI_model
 		return $itens;
 	}
 
-	public function choiceList($list){
+	public function choiceList($list, $studies_id){
 		$sql = "SELECT * FROM survey_item_choices sic 
-				WHERE sic.list_name  ='{$list}'";
+				WHERE sic.list_name  ='{$list}'
+                                AND study_id = '{$studies_id}' ";
+
 		$result = $this->banco->query($sql);
 		$itens = $result->fetch_all(MYSQLI_ASSOC);
 		return $itens;
