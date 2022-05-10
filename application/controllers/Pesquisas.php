@@ -346,7 +346,7 @@ class Pesquisas extends CI_Controller
 			$resultList = $this->Pesquisas_model->choiceList($result_pergunta['choice_list'], $studies_id );
 			//print_r($resultList);
 			$result_pergunta['list'] = $resultList;
-			$perguntas[] =  $result_pergunta;
+			$perguntas[] =  $result_pergunta;                        
 		}
 
 		$datas['perguntas'] = $perguntas;

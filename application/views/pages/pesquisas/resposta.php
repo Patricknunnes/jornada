@@ -36,7 +36,7 @@
 
 						<?php if ($pergunta['name'] != 'fbnumber' && $pergunta['name'] != 'note_feedback' && $pergunta['type'] != "submit") { ?>
 							<div class="resposta-container-<?php echo $i; ?>" >
-								<label class="pb-3 pt-4" for="live" style="font-weight: 500;"><?php echo utf8_encode($pergunta['label']) ?></label>
+								<label class="pb-3 pt-4" for="live" style="font-weight: 500;"><?php echo /*utf8_encode(*/$pergunta['label']/*)*/ ?></label>
 								<?php if ($pergunta['type'] != 'note' && $pergunta['type'] != 'mc' && $pergunta['type'] != 'check' && $pergunta['type'] != 'check_button') { ?>
 									<input type="text" name="" class="form-control trocar_cor" placeholder="" value="<?php echo $resposta[$pergunta['name']]; ?> ">
 								<?php } ?>
@@ -45,11 +45,11 @@
 									<?php foreach ($pergunta['list'] as $list) { ?>
 										<?php if ($resposta[$pergunta['name']] != $list['name']) { ?>
 											<div class="form-check form-check-inline d-flex align-items-center">
-												<input class="form-check-input" id="inlineRadioOptions" type="radio" name="<?php echo $list['list_name']  ?>" value="<?php echo $list['name']  ?>">&nbsp&nbsp&nbsp<?php echo utf8_encode(str_replace(array( chr(147), chr(148)), '"', $list['label']));  ?>
+												<input class="form-check-input" id="inlineRadioOptions" type="radio" name="<?php echo $list['list_name']  ?>" value="<?php echo $list['name']  ?>">&nbsp&nbsp&nbsp<?php echo /*utf8_encode(*/str_replace(array( chr(147), chr(148)), '"', $list['label'])/*)*/;  ?>
 											</div>
 										<?php } else { ?>
 											<div class="form-check form-check-inline d-flex align-items-center">
-												<input class="form-check-input" id="inlineRadioOptions" type="radio" name="<?php echo $list['list_name']  ?>" value="<?php echo $list['name']  ?>" checked>&nbsp&nbsp&nbsp<?php echo utf8_encode(str_replace(array( chr(147), chr(148)), '"', $list['label'])); ?>
+												<input class="form-check-input" id="inlineRadioOptions" type="radio" name="<?php echo $list['list_name']  ?>" value="<?php echo $list['name']  ?>" checked>&nbsp&nbsp&nbsp<?php echo /*utf8_encode(*/str_replace(array( chr(147), chr(148)), '"', $list['label'])/*)*/; ?>
 											</div>
 										<?php } ?>
 									<?php } ?>
