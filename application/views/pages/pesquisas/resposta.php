@@ -30,8 +30,8 @@
 						$i++; ?>
 
 						<?php
-						$retirarTexto = array("#", 'tel', 'multiple', '-', '_', 'button 5', 'button', 'note', 'selectmultiple', 'multiplebutton', 'select', '![puppy]', '![kitten]', ')', '(', 'timezone', 'oraddone', 'oradd', 'color', 'mc', 'check', 'month', '`', 'text', 'area', 'rating', 'https://upload.wikimedia.org/wikipedia/commons/thumb/', '5/50/Pugglepuppy%28cropped%29.jpg/395pxPugglepuppy%28cropped%29.jpg', 'f/f3/Youngkitten.JPG/320pxYoungkitten.JPG');
-						
+						//$retirarTexto = array("#", 'tel', 'multiple', '-', '_', 'button 5', 'button', 'note', 'selectmultiple', 'multiplebutton', 'select', '![puppy]', '![kitten]', ')', '(', 'timezone', 'oraddone', 'oradd', 'color', 'mc', 'check', 'month', '`', 'text', 'area', 'rating', 'https://upload.wikimedia.org/wikipedia/commons/thumb/', '5/50/Pugglepuppy%28cropped%29.jpg/395pxPugglepuppy%28cropped%29.jpg', 'f/f3/Youngkitten.JPG/320pxYoungkitten.JPG');
+						$retirarTexto = array( 'multiple', 'button 5', 'button', 'selectmultiple', 'multiplebutton', 'select', '![puppy]', '![kitten]', ')', '(', 'timezone', 'oraddone', 'oradd', 'color', 'mc', 'check', 'month', 'area', 'rating', 'https://upload.wikimedia.org/wikipedia/commons/thumb/', '5/50/Pugglepuppy%28cropped%29.jpg/395pxPugglepuppy%28cropped%29.jpg', 'f/f3/Youngkitten.JPG/320pxYoungkitten.JPG');
 						?>
 
 						<?php if ($pergunta['name'] != 'fbnumber' && $pergunta['name'] != 'note_feedback' && $pergunta['type'] != "submit") { ?>
@@ -45,11 +45,11 @@
 									<?php foreach ($pergunta['list'] as $list) { ?>
 										<?php if ($resposta[$pergunta['name']] != $list['name']) { ?>
 											<div class="form-check form-check-inline d-flex align-items-center">
-												<input class="form-check-input" id="inlineRadioOptions" type="radio" name="<?php echo $list['list_name']  ?>" value="<?php echo $list['name']  ?>">&nbsp&nbsp&nbsp<?php echo utf8_encode($list['label']);  ?>
+												<input class="form-check-input" id="inlineRadioOptions" type="radio" name="<?php echo $list['list_name']  ?>" value="<?php echo $list['name']  ?>">&nbsp&nbsp&nbsp<?php echo utf8_encode(str_replace(array( chr(147), chr(148)), '"', $list['label']));  ?>
 											</div>
 										<?php } else { ?>
 											<div class="form-check form-check-inline d-flex align-items-center">
-												<input class="form-check-input" id="inlineRadioOptions" type="radio" name="<?php echo $list['list_name']  ?>" value="<?php echo $list['name']  ?>" checked>&nbsp&nbsp&nbsp<?php echo utf8_encode($list['label']); ?>
+												<input class="form-check-input" id="inlineRadioOptions" type="radio" name="<?php echo $list['list_name']  ?>" value="<?php echo $list['name']  ?>" checked>&nbsp&nbsp&nbsp<?php echo utf8_encode(str_replace(array( chr(147), chr(148)), '"', $list['label'])); ?>
 											</div>
 										<?php } ?>
 									<?php } ?>

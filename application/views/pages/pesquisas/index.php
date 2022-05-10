@@ -54,7 +54,7 @@ $email = $session['email'];
 
 					<?php
 					//$retirarTexto = array("#", 'tel', 'multiple', '-', '_', 'button 5', 'button', 'note', 'selectmultiple', 'multiplebutton', 'select', '![puppy]', '![kitten]', ')', '(', 'timezone', 'oraddone', 'oradd', 'color', 'mc', 'check', 'month', '`', 'text', 'area', 'rating', 'https://upload.wikimedia.org/wikipedia/commons/thumb/', '5/50/Pugglepuppy%28cropped%29.jpg/395pxPugglepuppy%28cropped%29.jpg', 'f/f3/Youngkitten.JPG/320pxYoungkitten.JPG');
-					$retirarTexto = array( 'multiple', 'button 5', 'button', 'selectmultiple', 'multiplebutton', 'select', '![puppy]', '![kitten]', ')', '(', 'timezone', 'oraddone', 'oradd', 'color', 'mc', 'check', 'month', 'area', 'rating', 'https://upload.wikimedia.org/wikipedia/commons/thumb/', '5/50/Pugglepuppy%28cropped%29.jpg/395pxPugglepuppy%28cropped%29.jpg', 'f/f3/Youngkitten.JPG/320pxYoungkitten.JPG');
+					$retirarTexto = array( 'multiple', 'button 5', '<button', 'selectmultiple', 'multiplebutton', '<select', '![puppy]', '![kitten]', 'oraddone', 'oradd', 'https://upload.wikimedia.org/wikipedia/commons/thumb/', '5/50/Pugglepuppy%28cropped%29.jpg/395pxPugglepuppy%28cropped%29.jpg', 'f/f3/Youngkitten.JPG/320pxYoungkitten.JPG');
 
 					?>
 
