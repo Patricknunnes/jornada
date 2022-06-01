@@ -12,6 +12,7 @@
 	<script src="https://kit.fontawesome.com/2a33fe9a00.js" crossorigin="anonymous"></script>
 	<!-- <script src="http://code.jquery.com/jquery-3.5.1.js"></script> -->
 	<title><?php echo $title ?></title>
+        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/site/css/resposta.css" />
 </head>
 
 <body style="background-color: #d1dff3">	

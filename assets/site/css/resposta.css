@@ -1,0 +1,109 @@
+.btn-resultado{
+    height: 45px;
+    padding: 10px 20px;
+    min-height: 40px;
+    background: #2C234D;
+    border-radius: 30px;
+    color: #fff;
+}
+
+@media screen and (max-width: 299px) {
+
+    .resposta_resp form img:not(.w768):not( .w480) {
+        width: 90%;
+    }
+
+    .w480 {
+        width: 90%;
+    }
+
+    .w576 {
+        width: 90%;
+    }
+
+    .w768 {
+        width: 90%;
+    }
+    
+    .btn-resultado{
+        max-width: 90%;
+        width: auto;
+    }
+
+}
+
+@media screen and (min-width: 300px) {
+
+    .resposta_resp form img:not(.w768):not( .w480) {
+        width: 265px;
+    }
+
+    .w480{
+        width: 265px;
+    }
+    
+    .w576 {
+        width: 265px;
+    }
+
+    .w768 {
+        width: 280px;
+    }    
+
+    .btn-resultado{
+        width: 270px; 
+    }
+
+}
+
+
+@media screen and (min-width: 400px) {
+
+    .resposta_resp form img:not(.w768):not( .w480) {
+        width: 360px;
+    }
+
+    .w480 {
+        width: 360px;
+    }
+
+    
+    .w576 {
+        width: 360px;
+    }
+
+    .w768 {
+        width: 370px;
+    }
+}
+
+
+
+
+@media screen and (min-width: 768px){
+
+    .resposta_resp form img:not(.w768):not( .w480) {
+        width: 576px;
+    }
+    
+    .w480 {
+        width: 480px;
+    }
+
+    .w576 {
+        width: 576px;
+    }
+    
+    .w768 {
+        width: 680px;
+    }
+
+}
+
+@media screen and (min-width: 900px) {
+ 
+    .w768 {
+        width: 768px;
+    }
+    
+}
