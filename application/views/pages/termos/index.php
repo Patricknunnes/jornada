@@ -15,8 +15,8 @@
 			<div class="login d-flex align-items-center ">
 				<div class="container">
 					<div class="row">
-						<p id="poppins_title" style="margin-top: 20px; color: #424f8b!important; text-align: center; font-weight: bold!important; font-size: 18px;">Informamos que o TERMO DE CONSENTIMENTO LIVRE E ESCLARECIDO abaixo será apresentado ao participante antes de ser direcionado aos questionários online do estudo.</p>
-
+                                            <p id="poppins_title" style="margin-top: 20px; color: #424f8b!important; text-align: center; font-weight: bold!important; font-size: 18px;">Informamos que o TERMO DE CONSENTIMENTO LIVRE E ESCLARECIDO abaixo será apresentado ao participante antes de ser direcionado aos questionários online do estudo.</p>
+                                            <div class="rolagem" >
 						<p class="texto-p" id="poppins_text">
 							Você está convidado (a) a participar de uma pesquisa realizada pelo Instituto D’Or de Pesquisa e Ensino (IDOR). Primeiro, gostaríamos de esclarecer que esta participação é inteiramente voluntária, isto é, você pode optar por não participar ou se retirar a qualquer momento do estudo.
 						</p>
@@ -79,49 +79,50 @@
 						<p class="texto-p" id="poppins_text">
 							As informações coletadas durante a sua participação serão analisadas em conjunto com as informações dos outros voluntários. O seu consentimento permite o uso dos dados coletados apenas para pesquisa científica e educação. Todos os dados relativos à sua participação serão mantidos em local reservado e seguro, todos os dados coletados serão confidenciais e mantidos em sigilo. Os dados poderão ser discutidos com pesquisadores de outras instituições e publicados em revistas científicas, ou fazerem parte de material educacional. Nenhuma informação privada, ou que possa levar à identificação dos participantes, será fornecida a terceiros.<br>
 						</p>
-						<p class="texto-titulo" id="poppins_title">
-							Consentimento para participar deste estudo:
-						</p>
-						<p class="texto-p" id="poppins_text">
-							Se você possui mais de 18 anos e acredita ter sido suficientemente informado (a) a respeito do estudo acima citado e concorda voluntariamente em participar do mesmo, por favor marque a opção mais adequada abaixo:<br>
-						</p>
+                                            </div>
+                                            <p class="texto-titulo" id="poppins_title">
+                                                    Consentimento para participar deste estudo:
+                                            </p>
+                                            <p class="texto-p" id="poppins_text">
+                                                    Se você possui mais de 18 anos e acredita ter sido suficientemente informado (a) a respeito do estudo acima citado e concorda voluntariamente em participar do mesmo, por favor marque a opção mais adequada abaixo:<br>
+                                            </p>
 
-						<form action="<?= base_url('') ?>index.php/termos/store" method="POST">
-							<div class="form-check" id="poppins_text">
-								<input class="form-check-input" value="sc" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
-								<label class="form-check-label" for="flexRadioDefault">
-									<p style="font-size: 19px;">
-										<strong>Sim</strong>, aceito participar e ser contatado (a) para estudos futuros semelhantes.
-									</p>
-								</label>
-							</div>
-							<div class="form-check" id="poppins_text">
-								<input class="form-check-input" value="sn" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-								<label class="form-check-label" for="flexRadioDefault">
-									<p style="font-size: 19px;">
-										<strong>Sim</strong>, aceito participar e não quero ser contatado no futuro.
-									</p>
-								</label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" value="n" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
-								<label class="form-check-label" for="flexRadioDefault">
-									<p id="poppins_text" style="font-size: 19px;">
-										Não aceito participar.
-									</p>
-								</label>
-							</div>
+                                            <form action="<?= base_url('') ?>index.php/termos/store" method="POST">
+                                                    <div class="form-check" id="poppins_text">
+                                                            <input class="form-check-input" value="sc" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                                                            <label class="form-check-label" for="flexRadioDefault">
+                                                                    <p style="font-size: 19px;">
+                                                                            <strong>Sim</strong>, aceito participar e ser contatado (a) para estudos futuros semelhantes.
+                                                                    </p>
+                                                            </label>
+                                                    </div>
+                                                    <div class="form-check" id="poppins_text">
+                                                            <input class="form-check-input" value="sn" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                                            <label class="form-check-label" for="flexRadioDefault">
+                                                                    <p style="font-size: 19px;">
+                                                                            <strong>Sim</strong>, aceito participar e não quero ser contatado no futuro.
+                                                                    </p>
+                                                            </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                            <input class="form-check-input" value="n" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
+                                                            <label class="form-check-label" for="flexRadioDefault">
+                                                                    <p id="poppins_text" style="font-size: 19px;">
+                                                                            Não aceito participar.
+                                                                    </p>
+                                                            </label>
+                                                    </div>
 
-							<button type="submit" class="btn mb-3" id="exo_subtitle" style="padding: 10px 43px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;">
-								Continuar
-							</button>
-							<br>
-							<br>
-							<br>
-							<div class="container-fluid">
-								<p style="text-align: center; font-family: Poppins, sans-serif; font-size: 16px; font-weight: 400; color: #2F4F4F; margin-top: 20px;">Curadoria de Conteúdo: IDOR Saúde Mental - 2021</p>
-							</div>
-						</form>
+                                                    <button type="submit" class="btn mb-3" id="exo_subtitle" style="padding: 10px 43px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;">
+                                                            Continuar
+                                                    </button>
+                                                    <br>
+                                                    <br>
+                                                    <br>
+                                                    <div class="container-fluid">
+                                                            <p style="text-align: center; font-family: Poppins, sans-serif; font-size: 16px; font-weight: 400; color: #2F4F4F; margin-top: 20px;">Curadoria de Conteúdo: IDOR Saúde Mental - 2021</p>
+                                                    </div>
+                                            </form>
 					</div>
 				</div>
 			</div>

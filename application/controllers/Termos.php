@@ -13,6 +13,7 @@ class Termos extends CI_Controller
 		$this->session_data = $this->session->userdata('logged_user');
 
 		$this->load->model("Termos_model");
+                $this->load->model("Users_model");
 	}
 
 	public function index()
@@ -48,7 +49,20 @@ class Termos extends CI_Controller
 			);
 
 			$this->Termos_model->store($termo);
-			redirect("/index.php/dashboard/escolha");
+                        
+                        
+			for ($i = 1; $i <= 5; $i++) {
+				$regioes = [
+					'use_id' => $id,
+					'orr_ordem' => $i,
+					'tipo' => $i,
+				];
+
+				$this->Users_model->regioes($regioes);
+			}                        
+                        
+			//redirect("/index.php/dashboard/escolha");
+                        redirect("index.php/dashboard");
 		} else {
 			redirect("/index.php/login/");
 		}
