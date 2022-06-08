@@ -22,9 +22,9 @@ class Pages_model extends CI_model
 	public function gets($id)
 	{
 		$sql = "SELECT * FROM pages where id = {$id}";
-        $query = $this->db->query($sql);
+                $query = $this->db->query($sql);
 		$result = $query->result();
-        return $result; 
+                return $result; 
 	}
 
 	public function getsPage($id)

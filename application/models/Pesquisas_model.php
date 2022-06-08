@@ -11,6 +11,9 @@ class Pesquisas_model extends CI_model
                 $mysqliConn = new mysqli("formr.ceopv2fs3ucf.us-east-1.rds.amazonaws.com", "admin", "FormR2021", "formr");
                 $mysqliConn->set_charset("utf8");
 	 	@$this->banco = $mysqliConn;
+                
+                //@$this->banco = $this->load->database('formR', TRUE);
+                        
                 //new mysqli("formr.ceopv2fs3ucf.us-east-1.rds.amazonaws.com", "admin", "FormR2021", "formr");
 		// $this->banco = new mysqli("157.245.219.190", "formr", "dev123", "formr");
                 
