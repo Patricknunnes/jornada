@@ -40,7 +40,7 @@ class Termos extends CI_Controller
 		print_r($this->session_data);
 		$id = $this->session_data['id'];
 
-		if ($_POST["flexRadioDefault"] != 'n') {
+                if ($_POST["flexRadioDefault"] != 'n') {
 			$termo = array(
 				"data_hora" => date('Y-m-d H:i:s'),
 				"ip" => $_SERVER["REMOTE_ADDR"],
@@ -50,11 +50,11 @@ class Termos extends CI_Controller
 
 			$this->Termos_model->store($termo);
                         
-                        
+                        $ordem = array( 2, 4, 1, 3, 5);
 			for ($i = 1; $i <= 5; $i++) {
 				$regioes = [
 					'use_id' => $id,
-					'orr_ordem' => $i,
+					'orr_ordem' => $ordem[$i-1],
 					'tipo' => $i,
 				];
 
