@@ -8,8 +8,12 @@ class Pesquisas_model extends CI_model
 		parent::__construct();
 		permission();
 
-                $mysqliConn = new mysqli("formr.ceopv2fs3ucf.us-east-1.rds.amazonaws.com", "admin", "FormR2021", "formr");
-                $mysqliConn->set_charset("utf8");
+                $this->banco = $this->load->database('formR', TRUE);
+                
+                //$mysqliConn = new mysqli("formr.ceopv2fs3ucf.us-east-1.rds.amazonaws.com", "admin", "FormR2021", "formr");
+                $mysqliConn = new mysqli( $this->banco->hostname, $this->banco->username, $this->banco->password, $this->banco->database);
+                //$mysqliConn->set_charset("utf8");
+                $mysqliConn->set_charset( $this->banco->char_set );
 	 	@$this->banco = $mysqliConn;
                 
                 //@$this->banco = $this->load->database('formR', TRUE);

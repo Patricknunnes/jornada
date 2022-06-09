@@ -120,11 +120,11 @@ if (($base_url == 'https://autajornada.idor.org') || ($base_url == 'https://dev.
             'save_queries' => TRUE
     );
 
-} else {
+} else if ($base_url == 'https://jornada.idor.org') {
 
     $db['default'] = array(
             'dsn'	=> '',
-            'hostname' => 'formr.ceopv2fs3ucf.us-east-1.rds.amazonaws.com',
+            'hostname' => 'formr-prod.ceopv2fs3ucf.us-east-1.rds.amazonaws.com',
             'username' => 'admin',
             'password' => '', //'FormR2021',
             'database' => 'BDFormR',
@@ -146,7 +146,7 @@ if (($base_url == 'https://autajornada.idor.org') || ($base_url == 'https://dev.
 
     $db['formR'] = array(
             'dsn'	=> '',
-            'hostname' => 'formr.ceopv2fs3ucf.us-east-1.rds.amazonaws.com',
+            'hostname' => 'formr-prod.ceopv2fs3ucf.us-east-1.rds.amazonaws.com',
             'username' => 'admin',
             'password' => 'FormR2021',
             'database' => 'formr',
