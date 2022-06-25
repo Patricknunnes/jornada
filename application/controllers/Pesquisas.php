@@ -124,7 +124,8 @@ class Pesquisas extends CI_Controller
 //exit();        
         
 		//$content = file_get_contents('http://54.164.116.69/formr_org/tests/teste1.php/' . $_SESSION['unitid'] . '/' . $studies_id);
-		$content = file_get_contents('http://54.164.116.69/formr_org/tests/teste1.php/' . $session_id . '/' . $studies_id);
+		//$content = file_get_contents('http://54.164.116.69/formr_org/tests/teste1.php/' . $session_id . '/' . $studies_id);
+                $content = file_get_contents( CAMINHO_FORMR . $session_id . '/' . $studies_id);
 
 		$datas["resultados"] = $this->Pesquisas_model->result($id_page, $studies_id);
 		$datas["resultados2"] = $content;

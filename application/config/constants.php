@@ -100,6 +100,15 @@ defined('EMAIL_PWD')         OR define('EMAIL_PWD', 'qMC^4I8TkX!o');
 defined('EMAIL_PORT')        OR define('EMAIL_PORT', '465'); 
 defined('EMAIL_CONTATO')     OR define('EMAIL_CONTATO', 'saudemental@idor.org'); 
 
+$base_url = "https://" . $_SERVER['HTTP_HOST'];
+if (($base_url == 'https://autajornada.idor.org') || ($base_url == 'https://dev.jornada.idor.org')){
+    defined('CAMINHO_FORMR') OR define('CAMINHO_FORMR', 'http://54.164.116.69/formr_org/tests/teste1.php/');
+} else if ($base_url == 'https://jornada.idor.org') {
+    defined('CAMINHO_FORMR') OR define('CAMINHO_FORMR', 'http://3.208.225.88/formr_org/tests/teste1.php/');
+}
+
+
+
 //defined('EMAIL_SMTP')        OR define('EMAIL_SMTP', 'ssl://smtp.googlemail.com'); 
 //defined('EMAIL_USER')        OR define('EMAIL_USER', 'agxidor5@gmail.com'); 
 //defined('EMAIL_PWD')         OR define('EMAIL_PWD', 'senhaIDOR'); 

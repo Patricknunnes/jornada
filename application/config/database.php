@@ -126,7 +126,7 @@ if (($base_url == 'https://autajornada.idor.org') || ($base_url == 'https://dev.
             'dsn'	=> '',
             'hostname' => 'formr-prod.ceopv2fs3ucf.us-east-1.rds.amazonaws.com',
             'username' => 'admin',
-            'password' => '', //'FormR2021',
+            'password' => 'FormR2021',
             'database' => 'BDFormR',
             'dbdriver' => 'mysqli',
             'dbprefix' => '',
