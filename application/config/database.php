@@ -167,5 +167,55 @@ if (($base_url == 'https://autajornada.idor.org') || ($base_url == 'https://dev.
     );
     
 
+}  else if ($base_url == 'https://localhost:81') {
+
+    if (! defined('ENVIRONMENT')){
+        define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
+    }
+    $db['default'] = array(
+            'dsn'	=> '',
+            'hostname' => 'localhost',
+            'username' => 'admin',
+            'password' => 'FormR2021',
+            'database' => 'BDFormR',
+            'dbdriver' => 'mysqli',
+            'dbprefix' => '',
+            'pconnect' => FALSE,
+            'db_debug' => (ENVIRONMENT !== 'production'),
+            'cache_on' => FALSE,
+            'cachedir' => '',
+            'char_set' => 'utf8',
+            'dbcollat' => 'utf8_general_ci',
+            'swap_pre' => '',
+            'encrypt' => FALSE,
+            'compress' => FALSE,
+            'stricton' => FALSE,
+            'failover' => array(),
+            'save_queries' => TRUE
+    );
+
+    $db['formR'] = array(
+            'dsn'	=> '',
+            'hostname' => 'localhost',
+            'username' => 'admin',
+            'password' => 'FormR2021',
+            'database' => 'formr',
+            'dbdriver' => 'mysqli',
+            'dbprefix' => '',
+            'pconnect' => FALSE,
+            'db_debug' => (ENVIRONMENT !== 'production'),
+            'cache_on' => FALSE,
+            'cachedir' => '',
+            'char_set' => 'utf8',
+            'dbcollat' => 'utf8_general_ci',
+            'swap_pre' => '',
+            'encrypt' => FALSE,
+            'compress' => FALSE,
+            'stricton' => FALSE,
+            'failover' => array(),
+            'save_queries' => TRUE
+    );
+
 }   
+  
 
