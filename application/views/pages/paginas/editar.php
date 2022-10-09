@@ -21,7 +21,7 @@
 					<label for="dash_descricao">Descrição Dashboard</label>
 					<textarea class="form-control" cols="10" id="dash_descricao" name="dash_descricao"><?php echo $pages['dash_descricao'] ?></textarea>
 				</div>
-				<!-- <div class="form-group mt-5">
+				<?php /*<!-- <div class="form-group mt-5">
 					<label for="questionario">Tipos</label>
 					<select name="tipo" id="tipo" class="form-select">
 						<option></option>
@@ -30,7 +30,7 @@
 							<?php } ?>
 					</select>
 					
-				</div> -->
+				</div> -->*/ ?>
 				<div class="form-group mt-5">
 					<label for="link_formr">Pesquisa FormR</label>
 					<select name="link_formr" id="link_formr" class="form-select">
@@ -64,7 +64,10 @@
 
 								<th class="col-4" scope="row"><?php echo $questionario->id; ?></th>
 								<td class="col-4"><?php echo $questionario->run_titulo; ?></td>
-								<td class="col-4"><a onclick="javascript:deletarRegiaoPage(<?= $questionario->id; ?>, <?= $pages['id']; ?>)" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a></td>
+								<td class="col-4">
+                                                                    <a href="<?= base_url() ?>index.php/paginas/editarPesquisa/<?= $pages['id']; ?>/<?= $questionario->id; ?>" class="btn btn-warning" title="Configurar"><i class="fas fa-gear"></i></a>
+                                                                    <a onclick="javascript:deletarRegiaoPage(<?= $questionario->id; ?>, <?= $pages['id']; ?>)" class="btn btn-danger"  title="Excluir"><i class="fas fa-trash-alt"></i></a>
+                                                                </td>
 							</tr>
 
 							<?php } ?>

@@ -28,8 +28,8 @@
 					<!-- <td><?php echo $page['cor_desc'] ?></td> -->
 					<!-- <td><?php echo $page['questionario'] ?></td> -->
 					<td>
-						<a href="<?= base_url() ?>index.php/paginas/editar/<?= $page["id"] ?>" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
-						<a href="<?= base_url() ?>index.php/paginas/destroy/<?= $page["id"] ?>" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal-<?php echo $i; ?>"><i class="fas fa-trash-alt"></i></a>
+						<a href="<?= base_url() ?>index.php/paginas/editar/<?= $page["id"] ?>" class="btn btn-warning" title="Editar"><i class="fas fa-pencil-alt"></i></a>
+						<a href="<?= base_url() ?>index.php/paginas/destroy/<?= $page["id"] ?>" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal-<?php echo $i; ?>" title="Excluir"><i class="fas fa-trash-alt"></i></a>
 					</td>
 				</tr>
 

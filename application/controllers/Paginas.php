@@ -1,189 +1,138 @@
 <?php
-class Paginas extends CI_Controller
-{
 
-	public $tipo = [
-		4 => 'Valores',
-		1 => 'Personalidade',
-		2 => 'Relacionamentos',
-		3 => 'Bem estar',
-		5 => 'Crenças',
-	];
-	public function __construct()
-	{
-		parent::__construct();
-		permission();
+class Paginas extends CI_Controller {
 
-		$this->load->model("Pages_model");
-		$this->load->model("Quiz_model");
-		$this->load->model("Users_model");
-		$this->load->library('session');
-		$this->session_data = $this->session->flashdata('success');
+    public $tipo = [
+        4 => 'Valores',
+        1 => 'Personalidade',
+        2 => 'Relacionamentos',
+        3 => 'Bem estar',
+        5 => 'Crenças',
+    ];
 
-		if ($this->session->logged_user['funcao'] == '2') {
-			redirect('index.php/dashboard/');
-		}
-	}
+    public function __construct() {
+        parent::__construct();
+        permission();
 
-	public function index()
-	{
+        $this->load->model("Pages_model");
+        $this->load->model("Quiz_model");
+        $this->load->model("Users_model");
+        $this->load->library('session');
+        $this->session_data = $this->session->flashdata('success');
 
-		$data["pages"] = $this->Pages_model->index();
+        if ($this->session->logged_user['funcao'] == '2') {
+            redirect('index.php/dashboard/');
+        }
+    }
 
-		$data["title"] = 'Paginas - Pesquisa-r';
+    public function index() {
 
-		$this->load->view('templates/header', $data);
-		$this->load->view('templates/nav-top', $data);
-		$this->load->view('pages/paginas/listagem', $data);
-		$this->load->view('templates/footer', $data);
-		$this->load->view('templates/js', $data);
-	}
+        $data["pages"] = $this->Pages_model->index();
 
-	public function cadastro()
-	{
-		$data["title"] = 'Cadastro - Pesquisa-r';
-		$data["quiz"] = $this->Quiz_model->index();
+        $data["title"] = 'Paginas - Pesquisa-r';
 
-		$response = file_get_contents(''. $this->config->base_url() .'api/runs.php');
-		$jsons = json_decode($response);
-		foreach ($jsons as $json) {
-			$pages[] = [
-				'id' => $json->id,
-				'name' => $json->name,
-			];
-		}
-		$data['pages_formr'] = $pages;
-		$data['tipo'] = $this->tipo;
-		$this->load->view('templates/header', $data);
-		$this->load->view('templates/nav-top');
-		$this->load->view('pages/paginas/cadastro');
-		$this->load->view('templates/footer');
-		$this->load->view('templates/js');
-	}
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/nav-top', $data);
+        $this->load->view('pages/paginas/listagem', $data);
+        $this->load->view('templates/footer', $data);
+        $this->load->view('templates/js', $data);
+    }
 
-	public function store()
-	{
-		$tmp_name = $_FILES["img-upload"]["tmp_name"];
+    public function cadastro() {
+        $data["title"] = 'Cadastro - Pesquisa-r';
+        $data["quiz"] = $this->Quiz_model->index();
 
-		$name = basename($_FILES["img-upload"]["name"]);
-		move_uploaded_file($tmp_name, "uploads/$name");
+        $response = file_get_contents('' . $this->config->base_url() . 'api/runs.php');
+        $jsons = json_decode($response);
+        foreach ($jsons as $json) {
+            $pages[] = [
+                'id' => $json->id,
+                'name' => $json->name,
+            ];
+        }
+        $data['pages_formr'] = $pages;
+        $data['tipo'] = $this->tipo;
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/nav-top');
+        $this->load->view('pages/paginas/cadastro');
+        $this->load->view('templates/footer');
+        $this->load->view('templates/js');
+    }
 
-		$pages = array(
-			"titulo" => $_POST["titulo"],
-			"descricao" => $_POST["descricao"],
-			"cor-texto" => $_POST["cor-texto"],
-			"cor_desc" => $_POST["cor_desc"],
-			"questionario" => $_POST["questionario"],
-			"img_pages" => $name,
-			"link_formr" => $_POST["link_formr"],
-			"tipo" => $_POST["tipo"],
-		);
+    public function destroy($id) {
+        $this->load->model("Pages_model");
+        $this->Pages_model->destroy($id);
+        redirect("/index.php/paginas/");
+    }
 
-		$this->Pages_model->store($pages);
+    /* Remove a associação de um run(Pesquisa) com um pages(Região) */
 
-		redirect("/index.php/paginas/");
-	}
+    public function destroyRegiao() {
 
-	public function editar($id)
-	{
+        $id = $_POST["id"];
+        $pag_id = $_POST["pag_id"];
 
-		$filter['pag_id'] = $id;
-		$data["questionarios"] = $this->Pages_model->showQuestions($filter);
+        $this->load->model("Pages_model");
+        $this->Pages_model->destroyRegiao($id, $pag_id);
+    }
 
-		$data["pages"] = $this->Pages_model->show($id);
-		$data["quiz"] = $this->Quiz_model->showsRuns();
-		$response = file_get_contents(''. $this->config->base_url() .'api/runs.php');
-		$jsons = json_decode($response);
-		foreach ($jsons as $json) {
-			$pages[] = [
-				'id' => $json->id,
-				'name' => $json->name,
-			];
-		}
-		//print_r($pages);
+    public function editar($id) {
 
-		$data['success'] = $this->session->flashdata('success');
+        $filter['pag_id'] = $id;
+        $data["questionarios"] = $this->Pages_model->showQuestions($filter);
 
-		$data['pages_formr'] = $pages; //$this->Quiz_model->showsRuns(); 
-		$data['tipo'] = $this->tipo;
-		$data["title"] = 'Editar - Pesquisa-r';
+        $data["pages"] = $this->Pages_model->show($id);
+        $data["quiz"] = $this->Quiz_model->showsRuns();
+        $response = file_get_contents('' . $this->config->base_url() . 'api/runs.php');
+        $jsons = json_decode($response);
+        foreach ($jsons as $json) {
+            $pages[] = [
+                'id' => $json->id,
+                'name' => $json->name,
+            ];
+        }
+        //print_r($pages);
 
-		$this->load->view('templates/header', $data);
-		$this->load->view('templates/nav-top', $data);
-		$this->load->view('pages/paginas/editar', $data);
-		$this->load->view('templates/footer', $data);
-		$this->load->view('templates/js', $data);
-	}
+        $data['success'] = $this->session->flashdata('success');
 
-	public function update($id)
-	{
+        $data['pages_formr'] = $pages; //$this->Quiz_model->showsRuns(); 
+        $data['tipo'] = $this->tipo;
+        $data["title"] = 'Editar - Pesquisa-r';
 
-		if (!empty($_FILES["img-upload"]["name"])) {
-			$tmp_name = $_FILES["img-upload"]["tmp_name"];
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/nav-top', $data);
+        $this->load->view('pages/paginas/editar', $data);
+        $this->load->view('templates/footer', $data);
+        $this->load->view('templates/js', $data);
+    }
 
-			$name = basename($_FILES["img-upload"]["name"]);
-			move_uploaded_file($tmp_name, "uploads/$name");
-		} else {
-			$name = $_POST["d-img-upload"];
-		}
+    public function editarPesquisa($pag_id, $id) {
 
-		$page = array(
-			"titulo" => $_POST["titulo"],
-			"descricao" => $_POST["descricao"],
-			"dash_descricao" => $_POST["dash_descricao"],
-			"cor-texto" => $_POST["cor-texto"],
-			"cor_desc" => $_POST["cor_desc"],
-			"questionario" => $_POST["questionario"],
-			"link_formr" => $_POST["link_formr"],
-			"tipo" => $_POST["tipo"],
-			"img_pages" => $name
-		);
+        $data["pages"] = $this->Pages_model->show($pag_id);
+        $data["page"] = $this->Pages_model->showPage($pag_id, $id);
 
-		$this->Pages_model->update($id, $page);
-		redirect("/index.php/paginas/");
-	}
+        
+        $data['success'] = $this->session->flashdata('success');
 
-	public function destroy($id)
-	{
-		$this->load->model("Pages_model");
-		$this->Pages_model->destroy($id);
-		redirect("/index.php/paginas/");
-	}
+        $data['tipo'] = $this->tipo;
+        $data["title"] = 'Configurar - Pesquisa-r';
 
-	public function destroyRegiao()
-	{
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/nav-top', $data);
+        $this->load->view('pages/pagina/configurar', $data);
+        $this->load->view('templates/footer', $data);
+        $this->load->view('templates/js', $data);
+    }
 
-		$id = $_POST["id"];
-		$pag_id = $_POST["pag_id"];
+    public function pages() {
+        $data["title"] = 'Dashboard - Pesquisa-r';
 
-		$this->load->model("Pages_model");
-		$this->Pages_model->destroyRegiao($id, $pag_id);
-	}
+        $this->load->view('templates/mapas', $data);
+        $this->load->view('pages/paginas/pages');
+    }
 
-	public function pages()
-	{
-		$data["title"] = 'Dashboard - Pesquisa-r';
-
-		$this->load->view('templates/mapas', $data);
-		$this->load->view('pages/paginas/pages');
-	}
-
-	public function setPesquisa()
-	{
-		$page = array(
-			"pag_id" => $_POST["pag_id"],
-			"id" => $_POST["id"],
-			"run_titulo" => $_POST["run_titulo"],
-		);
-
-		$this->Pages_model->setPage($page);
-		echo '<tr id=' . $_POST["id"] . '><th>' . $_POST["id"] . '</th><td>' . $_POST["run_titulo"] . '</td><td><a onclick="javascript:deletarRegiaoPage(' . $_POST["id"] . ', ' . $_POST["pag_id"] . ')"  class="btn btn-danger"><i class="fas fa-trash-alt"></i></a><td></tr>';
-	}
-
-	public function send_mail()
-	{
-		$message =
-			'<div style="display: flex; background: #f5f5f5; width: 100%; height: 600px; flex-direction: column; position: relative; justify-content: space-between">
+    public function send_mail() {
+        $message = '<div style="display: flex; background: #f5f5f5; width: 100%; height: 600px; flex-direction: column; position: relative; justify-content: space-between">
 				<div class="text26982" style="">
 					<div style="display: flex; background-color: #32549b; height: 50px; width: 100%;">
 						<img width="100" height="45" src="<?= base_url() ?>assets/img/logo.png" />
@@ -197,7 +146,7 @@ class Paginas extends CI_Controller
 							<p>
 								Para acessar clique no botão abaixo:
 							</p>
-							<a href="'. $this->config->base_url() .'" class="button-pesquisas mt-5" id="exo_subtitle" style="background: #2C234D; padding: 7px 63px; border-radius: 30px; color: #fff;">Acessar</a>	
+							<a href="' . $this->config->base_url() . '" class="button-pesquisas mt-5" id="exo_subtitle" style="background: #2C234D; padding: 7px 63px; border-radius: 30px; color: #fff;">Acessar</a>	
 					</div>
 
 				</div>
@@ -229,18 +178,16 @@ class Paginas extends CI_Controller
 		</style>
 		';
 
-		$users = $this->Users_model->index();
+        $users = $this->Users_model->index();
 
 //		$this->load->library('email');
 
-		foreach ($users as $user) {
+        foreach ($users as $user) {
 //			$this->email->from('saudemental@idor.org');
 //			$this->email->to($user['email']);
 //
 //			$this->email->subject('Novos Questionários');
 //			$this->email->message($message);
-                        
-
 //                        $headers[] = 'MIME-Version: 1.0';
 //                        $headers[] = 'Content-type: text/html; charset=utf-8';
 //                        // Additional headers
@@ -248,18 +195,97 @@ class Paginas extends CI_Controller
 //                        $headers[] = 'From: Contato Saúde Mental Idor <saudemental@idor.org>';
 //
 //                        mail( $user['email'], 'Novos Questionários', $message, implode("\r\n", $headers));
-                        
-                //email_padrao( $emailRemetente, $nomeRemetente, 
-                //              $emailDestinatario, $nomeDestinatario, 
-                //              $mensagem_html, $titulo)
-                email_padrao( 
-                            EMAIL_CONTATO, 
-                            'Contato Saúde Mental Idor', 
-                            $user['email'],
-                            $user['nome'], 
-                            $message, 
-                            'Novos Questionários') ;                         
-                
-		}
-	}
+            //email_padrao( $emailRemetente, $nomeRemetente, 
+            //              $emailDestinatario, $nomeDestinatario, 
+            //              $mensagem_html, $titulo)
+            email_padrao(
+                    EMAIL_CONTATO,
+                    'Contato Saúde Mental Idor',
+                    $user['email'],
+                    $user['nome'],
+                    $message,
+                    'Novos Questionários');
+        }
+    }
+
+    public function setPesquisa() {
+        $page = array(
+            "pag_id" => $_POST["pag_id"],
+            "id" => $_POST["id"],
+            "run_titulo" => $_POST["run_titulo"],
+        );
+
+        $this->Pages_model->setPage($page);
+        echo '<tr id=' . $_POST["id"] . '><th>' . $_POST["id"] . '</th><td>' . $_POST["run_titulo"] . '</td><td><a onclick="javascript:deletarRegiaoPage(' . $_POST["id"] . ', ' . $_POST["pag_id"] . ')"  class="btn btn-danger"><i class="fas fa-trash-alt"></i></a><td></tr>';
+    }
+
+    public function store() {
+        $tmp_name = $_FILES["img-upload"]["tmp_name"];
+
+        $name = basename($_FILES["img-upload"]["name"]);
+        move_uploaded_file($tmp_name, "uploads/$name");
+
+        $pages = array(
+            "titulo" => $_POST["titulo"],
+            "descricao" => $_POST["descricao"],
+            "cor-texto" => $_POST["cor-texto"],
+            "cor_desc" => $_POST["cor_desc"],
+            "questionario" => $_POST["questionario"],
+            "img_pages" => $name,
+            "link_formr" => $_POST["link_formr"],
+            "tipo" => $_POST["tipo"],
+        );
+
+        $this->Pages_model->store($pages);
+
+        redirect("/index.php/paginas/");
+    }
+
+    public function update($id) {
+
+        if (!empty($_FILES["img-upload"]["name"])) {
+            $tmp_name = $_FILES["img-upload"]["tmp_name"];
+
+            $name = basename($_FILES["img-upload"]["name"]);
+            move_uploaded_file($tmp_name, "uploads/$name");
+        } else {
+            $name = $_POST["d-img-upload"];
+        }
+
+        $page = array(
+            "titulo" => $_POST["titulo"],
+            "descricao" => $_POST["descricao"],
+            "dash_descricao" => $_POST["dash_descricao"],
+            "cor-texto" => $_POST["cor-texto"],
+            "cor_desc" => $_POST["cor_desc"],
+            "questionario" => $_POST["questionario"],
+            "link_formr" => $_POST["link_formr"],
+            "tipo" => $_POST["tipo"],
+            "img_pages" => $name
+        );
+
+        $this->Pages_model->update($id, $page);
+        redirect("/index.php/paginas/");
+    }
+    
+    public function updateConfiguracao($pag_id, $id) {
+        $chaves = array(
+                        'pag_id' => $pag_id,
+                        'id' => $id
+                );
+        
+        $page = array(
+            
+            'texto_balao' => $_POST["texto_balao"],
+            'qtd_exibicao' => $_POST["qtd_exibicao"],
+            'momento_exibicao' => $_POST["momento_exibicao"],
+            'dias_para_refazer' => $_POST["dias_para_refazer"]
+        );
+        
+        $this->Pages_model->updatePage($chaves, $page);
+
+        redirect("/index.php/paginas/editar/" . $pag_id );
+        
+    }
+    
 }
