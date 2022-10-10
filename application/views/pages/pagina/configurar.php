@@ -12,11 +12,11 @@
                 <h4><?php echo $pages['titulo'] ?></h4>
                 <div class="form-group mt-5">
                     <label >Pesquisa</label>
-                    <span type="text" class="form-control"><?php echo $page['run_titulo'] ?></span>
+                    <h5><?php echo $page['run_titulo'] ?></h5>
                 </div>
                 <div class="form-group mt-5">
-                    <label for="texto_balao">Texto do Balão Informativo</label>
-                    <textarea class="form-control" cols="10" id="texto_balao" name="texto_balao" maxlength="120"><?php echo $page['texto_balao']  ?></textarea>
+                    <label for="texto_balao">Texto do Balão Informativo <span class="small">(Use a tecla <ENTER> para quebrar a linha)</span></label>
+                    <textarea class="form-control" cols="10" rows="3" id="texto_balao" name="texto_balao" maxlength="120"><?php echo $page['texto_balao']  ?></textarea>
                 </div>
                 <div class="form-group mt-5">
                     <label for="qtd_exibicao">Número de Vezes que o Balão Será Exibido para Um Usuário</label>                                        

@@ -139,6 +139,8 @@ class Dashboard extends CI_Controller
 
 	public function list($op)
 	{
+            //$op = região
+            
 		$this->load->model("Pages_model");
 		$data['usid'] = $this->loggedUser['id'];
 		$data['tipo'] = $this->tipo[$op]['titulo'];
