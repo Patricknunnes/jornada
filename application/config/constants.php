@@ -106,7 +106,7 @@ if (($base_url == 'https://autajornada.idor.org') || ($base_url == 'https://dev.
 } else if ($base_url == 'https://jornada.idor.org') {
     defined('CAMINHO_FORMR') OR define('CAMINHO_FORMR', 'http://3.208.225.88/formr_org/tests/teste1.php/');
 } else if ($_SERVER['HTTP_HOST'] === 'localhost:81') {
-    defined('CAMINHO_FORMR') OR define('CAMINHO_FORMR', 'http://localhost:81/formr_org/formr_org/tests/teste1.php/');
+    defined('CAMINHO_FORMR') OR define('CAMINHO_FORMR', 'http://localhost:81/formr_org/tests/teste1.php/');
 }
 
 

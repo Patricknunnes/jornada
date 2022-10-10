@@ -167,7 +167,7 @@ if (($base_url == 'https://autajornada.idor.org') || ($base_url == 'https://dev.
     );
     
 
-}  else if ($base_url == 'https://localhost:81') {
+} else if ($base_url == 'https://localhost:81') {
 
     if (! defined('ENVIRONMENT')){
         define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
