@@ -93,26 +93,25 @@ $name = $session['name'];
             $i = 0;
             foreach ($pages1 as $page) {
                 $i++
-                ?><?php if (($page->qtd_exibicao> -1) && (strlen($page->texto_balao) > 5)) { ?>
-                    <div style="
-                         background-image: url(<?php echo base_url() ?>/assets/img/balao_lado_inv_md.png); 
-                         width: 344px; 
-                         height: 150px;
-                         position:absolute;
-
-                         left: -30px;
-                         z-index: 200;
-                         ">
-                        <div style="
-                             margin: 20px;
-                             margin-right: 50px;
-                             ">
-                            <h5><?php echo str_replace("\r", "<br />", $page->texto_balao ); ?></h5>
-                        </div>
-                    </div><?php } ?>
+                ?>
             <div class="row" id="row_mobile" style="position:relative; z-index: 0;">
-                    
-                    <div class="col-1">
+                
+                <?php 
+                // Recupera a quantidade exibida para o usuário
+                foreach( $pageaux as $pagesuxAtu)  {
+                    if ($pagesuxAtu["id_page"]==$page->id){
+                        $puu = $pagesuxAtu;
+                    }
+                }                    
+                if (($page->qtd_exibicao == 0 ) || ( $puu['cont_exibicao'] <= $page->qtd_exibicao )) { ?>
+                    <div class="balao-ld" >
+                        <div class="balao-ld-texto">
+                            <?php echo str_replace("\r", "<br />", $page->texto_balao ); ?>
+                        </div>
+                    </div>
+                <?php } ?>
+                
+                    <div class="col-1" style="position:relative; z-index: 0;">
 
                         <div class="perguntas-1 text-left" id="imagem_desk" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
 
@@ -125,7 +124,7 @@ $name = $session['name'];
                             <span style="font-size: 12px"><?php if ($page->percent_new == 100.00) { ?><?php echo number_format($page->percent_new, 0, ',', '.'); ?>%</span><?php } ?>
                         </div>
                     </div>
-                    <div class="col-3" id="p_mobile">
+                    <div class="col-3" id="p_mobile" style="position:relative; z-index: 0;">
                         <p class="text-1 " id="poppins_text" style="text-align: left;color:#32549b;">
                             <?php
                             if ($page->percent_new >= 100.00) {
@@ -136,7 +135,7 @@ $name = $session['name'];
                             ?>
                         </p>
                     </div>
-                    <div class="col-3" id="p_mobile">
+                    <div class="col-3" id="p_mobile" style="position:relative; z-index: 0;">
                         <i class="fas fa-check-circle" id="ckeck-i" style=" <?php if ($page->percent_new < 100.00) { ?> color: green; font-size: 32px; opacity: 0.4;
     <?php } else { ?> color: green; font-size: 32px; <?php } ?>">
                         </i>
@@ -153,7 +152,7 @@ $name = $session['name'];
                             <a href="<?= base_url() ?>index.php/pesquisas/respostas/<?= $page->run_id; ?>/<?= $page_id; ?>" id="button-color-list">	<button type="button" class="btn mt-5" id="exo_subtitle" style="width: 100% !important; padding: 10px 20px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;">Ver Respostas</button></a>
     <?php } ?>
                     </div>
-                    <div class="col-5" id="p_mobile">
+                    <div class="col-5" id="p_mobile" style="position:relative; z-index: 0;">
                         <p class="text-1" id="exo_subtitle" style="text-align: left; margin-left:30px;">
                             <b><?php echo $page->run_titulo; ?></b>
                         </p>
@@ -161,7 +160,7 @@ $name = $session['name'];
     <?php echo $page->run_descricao; ?>
                         </p>
                     </div>
-                    <div class="col-3" id="p_mobile2">
+                    <div class="col-3" id="p_mobile2" style="position:relative; z-index: 0;">
                         <div class="col-3" id="p_mobile3">
                             <div id="p_mobile4" style="display: none; margin-top: -3px; position: relative;">
                                 <img src="<?php echo base_url() ?>/assets/img/icones/hexagon1.svg">
@@ -177,7 +176,7 @@ $name = $session['name'];
                                 ?>
                             </p>
                         </div>
-                        <div class="col-5" id="p_mobile2">
+                        <div class="col-5" id="p_mobile2" style="position:relative; z-index: 0;">
                             <p class="text-1" id="exo_subtitle" style="text-align: left; margin-left:30px; margin-top: 19px;">
                                 <b><?php echo $page->run_titulo; ?></b>
                             </p>
@@ -209,7 +208,7 @@ $name = $session['name'];
                     </div>
 
                 </div>
-                <hr style="margin-bottom: 40px;">
+                <hr style="margin-bottom: 40px; position:relative; z-index:1;">
 <?php } ?>
             <!-- <button type="button" class="button-pesquisas" onclick="javascript:onContinuar();">Voltar</button> -->
 

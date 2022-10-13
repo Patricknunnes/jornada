@@ -5,7 +5,7 @@
 		</div>
 		<nav aria-label="breadcrumb">
 			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a href="<?= base_url() ?>index.php/" id="exo_subtitle" style="color:#fff">Home</a></li>
+				<li class="breadcrumb-item"><a href="<?= base_url() ?>index.php/dashboard" id="exo_subtitle" style="color:#fff">Home</a></li>
 				<li class="breadcrumb-item"><a href="<?= base_url() ?>index.php/dashboard/list/<?php echo $page_id2; ?>" id="exo_subtitle" style="color:#fff"><?php echo $title; ?></a></li>
 				<?php foreach ($pages as $page) { ?>
 					<?php if ($page['id'] == $page_id2) { ?>

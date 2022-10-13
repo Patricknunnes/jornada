@@ -502,3 +502,219 @@
   #graf1_mobile-2 {
 	  padding-right: 0;
   }
+
+/*************************
+
+Balões
+
+
+*************************/
+
+/* REGIÃO */
+
+@media (max-width: 499px) {
+    .balao-qd {
+        display: none;
+    }
+    
+    .balao-texto {
+        display: none;
+    }    
+}
+
+@media (min-width: 500px) {
+    .balao-qd {
+        background-image: url("../img/balao_inv_qd_pq.png");
+        background-repeat: no-repeat;
+        width: 200px; 
+        height: 200px;
+        position:absolute;
+        z-index: 200;
+        margin-top: 60px;
+        display: table;        
+    }
+    
+    .balao-texto {
+        font-family: 'Poppins', sans-serif;
+        padding: 12px;
+        padding-bottom: 35px;
+        font-size: 10pt;
+        display: table-cell;
+        vertical-align: middle;
+        height: 100%;        
+    }    
+}
+
+ 
+@media (min-width: 576px) {
+    .balao-qd {
+        background-image: url("../img/balao_inv_qd_pq.png");
+        background-repeat: no-repeat;
+        width: 200px; 
+        height: 200px;
+        position:absolute;
+        z-index: 200;
+        margin-top: 130px;
+        display: table;        
+    }
+    
+    .balao-texto {
+        font-family: 'Poppins', sans-serif;
+        padding: 12px;
+        padding-bottom: 35px;
+        font-size: 10pt;
+        display: table-cell;
+        vertical-align: middle;
+        height: 100%;        
+    }
+    
+}
+
+@media (min-width: 1000px) {
+    
+    .balao-qd {
+        background-image: url("../img/balao_qd2.png");
+        background-repeat: no-repeat;
+        width: 200px; 
+        height: 200px;
+        position:absolute;
+        z-index: 200;
+        margin-top: -220px;
+        display: table;
+    }
+    
+    .balao-texto {
+        font-family: 'Poppins', sans-serif;
+        padding: 12px;
+        padding-bottom: 35px;
+        font-size: 11pt;
+        display: table-cell;
+        vertical-align: middle;
+        height: 100%;        
+    }
+        
+}
+
+
+/* PESQUISA */
+
+@media (max-width: 770px) {
+    .balao-texto-ld {
+       display: none;        
+    }
+    .balao-ld {
+        display: none;        
+    }
+}
+@media (min-width: 771px) {
+    .balao-ld-texto {
+        font-family: 'Poppins', sans-serif;
+        font-size: 11pt;
+        font-weight: bold;
+        padding: 18px;
+        padding-right: 55px;
+        display: table-cell;
+        vertical-align: middle;
+    }
+    .balao-ld {
+        background-image: url("../img/balao_lado_inv_alto.png");
+        background-repeat: no-repeat;
+        width: 266px !important; 
+        height: 200px;
+        position:absolute;
+        left: -29px;
+        z-index: 200;
+        margin-top: 85px !important;
+        display: table;
+    }
+}
+
+@media (min-width: 980px) {
+    .balao-ld-texto {
+        font-family: 'Poppins', sans-serif;
+        font-size: 11pt;
+        font-weight: bold;
+        padding: 18px;
+        padding-right: 55px;
+        display: table-cell;
+        vertical-align: middle;
+    }
+    .balao-ld {
+        background-image: url("../img/balao_lado_inv_alto.png");
+        background-repeat: no-repeat;
+        width: 266px !important; 
+        height: 200px;
+        position:absolute;
+        left: -80px;
+        z-index: 200;
+        margin-top: 125px !important;
+        display: table;
+    }
+}
+
+@media (min-width: 992px) {
+    .balao-ld-texto {
+        font-family: 'Poppins', sans-serif;
+        font-size: 11pt;
+        font-weight: bold;
+        padding: 18px;
+        padding-right: 55px;
+        display: table-cell;
+    }
+    .balao-ld {
+        background-image: url("../img/balao_lado_inv_alto.png");
+        background-repeat: no-repeat;
+        width: 297px !important; 
+        height: 200px;
+        position:absolute;
+        left: -100px;
+        z-index: 200;
+        margin-top: 40px !important;
+        display: table;
+    }
+}
+
+@media (min-width: 1000px) {
+    .balao-ld-texto {
+        font-family: 'Poppins', sans-serif;
+        font-size: 11pt;
+        font-weight: bold;
+        padding: 18px;
+        padding-right: 55px;
+        display: table-cell;
+    }
+    .balao-ld {
+        background-image: url("../img/balao_lado_inv_md.png");
+        background-repeat: no-repeat;
+        width: 344px !important; 
+        height: 150px;
+        position:absolute;
+        left: -80px;
+        z-index: 200;
+        margin-top: 40px !important;
+        display: table;
+    }
+}
+
+
+@media (min-width: 1400px) {
+    .balao-ld-texto {
+        font-family: 'Poppins', sans-serif;
+        font-size: 11pt;
+        font-weight: bold;
+        display: table-cell;
+        padding: 18px;
+        padding-right: 55px;
+    }
+    .balao-ld {
+        background-image: url("../img/balao_lado_inv_fino.png");
+        background-repeat: no-repeat;
+        width: 400px !important; 
+        height: 126px;
+        position:absolute;
+        left: -80px;
+        z-index: 200;
+        margin-top: 40px !important;
+    }
+}
+

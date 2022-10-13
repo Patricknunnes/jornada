@@ -32,6 +32,9 @@ class Dashboard extends CI_Controller
 		$regioes = ['use_id' => $id];
 		$data["title"] = 'Jornada de Autoconhecimento';
 		$data["pages"] = $this->Pages_model->index();
+                
+                //Apresentação do balão
+                $data["pagesux"] = $this->Pages_model->updateContaUx( $id );
 
 		$data["regioes"] = $this->Users_model->getsRegioes($regioes);
                 
@@ -149,6 +152,9 @@ class Dashboard extends CI_Controller
 
 		$data['page_id'] = $op;
 
+                //Apresentação do balão
+                $data["pageaux"] = $this->Pages_model->updateContaUxPesq( $data['usid'], $data['page_id'] );
+                
 		$heads["title"] = 'Jornada de Autoconhecimento';
 		$data["pages"] = $this->Pages_model->index();
 

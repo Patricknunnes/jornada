@@ -201,8 +201,10 @@ document.querySelectorAll('img').forEach((item, index) => {
 				position: "none"
 			},
 		};
-		var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
-		chart.draw(view, options);
+                if (document.getElementById("barchart_values")){
+                    var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
+                    chart.draw(view, options);
+            }
 	}
 
 	function adicionarPesquisa(id) {

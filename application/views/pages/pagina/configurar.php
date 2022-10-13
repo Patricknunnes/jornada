@@ -32,8 +32,17 @@
                     </select>
                 </div>
                 <div class="form-group mt-5">
-                    <label >Momento da Exibição <?= $page['momento_exibicao'] ?>
-                        <?php if ($page['momento_exibicao'] == 0 ){ echo ' True';} else { echo ' False'; }  ?>
+                    <label >Reiniciar Comtagem dos Usuários                         
+                    </label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="reiniciar_contagem" name="reiniciar_contagem" />
+                        <label class="form-check-label" for="reiniciar_contagem">
+                            Transformar em zero a contagem para a Região, exibindo o balão novamente. Deve ser selecionado ao alterar a configuração do Balão.
+                        </label>
+                    </div>
+                </div>                
+                <div class="form-group mt-5">
+                    <label >Momento da Exibição
                     </label>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" value="0" id="momento_exibicao" name="momento_exibicao" <?php if ($page['momento_exibicao'] == 0 ){ echo ' checked="checked"';}  ?>>

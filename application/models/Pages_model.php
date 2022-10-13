@@ -49,7 +49,30 @@ class Pages_model extends CI_model
     public function insertRegiaoGif($gif_regiao){
             $this->db->insert("gif_regiao", $gif_regiao);
     }
+    
+    public function limpaPesquisaUx($id_page){
+        $sql = "UPDATE `page_ux_user` 
+                
+                SET cont_exibicao = 0
+                
+                WHERE id_page = " . $id_page;
+        
+        // zera a quantidade
+        $this->db->query($sql);
+    }
+    
+    public function limpaRegiaoUx($id_pages){
 
+        $sql = "UPDATE `pages_ux_user` 
+                
+                SET cont_exibicao = 0
+                
+                WHERE id_pages = " . $id_pages;
+        
+        // zera a quantidade
+        $this->db->query($sql);        
+    }
+    
     public function setPage($pages)
     {
             $this->db->insert("page", $pages);
@@ -124,6 +147,83 @@ class Pages_model extends CI_model
     {
         $this->db->where("id", $id);
         return $this->db->update("pages", $page);
+    }
+      
+    public function updateContaUx($id_user) {
+        
+        $sql = "INSERT INTO pages_ux_user
+
+                SELECT p.id id_pages, " . $id_user . " id_user, 0 cont_exibicao
+
+                FROM pages p
+
+                LEFT JOIN pages_ux_user puu
+                        ON P.id = PUU.id_pages
+                        AND id_user = " . $id_user . " 
+ 
+                WHERE puu.id_pages IS NULL;";
+        
+        // Adiciona contador para todas as Regiões que o usuário não viu
+        $this->db->query($sql);
+
+        
+        // Deve ser revisto quando puder cadastrar mais regiões
+        // e configurar a apresentação ou não das regiões
+        $sql = "UPDATE `pages_ux_user` 
+                
+                SET cont_exibicao = cont_exibicao + 1
+                
+                WHERE id_user = " . $id_user;
+        // Incrementa a quantidade
+        $this->db->query($sql);
+        
+        $sql = "SELECT id_pages, cont_exibicao FROM pages_ux_user WHERE id_user = " . $id_user;
+        
+        $query = $this->db->query($sql);
+        $result = $query->result_array();
+        
+        return $result;             
+    }
+    
+    public function updateContaUxPesq($id_user, $id_pages) {        
+
+        $sql = "INSERT INTO page_ux_user
+
+                SELECT p.id id_page, p.pag_id id_pages," . $id_user . " id_user, 0 cont_exibicao
+
+                FROM page p
+                
+                LEFT JOIN page_ux_user puu
+                    ON puu.id_page = P.id                    
+                        AND puu.id_user = " . $id_user . " 
+ 
+                WHERE puu.id_pages IS NULL
+                    AND p.pag_id = " . $id_pages . ";";
+        
+        // Adiciona contador para todas as Regiões que o usuário não viu
+        $this->db->query($sql);
+
+        
+        // Deve ser revisto quando puder cadastrar mais regiões
+        // e configurar a apresentação ou não das regiões
+        $sql = "UPDATE page_ux_user
+                
+                SET cont_exibicao = cont_exibicao + 1
+                
+                WHERE id_user = " . $id_user . "
+                    AND id_pages = " . $id_pages;
+        // Incrementa a quantidade
+        $this->db->query($sql);
+        
+        $sql = "SELECT id_page, cont_exibicao 
+                FROM page_ux_user 
+                WHERE id_user = " . $id_user . "
+                    AND id_pages = " . $id_pages;
+        
+        $query = $this->db->query($sql);
+        $result = $query->result_array();
+        
+        return $result;             
     }
     
     public function updatePage($chaves, $page) {

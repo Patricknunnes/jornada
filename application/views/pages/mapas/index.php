@@ -87,12 +87,33 @@ $name = $session['name'];
 
 		<div class="container" style="margin-top: 50px; text-align: center;">
 			<div class="row">
-
 				<?php
 				$i = 0;
 				foreach ($regioes as $regiao) {
 					$i++; ?>
+
 					<div class="pesquisas col-sm" id="poppins_title" style="margin-right: 30px;">
+                                    <?php 
+                                    foreach ($pages as $page) {
+                                        if ($page['id'] == $regiao->tipo) { 
+                                            $atuPage =  $page;
+                                        }
+                                    }
+                                    // Recupera a quantidade exibida para o usuário
+                                    foreach( $pagesux as $pagesuxAtu)  {
+                                        if ($pagesuxAtu["id_pages"]==$atuPage['id']){
+                                            $puu = $pagesuxAtu;
+                                        }
+                                    }
+
+                                    if (($atuPage['qtd_exibicao'] == 0) || ( $puu['cont_exibicao'] <= $atuPage['qtd_exibicao'] )) {
+                                    ?>
+                            <div class="balao-qd" >
+                                <div class="balao-texto">
+                                    <span><?php echo $atuPage['texto_balao']; ?></span>
+                                </div>
+                            </div>
+                                    <?php }?>
 
 						<img class="img-valores" src="<?= base_url('') ?>assets/img/<?php echo  $tipos[$regiao->tipo]['icone']; ?> ">
 

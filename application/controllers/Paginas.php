@@ -242,7 +242,7 @@ class Paginas extends CI_Controller {
     }
 
     public function update($id) {
-
+        /*
         if (!empty($_FILES["img-upload"]["name"])) {
             $tmp_name = $_FILES["img-upload"]["tmp_name"];
 
@@ -250,6 +250,11 @@ class Paginas extends CI_Controller {
             move_uploaded_file($tmp_name, "uploads/$name");
         } else {
             $name = $_POST["d-img-upload"];
+        }
+        */
+        
+        if($this->input->post("reiniciar_contagem")) {
+                $this->Pages_model->limpaRegiaoUx($id);
         }
 
         $page = array(
@@ -261,7 +266,10 @@ class Paginas extends CI_Controller {
             "questionario" => $_POST["questionario"],
             "link_formr" => $_POST["link_formr"],
             "tipo" => $_POST["tipo"],
-            "img_pages" => $name
+            "img_pages" => $name, 
+            "texto_balao" => $this->input->post("texto_balao"),
+            "qtd_exibicao" => $this->input->post("qtd_exibicao"),
+            "momento_exibicao" => $this->input->post("momento_exibicao")    
         );
 
         $this->Pages_model->update($id, $page);
@@ -269,17 +277,21 @@ class Paginas extends CI_Controller {
     }
     
     public function updateConfiguracao($pag_id, $id) {
+
+        if($this->input->post("reiniciar_contagem")) {
+            $this->Pages_model->limpaPesquisaUx($id);
+        }
+       
         $chaves = array(
                         'pag_id' => $pag_id,
                         'id' => $id
                 );
         
-        $page = array(
-            
-            'texto_balao' => $_POST["texto_balao"],
-            'qtd_exibicao' => $_POST["qtd_exibicao"],
-            'momento_exibicao' => $_POST["momento_exibicao"],
-            'dias_para_refazer' => $_POST["dias_para_refazer"]
+        $page = array(            
+            'texto_balao' => $this->input->post("texto_balao"),
+            'qtd_exibicao' => $this->input->post("qtd_exibicao"),
+            'momento_exibicao' => $this->input->post("momento_exibicao"),
+            'dias_para_refazer' => $this->input->post("dias_para_refazer")
         );
         
         $this->Pages_model->updatePage($chaves, $page);
