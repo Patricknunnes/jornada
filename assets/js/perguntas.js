@@ -84,16 +84,3 @@ $( "#voltar-bem4" ).click(function() {
 });
 
 
-function balaoMostra(qual){
-    alert("oi");
-//    var element = document.getElementById(qual);
-//    element.classList.remove("d-none");
-}
-
-function balaoEsconde(qual){
-    alert("nada");
-
-//    var element = document.getElementById(qual);
-//    element.classList.add("d-none");
-}
-

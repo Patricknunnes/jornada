@@ -158,7 +158,7 @@ class Pages_model extends CI_model
                 FROM pages p
 
                 LEFT JOIN pages_ux_user puu
-                        ON P.id = PUU.id_pages
+                        ON p.id = puu.id_pages
                         AND id_user = " . $id_user . " 
  
                 WHERE puu.id_pages IS NULL;";
@@ -194,7 +194,7 @@ class Pages_model extends CI_model
                 FROM page p
                 
                 LEFT JOIN page_ux_user puu
-                    ON puu.id_page = P.id                    
+                    ON puu.id_page = p.id                    
                         AND puu.id_user = " . $id_user . " 
  
                 WHERE puu.id_pages IS NULL
