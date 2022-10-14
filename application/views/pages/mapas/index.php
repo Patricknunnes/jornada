@@ -90,10 +90,8 @@ $name = $session['name'];
 				<?php
 				$i = 0;
 				foreach ($regioes as $regiao) {
-					$i++; ?>
-
-					<div class="pesquisas col-sm" id="poppins_title" style="margin-right: 30px;">
-                                    <?php 
+                                    $i++; 
+                                    
                                     foreach ($pages as $page) {
                                         if ($page['id'] == $regiao->tipo) { 
                                             $atuPage =  $page;
@@ -105,10 +103,18 @@ $name = $session['name'];
                                             $puu = $pagesuxAtu;
                                         }
                                     }
+                                    ?>
 
+					<div class="pesquisas col-sm" id="poppins_title" style="margin-right: 30px;" >
+
+                                    <?php
                                     if (($atuPage['qtd_exibicao'] == 0) || ( $puu['cont_exibicao'] <= $atuPage['qtd_exibicao'] )) {
                                     ?>
-                            <div class="balao-qd" >
+                            <div id="bl<?php echo $atuPage['id']; ?>" class="balao-qd <?php 
+                            if ($atuPage['momento_exibicao'] == 1){
+                                echo " d-none ";
+                            }
+                            ?>" >
                                 <div class="balao-texto">
                                     <span><?php echo $atuPage['texto_balao']; ?></span>
                                 </div>
@@ -118,7 +124,19 @@ $name = $session['name'];
 						<img class="img-valores" src="<?= base_url('') ?>assets/img/<?php echo  $tipos[$regiao->tipo]['icone']; ?> ">
 
 						<h5 class="mt-4" style="font-family: Exo, Sans-serif; font-weight: bold;"><?php print_r($tipos[$regiao->tipo]['titulo']) ?></h5>
-						<p id="poppins_text" class="text-235">
+						<p id="poppins_text" class="text-235"
+                                                <?php 
+                                                if (($atuPage['momento_exibicao'] == 1) &&
+                                                    (
+                                                        ($atuPage['qtd_exibicao'] == 0) 
+                                                        || ( $puu['cont_exibicao'] <= $atuPage['qtd_exibicao'] )
+                                                    )
+                                                ){
+                                                echo " onmouseenter='document.getElementById(\"bl" . $atuPage['id'] . "\").classList.remove(\"d-none\") '";
+                                                echo " onmouseout='document.getElementById(\"bl" . $atuPage['id'] . "\").classList.add(\"d-none\")' ";
+                                                }
+                                                ?>                                                   
+                                                   >
 							<?php foreach ($pages as $page) {   ?>
 								<?php if ($page['id'] == $regiao->tipo) { ?>
 									<?php echo $page['dash_descricao']; ?>
@@ -202,7 +220,11 @@ $name = $session['name'];
 							<?php } ?>
 						</button>
 					</div>
-				<?php } ?>
+				<?php 
+                                
+                                } 
+                                //Fim de foreach ($regioes as $regiao) {
+                                ?>
 			</div>
 		</div>
 	</div>

@@ -50,7 +50,7 @@
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" value="1" id="momento_exibicao" name="momento_exibicao" <?php if ($page['momento_exibicao'] == 1 ){ echo ' checked="checked"';}  ?>>
-                        <label class="form-check-label" for="momento_exibicao">Quando o Usuário passa o moude pela Pesquisa</label>
+                        <label class="form-check-label" for="momento_exibicao">Quando o Usuário passa o mouse pela Pesquisa</label>
                     </div>
                 </div>
 

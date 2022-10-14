@@ -65,7 +65,7 @@
                             if ($pages['momento_exibicao'] == 1) {
                                 echo ' checked="checked"';
                             } ?> />
-                        <label class="form-check-label" for="momento_exibicao">Quando o Usuário passa o moude pela Pesquisa</label>
+                        <label class="form-check-label" for="momento_exibicao">Quando o Usuário passa o mouse pela Região</label>
                     </div>
                 </div>
                 

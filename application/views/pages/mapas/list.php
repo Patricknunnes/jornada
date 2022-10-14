@@ -104,7 +104,11 @@ $name = $session['name'];
                     }
                 }                    
                 if (($page->qtd_exibicao == 0 ) || ( $puu['cont_exibicao'] <= $page->qtd_exibicao )) { ?>
-                    <div class="balao-ld" >
+                    <div id="bl<?php echo $page->id; ?>" class="balao-ld <?php 
+                            if ($page->momento_exibicao == 1){
+                                echo " d-none ";
+                            }
+                            ?>" >
                         <div class="balao-ld-texto">
                             <?php echo str_replace("\r", "<br />", $page->texto_balao ); ?>
                         </div>
@@ -156,7 +160,20 @@ $name = $session['name'];
                         <p class="text-1" id="exo_subtitle" style="text-align: left; margin-left:30px;">
                             <b><?php echo $page->run_titulo; ?></b>
                         </p>
-                        <p class="text-1 " id="poppins_text" style="text-align: left; margin-left:30px;">
+                        <p class="text-1 " id="poppins_text" style="text-align: left; margin-left:30px;"
+                        <?php 
+                        if (($page->momento_exibicao == 1) &&
+                            (
+                                ($page->qtd_exibicao == 0) 
+                                || ( $puu['cont_exibicao'] <= $page->qtd_exibicao )
+                            )
+                        ){
+                        echo " onmouseenter='document.getElementById(\"bl" . $page->id . "\").classList.remove(\"d-none\") '";
+                        echo " onmouseout='document.getElementById(\"bl" . $page->id . "\").classList.add(\"d-none\")' ";
+                        }
+                        ?>                                                   
+                           
+                           >
     <?php echo $page->run_descricao; ?>
                         </p>
                     </div>
