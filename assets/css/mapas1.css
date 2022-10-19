@@ -339,6 +339,7 @@
 
 #inlineRadioOptions {
 	width: 25px !important;
+	min-width: 25px !important;
 	height: 25px !important;
 	background: #e9f2ff !important;
 	border: none !important;

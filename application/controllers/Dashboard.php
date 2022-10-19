@@ -158,6 +158,7 @@ class Dashboard extends CI_Controller
 		$heads["title"] = 'Jornada de Autoconhecimento';
 		$data["pages"] = $this->Pages_model->index();
 
+                //Retorna as Pesquisas da região informada
 		$data["pages1"] = $this->Pages_model->showQuestions(['pag_id' => $op, 'use_id' => $data['usid']]);
 		$conta = 0;
 		$percent_new = 0;
@@ -169,7 +170,11 @@ class Dashboard extends CI_Controller
 			$conta = 1;
 		}
 		$percent = $percent_new / $conta;
+                
+                //Percentual total da Região
 		$data['percent'] = $percent;
+                
+                //Número de pesqusisas da região
 		$data["countpesquisa"] = count($data["pages1"]);
 
 		$getGifRegiao = $this->Pages_model->getRegiao($_SESSION['logged_user']['id'],	$data['page_id']);

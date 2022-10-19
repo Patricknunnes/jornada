@@ -1,4 +1,4 @@
-<div class="header-mapas">
+    <div class="header-mapas">
 	<div class="container text-left pt-3">
 		<div class="mt-5">
 			<h3 class="mb-3" style="color:#fff; font-family: exo, sans-serif;"><?php echo $title; ?></h3>
@@ -41,41 +41,43 @@ $name = $session['name'];
                 <div ><?php 
                 //echo $resultados2; 
                 
-                $resltTemp = $resultados2;
-                $base = 0;
-                do {
-                    $pos = strpos( $resltTemp, "<img", $base);
-                    
-                    if ($pos !== false ){
-                        $posFim = strpos( $resltTemp, ">", $pos);
-                        $posWidth = strpos( $resltTemp, 'width="', $pos);
+                if ( isset($resultados2 )) {
+                    $resltTemp = $resultados2;
+                    $base = 0;
+                    do {
+                        $pos = strpos( $resltTemp, "<img", $base);
 
-                        if ( $posWidth < $posFim ){
-                            $posAspas1 = strpos( $resltTemp, '"', $posWidth);
-                            $posAspas2 = strpos( $resltTemp, '"', $posAspas1+1);
-                            $digitos = $posAspas2 - $posAspas1 - 1;
+                        if ($pos !== false ){
+                            $posFim = strpos( $resltTemp, ">", $pos);
+                            $posWidth = strpos( $resltTemp, 'width="', $pos);
 
-                            if ( $digitos > 0 ) {
-                                $larg = substr($resltTemp, $posAspas1 + 1, $posAspas2 - $posAspas1 - 1);
+                            if ( $posWidth < $posFim ){
+                                $posAspas1 = strpos( $resltTemp, '"', $posWidth);
+                                $posAspas2 = strpos( $resltTemp, '"', $posAspas1+1);
+                                $digitos = $posAspas2 - $posAspas1 - 1;
 
-//echo "<h1>" . $larg . "</h1>";
-//exit();
-                                $resltTemp = substr_replace( $resltTemp, 'class="w' . $larg . '"', $posWidth, ($posAspas2 - $posWidth + 1 ));
+                                if ( $digitos > 0 ) {
+                                    $larg = substr($resltTemp, $posAspas1 + 1, $posAspas2 - $posAspas1 - 1);
+
+    //echo "<h1>" . $larg . "</h1>";
+    //exit();
+                                    $resltTemp = substr_replace( $resltTemp, 'class="w' . $larg . '"', $posWidth, ($posAspas2 - $posWidth + 1 ));
+                                }
                             }
-                        }
-                        $base = $posFim;
-                    }                    
-                    
-                } while ($pos !== false );
-                
-                echo $resltTemp; 
+                            $base = $posFim;
+                        }                    
+
+                    } while ($pos !== false );
+
+                    echo $resltTemp; 
+                }
                 ?></div>
                 <div class="container">
                     <div class="row">
                 <?php if(!$rest){ ?>
                     <div class="col"><button class="btn my-2 my-md-3 my-lg-5 btn-resultado" id="exo_subtitle" type="submit" >Voltar para <?php echo $page_titulo ?></button></div>
                 <?php }else{ ?>
-                    <div class="col"><a  class="btn my-2 my-md-3 my-lg-5 btn-resultado" id="exo_subtitle" rhef="<?= base_url() ?>index.php/pesquisas/finish/<?= $page_id2 ?>">Voltar para <?php echo $page_titulo ?></a></div>
+                    <div class="col"><a  class="btn my-2 my-md-3 my-lg-5 btn-resultado" id="exo_subtitle" href="<?= base_url() ?>index.php/pesquisas/finish/<?= $page_id2 ?>">Voltar para <?php echo $page_titulo ?></a></div>
                 <?php } ?> 
                     <div class="col"><a  class="btn my-2 my-md-3 my-lg-5 btn-resultado" id="exo_subtitle" href="<?php echo base_url()?>index.php/pesquisas/pdf/<?= $page_id ?>/<?php echo $session['id']; ?>/<?php echo $study_id; ?>" target="_blank" >Salvar resultado em PDF</a></div>
                     </div>

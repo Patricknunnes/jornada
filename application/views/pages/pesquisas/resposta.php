@@ -45,11 +45,11 @@
 									<?php foreach ($pergunta['list'] as $list) { ?>
 										<?php if ($resposta[$pergunta['name']] != $list['name']) { ?>
 											<div class="form-check form-check-inline d-flex align-items-center">
-												<input class="form-check-input" id="inlineRadioOptions" type="radio" name="<?php echo $list['list_name']  ?>" value="<?php echo $list['name']  ?>">&nbsp&nbsp&nbsp<?php echo /*utf8_encode(*/str_replace(array( chr(147), chr(148)), '"', $list['label'])/*)*/;  ?>
+                                                                                            <input class="form-check-input" id="inlineRadioOptions" type="radio" name="<?php echo $list['list_name']  ?>" value="<?php echo $list['name']  ?>">&nbsp&nbsp&nbsp<label><?php echo /*utf8_encode(*/str_replace(array( chr(147), chr(148)), '"', $list['label'])/*)*/;  ?></label>
 											</div>
 										<?php } else { ?>
 											<div class="form-check form-check-inline d-flex align-items-center">
-												<input class="form-check-input" id="inlineRadioOptions" type="radio" name="<?php echo $list['list_name']  ?>" value="<?php echo $list['name']  ?>" checked>&nbsp&nbsp&nbsp<?php echo /*utf8_encode(*/str_replace(array( chr(147), chr(148)), '"', $list['label'])/*)*/; ?>
+                                                                                            <input class="form-check-input" id="inlineRadioOptions" type="radio" name="<?php echo $list['list_name']  ?>" value="<?php echo $list['name']  ?>" checked>&nbsp&nbsp&nbsp<label><?php echo /*utf8_encode(*/str_replace(array( chr(147), chr(148)), '"', $list['label'])/*)*/; ?></label>
 											</div>
 										<?php } ?>
 									<?php } ?>

@@ -109,7 +109,7 @@ $email = $session['email'];
 								?>
 
 									<div class="form-check form-check-inline d-flex align-items-center">
-										<input class="form-check-input" type="radio" name="<?php echo $list['list_name']  ?>" id="inlineRadioOptions" onChange="javascript:showif('<?php echo $list['list_name']  ?>')" value="<?php echo $list['name']  ?>" <?php if(empty($questao['showif'])){ ?> required <?php } ?> />&nbsp&nbsp&nbsp<?php echo /*utf8_encode(*/ str_replace(array( chr(147), chr(148)), '"', $list['label'])/*)*/  ?>
+                                                                            <input class="form-check-input" type="radio" name="<?php echo $list['list_name']  ?>" id="inlineRadioOptions" onChange="javascript:showif('<?php echo $list['list_name']  ?>')" value="<?php echo $list['name']  ?>" <?php if(empty($questao['showif'])){ ?> required <?php } ?> />&nbsp&nbsp&nbsp<label><?php echo /*utf8_encode(*/ str_replace(array( chr(147), chr(148)), '"', $list['label'])/*)*/  ?></label>
 									</div>
 
 

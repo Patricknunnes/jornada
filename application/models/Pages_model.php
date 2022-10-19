@@ -97,6 +97,11 @@ class Pages_model extends CI_model
     }
     
     public function showQuestions($id)
+                //Retorna as Pesquisas da região informada
+                // - Sessao para relacionar o usuario com as respostas
+                // - Sem Uso
+                // - Sem Uso
+                // - Se cada pesquisa já foi respondida    
     {
         $d = null;
         if(!empty($id['use_id'])){
@@ -122,7 +127,7 @@ class Pages_model extends CI_model
 
     public function showQuestionsUserStudiesId($id)
     {
-        //Recuperando o id na tabela survey_studies no banco fromR
+        //Recuperando o id na tabela survey_studies no banco formR
 
         $sql = "SELECT * FROM page p
                 INNER JOIN survey_studies ss 
@@ -151,7 +156,7 @@ class Pages_model extends CI_model
       
     public function updateContaUx($id_user) {
         
-        $sql = "INSERT INTO pages_ux_user
+        $sql = "INSERT INTO pages_ux_user ( id_pages, id_user, cont_exibicao )
 
                 SELECT p.id id_pages, " . $id_user . " id_user, 0 cont_exibicao
 
@@ -187,7 +192,7 @@ class Pages_model extends CI_model
     
     public function updateContaUxPesq($id_user, $id_pages) {        
 
-        $sql = "INSERT INTO page_ux_user
+        $sql = "INSERT INTO page_ux_user ( id_page, id_pages, id_user, cont_exibicao)
 
                 SELECT p.id id_page, p.pag_id id_pages," . $id_user . " id_user, 0 cont_exibicao
 

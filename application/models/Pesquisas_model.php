@@ -23,7 +23,7 @@ class Pesquisas_model extends CI_model
                 
 	}
 
-	public function index($run_id , $studies_id = null)
+	public function index($run_id , $studies_id = null, $survey_runs_id = null )
 	{
 		$sql = "SELECT sis.*,sru.description, ss.id unit_id, sru.position 
 				FROM survey_runs sr 
@@ -32,6 +32,7 @@ class Pesquisas_model extends CI_model
 					INNER JOIN survey_items sis ON sis.study_id = ss.id 
 					where sr.id = {$run_id} and ss.id  = {$studies_id}
 					AND sis.name not LIKE '%_fb%'
+                                        AND sru.id = {$survey_runs_id}
 					order by sru.position, sis.item_order ";
 		$result = $this->banco->query($sql);
 		return $result;
@@ -68,10 +69,14 @@ class Pesquisas_model extends CI_model
 	public function studies($study_id)
 	{
 		$result = $this->banco->query("SELECT sru.* FROM survey_runs sr 
-										INNER JOIN survey_run_units sru on sr.id = sru.run_id
-										INNER JOin survey_studies ss ON ss.id  = sru.unit_id   
-										where sr.id = {$study_id}
-										order by sru.position");
+                                                INNER JOIN survey_run_units sru 
+                                                    on sr.id = sru.run_id
+                                                INNER JOin survey_studies ss 
+                                                    ON ss.id  = sru.unit_id   
+                                                WHERE sr.id = {$study_id}
+                                                ORDER BY sru.position DESC
+                                                LIMIT 1;");
+                                                
 		$itens = $result->fetch_all(MYSQLI_ASSOC);									
 		return $itens;
 	}
@@ -102,6 +107,12 @@ class Pesquisas_model extends CI_model
 		
 	}
 
+	public function countPerceResp($data){
+		
+                return $this->db->get_where("survey_studies", $data)->num_rows();
+		
+	}
+        
 	public function storeAll($keys, $table, $resposts )
 	{
 		$coluns = null;

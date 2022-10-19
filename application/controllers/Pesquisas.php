@@ -1,119 +1,129 @@
 <?php
+
 /* 	require '../third_party/api.php';
 
  */
-class Pesquisas extends CI_Controller
-{
-	private $unitid = null;
-	public function __construct()
-	{
-		parent::__construct();
-		permission();
-		$this->load->library('session');
-		$this->session_data = $this->session->userdata('logged_user');
-		$this->load->model("Pesquisas_model");
-		$this->load->model("Quiz_model");
-		if (!isset($_SESSION['unitid'])) {
-			$this->unitid = $this->Pesquisas_model->createSession($this->session_data['id']);
-			$_SESSION['unitid'] = $this->unitid;
-		}
-	}
 
+class Pesquisas extends CI_Controller {
 
+    private $unitid = null;
 
-	public function index($id_page, $page_2, $studies_id = null)
-	{
-		$datas["title"] = 'Jornada de Autoconhecimento';
+    public function __construct() {
+        parent::__construct();
+        permission();
+        $this->load->library('session');
+        $this->session_data = $this->session->userdata('logged_user');
+        $this->load->model("Pesquisas_model");
+        $this->load->model("Quiz_model");
+        if (!isset($_SESSION['unitid'])) {
+            $this->unitid = $this->Pesquisas_model->createSession($this->session_data['id']);
+            $_SESSION['unitid'] = $this->unitid;
+        }
+    }
 
-		$this->load->model("Pages_model");
-		$this->load->model("Quiz_model");
-		$datas["pages"] = $this->Pages_model->index();
-		$datas['pages_runs'] = $this->Quiz_model->showRuns($id_page);
+    public function index($id_page, $page_2, $studies_id = null) {
+        $datas["title"] = 'Jornada de Autoconhecimento';
 
-		$datas["page_id"] = $id_page;
-		$datas["page_id2"] = $page_2;
+        $this->load->model("Pages_model");
+        $this->load->model("Quiz_model");
+        $datas["pages"] = $this->Pages_model->index();
 
-		$datas["studies"] = $this->Pesquisas_model->studies($id_page);
+        //A pesquisa com os dados copiados do FORMR
+        $datas['pages_runs'] = $this->Quiz_model->showRuns($id_page);
 
-		if (empty($studies_id)) {
-			$studies = $datas["studies"];
-			$studies_id = $studies[0]['unit_id'];
-			if (count($datas["studies"]) <= 0) {
-				redirect("/index.php/dashboard");
-			}
-		}
+        $datas["page_id"] = $id_page;
+        $datas["page_id2"] = $page_2;
 
-		$result = $this->Pesquisas_model->index($id_page, $studies_id);
-		$survey = $result;
+        $datas["studies"] = $this->Pesquisas_model->studies($id_page);
+        
+        $studies = $datas["studies"];
 
-		$datas['success'] = $this->session->flashdata('success');
-		$datas['error'] = $this->session->flashdata('error');
+        if (empty($studies_id)) {
+            $studies_id = $studies[0]['unit_id'];
+            if (count($datas["studies"]) <= 0) {
+                redirect("/index.php/dashboard");
+            }
+        }
 
-		foreach ($survey as $questao) {
-                    
-			$resultList = $this->Pesquisas_model->choiceList($questao['choice_list'], $studies_id);
-			$questao['list'] = $resultList;
-			$questoes[] =  $questao;
-                        
-		}
-		$datas['questoes'] = $questoes;
+        $result = $this->Pesquisas_model->index($id_page, $studies_id, $studies[0]['id']);
+        $survey = $result;
 
-		$this->load->view('templates/mapas', $datas);
-		$this->load->view('templates/nav-top2', $datas);
-		$this->load->view('pages/pesquisas/index', $datas);
-		$this->load->view('templates/footer', $datas);
-		$this->load->view('templates/js', $datas);
-	}
+        $datas['success'] = $this->session->flashdata('success');
+        $datas['error'] = $this->session->flashdata('error');
 
-	public function resultado($id_page, $studies_id = null, $page_2 = null)
-	{
-		$datas["title"] = 'Jornada de Autoconhecimento';
-		$datas["page_id"] = $id_page;
-		$id_user = $this->session_data['id'];
-		$now = new DateTime();
-		$datastudies = $_POST;
-		$datastudies["session_id"] = $_SESSION['unitid'];
-		$datastudies["study_id"] = $studies_id;
-		$datas["study_id"] = $studies_id;
-		$datastudies["created"] = $now->format('Y-m-d H:i:s');
-		$datastudies["modified"] = $now->format('Y-m-d H:i:s');
-		$datastudies["ended"] = $now->format('Y-m-d H:i:s');
-		unset($datastudies["next_studies_id"]);
-		unset($datastudies["active_studies"]);
-		unset($datastudies["active_studies_id"]);
+        foreach ($survey as $questao) {
 
-		$keys =  array_keys($datastudies);
-		try {
-			$result = $this->Pesquisas_model->studiesTable($studies_id);
-			$results_table = $result[0]['results_table'];
-		} catch (Exception $e) {
-			echo 'Exceção capturada: ',  $e->getMessage(), "\n";
-		}
+            $resultList = $this->Pesquisas_model->choiceList($questao['choice_list'], $studies_id);
+            $questao['list'] = $resultList;
+            $questoes[] = $questao;
+        }
+        $datas['questoes'] = $questoes;
 
+        $this->load->view('templates/mapas', $datas);
+        $this->load->view('templates/nav-top2', $datas);
+        $this->load->view('pages/pesquisas/index', $datas);
+        $this->load->view('templates/footer', $datas);
+        $this->load->view('templates/js', $datas);
+    }
 
-		$datas['rest'] = false;
-		if (!isset($_POST['resposta'])) {
+    public function resultado($id_page, $studies_id = null, $page_2 = null) {
+        $datas["title"] = 'Jornada de Autoconhecimento';
+        $datas["page_id"] = $id_page;
+        $id_user = $this->session_data['id'];
+        $now = new DateTime();
+        $datastudies = $_POST;
+        $datastudies["session_id"] = $_SESSION['unitid'];
+        $datastudies["study_id"] = $studies_id;
+        $datas["study_id"] = $studies_id;
+        $datastudies["created"] = $now->format('Y-m-d H:i:s');
+        $datastudies["modified"] = $now->format('Y-m-d H:i:s');
+        $datastudies["ended"] = $now->format('Y-m-d H:i:s');
+        unset($datastudies["next_studies_id"]);
+        unset($datastudies["active_studies"]);
+        unset($datastudies["active_studies_id"]);
 
-			$this->Pesquisas_model->storeAll($keys, $results_table, $datastudies);
-		} else {
-			$datas['rest'] = true;
-		}
+        $result = $this->Pesquisas_model->studiesTable($studies_id);
+        $keys = array_keys($datastudies);
+        try {            
+            $results_table = $result[0]['results_table'];
+        } catch (Exception $e) {
+            echo 'Exceção capturada: ', $e->getMessage(), "\n";
+        }
 
-                $sessionsIds = $this->Pesquisas_model->getSessions($this->session_data['id']);
-                $sessions = array();
-                foreach ($sessionsIds as $sessionId) {
-                    $sessions[] = $sessionId->session_id;
-                }
+// Deve ser incrementado para permitir que se diferencie a nova pesquisa preenchida        
+        $nr_pesquisa = 1;
+        
+        $survey_studies_where = [
+            'use_id' => $id_user,
+            'id_page' => $id_page,
+            'studies_id' => $studies_id,
+            'nr_pesquisa' => $nr_pesquisa ];
+        
+        $find_survey_studies = $this->Pesquisas_model->countPerceResp($survey_studies_where);
                 
-                $result_session = $this->Pesquisas_model->getAllTablesFindSession(
-                                                                $results_table,
-                                                                $sessions);
-                
-		if (count($result_session) == 0) {
-			redirect("/index.php/dashboard");
-		}
-                
-                $session_id = $result_session[0]['session_id'];
+        $datas['rest'] = false;
+        if ((!isset($_POST['resposta'])) && ($find_survey_studies == 0)) {
+            // Grava no banco FORMR na tabela para a pesquisa as escolhas do usuário
+            $this->Pesquisas_model->storeAll($keys, $results_table, $datastudies);
+        } else {
+            $datas['rest'] = true;
+        }
+
+        $sessionsIds = $this->Pesquisas_model->getSessions($this->session_data['id']);
+        $sessions = array();
+        foreach ($sessionsIds as $sessionId) {
+            $sessions[] = $sessionId->session_id;
+        }
+
+        $result_session = $this->Pesquisas_model->getAllTablesFindSession(
+                $results_table,
+                $sessions);
+
+        if (count($result_session) == 0) {
+            redirect("/index.php/dashboard");
+        }
+
+        $session_id = $result_session[0]['session_id'];
 
 //echo '$session_id: ' . $session_id;
 //echo "<br />";
@@ -122,71 +132,77 @@ class Pesquisas extends CI_Controller
 //echo '$studies_id: ' . $studies_id;
 //echo "<br />";
 //exit();        
+        //$content = file_get_contents('http://54.164.116.69/formr_org/tests/teste1.php/' . $_SESSION['unitid'] . '/' . $studies_id);
+        //$content = file_get_contents('http://54.164.116.69/formr_org/tests/teste1.php/' . $session_id . '/' . $studies_id);
+
+        if ( $this->config->item('base_url') != 'http://localhost:81/idor/') {
+            $content = file_get_contents(CAMINHO_FORMR . $session_id . '/' . $studies_id);
+            $datas["resultados2"] = $content;
+        }
+        $datas["resultados"] = $this->Pesquisas_model->result($id_page, $studies_id);
         
-		//$content = file_get_contents('http://54.164.116.69/formr_org/tests/teste1.php/' . $_SESSION['unitid'] . '/' . $studies_id);
-		//$content = file_get_contents('http://54.164.116.69/formr_org/tests/teste1.php/' . $session_id . '/' . $studies_id);
-                $content = file_get_contents( CAMINHO_FORMR . $session_id . '/' . $studies_id);
-
-		$datas["resultados"] = $this->Pesquisas_model->result($id_page, $studies_id);
-		$datas["resultados2"] = $content;
-		if (count($datas["resultados"]) <= 0) {
-			redirect("/index.php/dashboard");
-		}
-		$datas["studies"] = $this->Pesquisas_model->studies($id_page);
-		$position = null;
-		$resultado = $datas["resultados"][0];
-		$flag = false;
-		foreach ($datas["studies"] as $studies) {
-			if ($studies['position'] > $resultado['position'] && $flag == false) {
-				$datas['next_studies'] = $studies['unit_id'];
-				$flag = true;
-			}
-		}
-		if (!$flag) {
-			$datas['next_studies'] = 'finish';
-		}
-		$countstudies = $this->Pesquisas_model->studies($id_page);
-		$percent = [
-			'use_id' =>  $id_user,
-			'id_page' => $id_page,
-			'studies_id' => $studies_id,
-			'total' =>  count($countstudies),
-			'percet' => (1 / count($countstudies)) * 100
-		];
-
-		if (!isset($_POST['resposta'])) {
-			$this->Pesquisas_model->createPerceResp($percent);
-		}
-
-		$this->load->model("Pages_model");
-		$this->load->model("Quiz_model");
-		$datas["pages"] = $this->Pages_model->index();
-		$datas['pages_runs'] = $this->Quiz_model->showRuns($id_page);
-
-		$datas["page_id"] = $id_page;
-		if (!empty($page_2)) {
-			$datas["page_id2"] = $page_2; // nao entendi oq é esse page_2  tive que retirar pq estava quebrado os resultados do formR
-		} else {
-			$datas["page_id2"] = $id_page; //
-		}
+        if (count($datas["resultados"]) <= 0) {
+            redirect("/index.php/dashboard");
+        }
+        $datas["studies"] = $this->Pesquisas_model->studies($id_page);
+        $position = null;
+        $resultado = $datas["resultados"][0];
+        $flag = false;
+        foreach ($datas["studies"] as $studies) {
+            if ($studies['position'] > $resultado['position'] && $flag == false) {
+                $datas['next_studies'] = $studies['unit_id'];
+                $flag = true;
+            }
+        }
+        if (!$flag) {
+            $datas['next_studies'] = 'finish';
+        }
+        $countstudies = $this->Pesquisas_model->studies($id_page);
+        
 
 
-		$this->send_mail($id_page, $studies_id, $page_2);
+        // Gravar o percentual de execução quando gravar as respostas
+        if ((!isset($_POST['resposta'])) && ($find_survey_studies == 0)) {
+            $percent = [
+                'use_id' => $id_user,
+                'id_page' => $id_page,
+                'studies_id' => $studies_id,
+                'total' => count($countstudies),
+                'percet' => (1 / count($countstudies)) * 100,
+                'session_id' => $_SESSION['unitid'],
+                'data_gravacao' => $now->format('Y-m-d '),
+                'nr_pesquisa' => $nr_pesquisa
+            ];
+            $this->Pesquisas_model->createPerceResp($percent);
+        }
+
+        $this->load->model("Pages_model");
+        $this->load->model("Quiz_model");
+        $datas["pages"] = $this->Pages_model->index();
+        $datas['pages_runs'] = $this->Quiz_model->showRuns($id_page);
+
+        $datas["page_id"] = $id_page;
+        if (!empty($page_2)) {
+            $datas["page_id2"] = $page_2; // nao entendi oq é esse page_2  tive que retirar pq estava quebrado os resultados do formR
+        } else {
+            $datas["page_id2"] = $id_page; //
+        }
 
 
-		$this->load->view('templates/mapas', $datas);
-		$this->load->view('templates/nav-top2', $datas);
-		$this->load->view('pages/pesquisas/resultado', $datas);
-		$this->load->view('templates/footer', $datas);
-		$this->load->view('templates/js', $datas);
-	}
+        $this->send_mail($id_page, $studies_id, $page_2);
 
-	public function send_mail($id_page, $studies_id, $page_2)
-	{
-		$id_user = $_SESSION['logged_user']['id'];
 
-		$message =
-			'<div style="display: flex; background: #f5f5f5; width: 100%; height: 600px; flex-direction: column; position: relative; justify-content: space-between">
+        $this->load->view('templates/mapas', $datas);
+        $this->load->view('templates/nav-top2', $datas);
+        $this->load->view('pages/pesquisas/resultado', $datas);
+        $this->load->view('templates/footer', $datas);
+        $this->load->view('templates/js', $datas);
+    }
+
+    public function send_mail($id_page, $studies_id, $page_2) {
+        $id_user = $_SESSION['logged_user']['id'];
+
+        $message = '<div style="display: flex; background: #f5f5f5; width: 100%; height: 600px; flex-direction: column; position: relative; justify-content: space-between">
 				<div class="text26982" style="">
 					<div style="display: flex; background-color: #32549b; height: 50px; width: 100%;">
 						<img width="100" height="45" src="<?= base_url() ?>assets/img/logo.png" />
@@ -198,7 +214,7 @@ class Pesquisas extends CI_Controller
 								Você respondeu um questionário no site Idor Saúde Mental.
 								Veja o resultado através desse link: 
 							</p>
-							<a href="'. $this->config->base_url() .'index.php/pesquisas/pdf/'.$id_page.'/'.$id_user.'/'.$studies_id.'" class="button-pesquisas mt-5" id="exo_subtitle" style="background: #2C234D; padding: 7px 63px; border-radius: 30px; color: #fff;">Resultado</a>	
+							<a href="' . $this->config->base_url() . 'index.php/pesquisas/pdf/' . $id_page . '/' . $id_user . '/' . $studies_id . '" class="button-pesquisas mt-5" id="exo_subtitle" style="background: #2C234D; padding: 7px 63px; border-radius: 30px; color: #fff;">Resultado</a>	
 					</div>
 
 				</div>
@@ -233,98 +249,92 @@ class Pesquisas extends CI_Controller
 		</style>
 		';
 
-                //email_padrao( $emailRemetente, $nomeRemetente, 
-                //              $emailDestinatario, $nomeDestinatario, 
-                //              $mensagem_html, $titulo)
-                email_padrao( 
-                            EMAIL_CONTATO, 
-                            'Contato Saúde Mental Idor', 
-                            $_SESSION['logged_user']['email'],
-                            $_SESSION['logged_user']['name'], 
-                            $message, 
-                            'Questinário completo com sucesso!') ;              
-	}
+        //email_padrao( $emailRemetente, $nomeRemetente, 
+        //              $emailDestinatario, $nomeDestinatario, 
+        //              $mensagem_html, $titulo)
+        email_padrao(
+                EMAIL_CONTATO,
+                'Contato Saúde Mental Idor',
+                $_SESSION['logged_user']['email'],
+                $_SESSION['logged_user']['name'],
+                $message,
+                'Questinário completo com sucesso!');
+    }
 
-	public function pdf($id_page, $id_user, $studies_id)
-	{
+    public function pdf($id_page, $id_user, $studies_id) {
 
-		$datas['pages_runs'] = $this->Quiz_model->showRuns($id_page);
-		$datas['id_page'] = $id_page;
-		$datas["title"] = 'Respostas - Pesquisa-r';
+        $datas['pages_runs'] = $this->Quiz_model->showRuns($id_page);
+        $datas['id_page'] = $id_page;
+        $datas["title"] = 'Respostas - Pesquisa-r';
 
-		$content = file_get_contents('http://54.164.116.69/formr_org/tests/teste1.php/' . $_SESSION['unitid'] . '/' . $studies_id);
+        $content = file_get_contents('http://54.164.116.69/formr_org/tests/teste1.php/' . $_SESSION['unitid'] . '/' . $studies_id);
 
-		$datas["resultados2"] = $content;
+        $datas["resultados2"] = $content;
 
-		$mpdf = new \Mpdf\Mpdf([
-			'mode' => '',
-			'format' => 'A4',
-			'default_font_size' => 0,
-			'default_font' => '',
-			'margin_left' => 0,
-			'margin_right' => 0,
-			'margin_top' => 20,
-			'margin_bottom' => 30,
-			'margin_header' => 0,
-			'margin_footer' => 0,
-			'orientation' => 'P',
-		]);
-		$mpdf->showImageErrors = true;
-		$mpdf->SetHTMLHeader('
+        $mpdf = new \Mpdf\Mpdf([
+            'mode' => '',
+            'format' => 'A4',
+            'default_font_size' => 0,
+            'default_font' => '',
+            'margin_left' => 0,
+            'margin_right' => 0,
+            'margin_top' => 20,
+            'margin_bottom' => 30,
+            'margin_header' => 0,
+            'margin_footer' => 0,
+            'orientation' => 'P',
+        ]);
+        $mpdf->showImageErrors = true;
+        $mpdf->SetHTMLHeader('
 		<div style="height: 30px; width: 100%; background-color: #32549b;">
 		</div>');
 
-		$mpdf->SetHTMLFooter('
+        $mpdf->SetHTMLFooter('
 		<div style="width: 100%; background-color: #32549b; text-align: center; padding: 20px 0; color: #fff; font-size: 12px;">
 			<p>IDOR Saúde Mental</p>
 		</div>');
 
-		ini_set("pcre.backtrack_limit", "100000000");
-		$html = $this->load->view('pages/pesquisas/resposta-pdf', $datas, true);
-		$mpdf->WriteHTML($html);
-		$mpdf->Output();
-	}
+        ini_set("pcre.backtrack_limit", "100000000");
+        $html = $this->load->view('pages/pesquisas/resposta-pdf', $datas, true);
+        $mpdf->WriteHTML($html);
+        $mpdf->Output();
+    }
 
-	public function finish($id_page)
-	{
-		redirect("/index.php/dashboard/list/" . $id_page . "");
-	}
+    public function finish($id_page) {
+        redirect("/index.php/dashboard/list/" . $id_page . "");
+    }
 
+    public function respostas($id_page, $page_id, $studies_id = NULL) {
+        $datas["title"] = 'Respostas - Pesquisa-r';
 
-	public function respostas($id_page, $page_id, $studies_id = NULL)
-	{
-		$datas["title"] = 'Respostas - Pesquisa-r';
+        if ($studies_id == 'finish') {
+            redirect("/index.php/dashboard");
+        }
+        $this->load->model("Quiz_model");
+        $this->load->model("Pesquisas_model");
 
-		if ($studies_id == 'finish') {
-			redirect("/index.php/dashboard");
-		}
-		$this->load->model("Quiz_model");
-		$this->load->model("Pesquisas_model");
+        $datas['pages_runs'] = $this->Quiz_model->showRuns($id_page);
+        $datas["studies"] = $this->Pesquisas_model->studies($id_page);
+        $studies = $datas["studies"];
+        //$datas["page_id"] = $id_page;
+        if (empty($studies_id)) {            
+            $studies_id = $studies[0]['unit_id'];
+            if (count($datas["studies"]) <= 0) {
+                redirect("/index.php/dashboard");
+            }
+        }
 
-		$datas['pages_runs'] = $this->Quiz_model->showRuns($id_page);	
-		$datas["studies"] = $this->Pesquisas_model->studies($id_page);
+        $sessionsIds = $this->Pesquisas_model->getSessions($this->session_data['id']);
+        $sessions = array();
+        foreach ($sessionsIds as $sessionId) {
+            $sessions[] = $sessionId->session_id;
+        }
 
-		//$datas["page_id"] = $id_page;
-		if (empty($studies_id)) {
-			$studies = $datas["studies"];
-			$studies_id = $studies[0]['unit_id'];
-			if (count($datas["studies"]) <= 0) {
-				redirect("/index.php/dashboard");
-			}
-		}
-                
-                $sessionsIds = $this->Pesquisas_model->getSessions($this->session_data['id']);
-                $sessions = array();
-                foreach ($sessionsIds as $sessionId) {
-                    $sessions[] = $sessionId->session_id;
-                }
-                
-		$resultTab = $this->Pesquisas_model->studiesTable($studies_id);
-                $result = $this->Pesquisas_model->getAllTablesFindSession(
-                                                                $resultTab[0]['results_table'],
-                                                                $sessions);
-		//$result = $this->Pesquisas_model->getAllTables($resultTab[0]['results_table'], $_SESSION['unitid']);
-                
+        $resultTab = $this->Pesquisas_model->studiesTable($studies_id);
+        $result = $this->Pesquisas_model->getAllTablesFindSession(
+                $resultTab[0]['results_table'],
+                $sessions);
+        //$result = $this->Pesquisas_model->getAllTables($resultTab[0]['results_table'], $_SESSION['unitid']);
 //print_r($sessionsIds);
 //echo '<br>';
 //echo 'results_table: ' . $resultTab[0]['results_table'];
@@ -337,39 +347,40 @@ class Pesquisas extends CI_Controller
 //
 //exit();
 
-		if (count($result) == 0) {
-			redirect("/index.php/dashboard");
-		}
+        if (count($result) == 0) {
+            redirect("/index.php/dashboard");
+        }
 
-		$result_perguntas = $this->Pesquisas_model->index($id_page, $studies_id);
+        $result_perguntas = $this->Pesquisas_model->index($id_page, $studies_id, $studies[0]['id']);
 
-		foreach ($result_perguntas as $result_pergunta) {
-			$resultList = $this->Pesquisas_model->choiceList($result_pergunta['choice_list'], $studies_id );
-			//print_r($resultList);
-			$result_pergunta['list'] = $resultList;
-			$perguntas[] =  $result_pergunta;                        
-		}
+        foreach ($result_perguntas as $result_pergunta) {
+            $resultList = $this->Pesquisas_model->choiceList($result_pergunta['choice_list'], $studies_id);
+            //print_r($resultList);
+            $result_pergunta['list'] = $resultList;
+            $perguntas[] = $result_pergunta;
+        }
 
-		$datas['perguntas'] = $perguntas;
+        $datas['perguntas'] = $perguntas;
 
-		$datas['respostas'] = $result;
-		$datas['next_studies'] = 'finish';
+        $datas['respostas'] = $result;
+        $datas['next_studies'] = 'finish';
 
-		$datas['unit_id'] = $studies_id;
-		$datas['id_page'] = $id_page;
+        $datas['unit_id'] = $studies_id;
+        $datas['id_page'] = $id_page;
 
-		$datas['id_page2'] = $page_id;
+        $datas['id_page2'] = $page_id;
 
-		$this->load->view('templates/mapas', $datas);
-		$this->load->view('templates/nav-top2', $datas);
-		$this->load->view('pages/pesquisas/resposta', $datas);
-		$this->load->view('templates/footer', $datas);
-		$this->load->view('templates/js', $datas);
-	}
+        $this->load->view('templates/mapas', $datas);
+        $this->load->view('templates/nav-top2', $datas);
+        $this->load->view('pages/pesquisas/resposta', $datas);
+        $this->load->view('templates/footer', $datas);
+        $this->load->view('templates/js', $datas);
+    }
 
-	public function pesquisashowif(){
-		$resultList = $this->Pesquisas_model->showif($_POST['campo']);
+    public function pesquisashowif() {
+        $resultList = $this->Pesquisas_model->showif($_POST['campo']);
 
-		echo $resultList[0]['name'];
-	}
+        echo $resultList[0]['name'];
+    }
+
 }
