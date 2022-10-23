@@ -112,7 +112,7 @@ $name = $session['name'];
                                     ?>
                             <div id="bl<?php echo $atuPage['id']; ?>" class="balao-qd <?php 
                             if ($atuPage['momento_exibicao'] == 1){
-                                echo " d-none ";
+                                echo " balao-d-none ";
                             }
                             ?>" >
                                 <div class="balao-texto">
@@ -132,8 +132,8 @@ $name = $session['name'];
                                                         || ( $puu['cont_exibicao'] <= $atuPage['qtd_exibicao'] )
                                                     )
                                                 ){
-                                                echo " onmouseenter='document.getElementById(\"bl" . $atuPage['id'] . "\").classList.remove(\"d-none\") '";
-                                                echo " onmouseout='document.getElementById(\"bl" . $atuPage['id'] . "\").classList.add(\"d-none\")' ";
+                                                echo " onmouseenter='document.getElementById(\"bl" . $atuPage['id'] . "\").classList.remove(\"balao-d-none\") '";
+                                                echo " onmouseout='document.getElementById(\"bl" . $atuPage['id'] . "\").classList.add(\"balao-d-none\")' ";
                                                 }
                                                 ?>                                                   
                                                    >

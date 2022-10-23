@@ -719,3 +719,15 @@ Balões
     }
 }
 
+@media (pointer: coarse) {
+    .balao-d-none  {
+        
+    }
+}
+
+@media (pointer: fine) {
+    .balao-d-none {
+        display: none !important;
+    }    
+}
+
