@@ -79,7 +79,8 @@ class Paginas extends CI_Controller {
     public function editar($id) {
 
         $filter['pag_id'] = $id;
-        $data["questionarios"] = $this->Pages_model->showQuestions($filter);
+        //$data["questionarios"] = $this->Pages_model->showQuestions($filter);
+        $data["questionarios"] = $this->Pages_model->showPesquisas($filter);
 
         $data["pages"] = $this->Pages_model->show($id);
         $data["quiz"] = $this->Quiz_model->showsRuns();

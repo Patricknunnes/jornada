@@ -34,7 +34,7 @@ $email = $session['email'];
 				<?php } ?>
 			<?php } ?>
 
-			<form method="post" action="<?= base_url() ?>index.php/pesquisas/resultado/<?= $page_id ?>/<?php echo $questoes[0]['unit_id'] ?>/<?= $page_id2 ?>" style="padding-top: 5%;">
+			<form method="post" action="<?= base_url() ?>index.php/pesquisas/resultado/<?= $page_id ?>/<?php echo $questoes[0]['unit_id'] ?>/<?= $page_id2 ?>/<?php echo $pesquisa_repetida?>" style="padding-top: 5%;">
 
 				<?php
 				$next = false;

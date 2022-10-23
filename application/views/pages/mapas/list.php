@@ -89,7 +89,8 @@ $name = $session['name'];
         <?php } ?>
 
         <div class="perguntas mt-5" style="position: relative">
-            <?php
+            
+            <?php            
             $i = 0;
             foreach ($pages1 as $page) {
                 $i++
@@ -153,8 +154,31 @@ $name = $session['name'];
                         <?php } ?>
 
                         <?php if ($page->percent_new >= 100.00) { ?>
-                            <a href="<?= base_url() ?>index.php/pesquisas/respostas/<?= $page->run_id; ?>/<?= $page_id; ?>" id="button-color-list">	<button type="button" class="btn mt-5" id="exo_subtitle" style="width: 100% !important; padding: 10px 20px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;">Ver Respostas</button></a>
-    <?php } ?>
+                            <a href="<?= base_url() ?>index.php/pesquisas/respostas/<?= $page->run_id; ?>/<?= $page_id; ?>/<?= $page->studies_id ?>/1" id="button-color-list"><button type="button" class="btn mt-5" id="exo_subtitle" style="width: 100% !important; padding: 10px 20px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;">Ver Respostas</button></a>
+                        <?php } ?>
+                        <?php
+                        if ($pesquisas_jornada['total'] == $pesquisas_jornada['tot_realizadas']) {
+                            foreach ($pesquisas_repetidas as $pesquisa_repetida) {
+                                if ($page->run_id == $pesquisa_repetida['id']){
+                                    //echo 'diferenca: ' . $pesquisa_repetida['diferenca'] . "<br />";
+                                    //echo $pesquisa_repetida['dias_para_refazer'] . "<br />";
+
+                                    if (($pesquisa_repetida['diferenca'] >= $pesquisa_repetida['dias_para_refazer'])
+                                            && ( $pesquisa_repetida['dias_para_refazer'] > 0)){
+                                        if ($pesquisa_repetida['percent_atual'] == 100){
+                                            ?>
+                            <a href="<?= base_url() ?>index.php/pesquisas/respostas/<?= $page->run_id; ?>/<?= $page_id; ?>/<?= $pesquisa_repetida['studies_id']; ?>/<?php echo $pesquisa_repetida['nr_pesquisa']?>" id="button-color-list"><button type="button" class="btn mt-5" id="exo_subtitle" style="width: 100% !important; padding: 10px 20px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;">Ver Respostas (<?php echo $pesquisa_repetida['nr_pesquisa']?>)</button></a>
+                                            <?php
+                                        } else if($session_id != $pesquisa_repetida['session_id_ant']){?>
+                            <a href="<?= base_url() ?>index.php/pesquisas/index/<?= $page->run_id; ?>/<?= $page->pag_id ?>/<?php echo $pesquisa_repetida['nr_pesquisa']?>" id="button-color-list"><button type="button" class="btn mt-5" id="exo_subtitle" style="width: 100% !important; padding: 10px 20px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;">Refazer (<?php echo $pesquisa_repetida['nr_pesquisa']?>)</button></a>                                            
+                                            <?php
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                        ?>                            
                     </div>
                     <div class="col-5" id="p_mobile" style="position:relative; z-index: 0;">
                         <p class="text-1" id="exo_subtitle" style="text-align: left; margin-left:30px;">
@@ -222,6 +246,7 @@ $name = $session['name'];
                             <a href="<?= base_url() ?>index.php/pesquisas/respostas/<?= $page->run_id; ?>/<?= $page_id; ?>" id="button-color-list"><button type="button" class="btn mt-5" id="exo_subtitle" style="width: 100% !important; padding: 10px 20px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;">Ver respostas</button></a>
 
     <?php } ?>
+                           
                     </div>
 
                 </div>

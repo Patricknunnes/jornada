@@ -151,6 +151,11 @@ class Dashboard extends CI_Controller
 		$data['banner'] = $this->tipo[$op]['banner'];
 
 		$data['page_id'] = $op;
+                if (isset($_SESSION['unitid'])) {
+                    $data['session_id'] = $_SESSION['unitid'];
+                } else {
+                    $data['session_id'] = -1;
+                }
 
                 //Apresentação do balão
                 $data["pageaux"] = $this->Pages_model->updateContaUxPesq( $data['usid'], $data['page_id'] );
@@ -160,6 +165,7 @@ class Dashboard extends CI_Controller
 
                 //Retorna as Pesquisas da região informada
 		$data["pages1"] = $this->Pages_model->showQuestions(['pag_id' => $op, 'use_id' => $data['usid']]);
+                
 		$conta = 0;
 		$percent_new = 0;
 		foreach ($data["pages1"] as $page) {
@@ -188,7 +194,10 @@ class Dashboard extends CI_Controller
 
 			$data['gif_regiao'] = $array;
 		}
-
+                
+                $data["pesquisas_jornada"] = $this->Pages_model->getTotPesquisasJornada( $data['usid'] );
+                $data["pesquisas_repetidas"] = $this->Pages_model->getPesquisasRepetidas( $data['usid'], $data['page_id'] );
+                
 		$this->load->view('templates/mapas', $heads);
 		$this->load->view('templates/nav-top2', $heads);
 		$this->load->view('pages/mapas/list', $data);

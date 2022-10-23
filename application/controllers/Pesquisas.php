@@ -21,7 +21,7 @@ class Pesquisas extends CI_Controller {
         }
     }
 
-    public function index($id_page, $page_2, $studies_id = null) {
+    public function index($id_page, $page_2, $nr_pesquisa = null) {
         $datas["title"] = 'Jornada de Autoconhecimento';
 
         $this->load->model("Pages_model");
@@ -37,13 +37,19 @@ class Pesquisas extends CI_Controller {
         $datas["studies"] = $this->Pesquisas_model->studies($id_page);
         
         $studies = $datas["studies"];
+        
+        if (empty($nr_pesquisa)){
+            $nr_pesquisa = 1;
+        }
+        
+        $datas["pesquisa_repetida"] = $nr_pesquisa;
 
-        if (empty($studies_id)) {
+//        if (empty($studies_id)) {
             $studies_id = $studies[0]['unit_id'];
             if (count($datas["studies"]) <= 0) {
                 redirect("/index.php/dashboard");
             }
-        }
+//        }
 
         $result = $this->Pesquisas_model->index($id_page, $studies_id, $studies[0]['id']);
         $survey = $result;
@@ -66,15 +72,23 @@ class Pesquisas extends CI_Controller {
         $this->load->view('templates/js', $datas);
     }
 
-    public function resultado($id_page, $studies_id = null, $page_2 = null) {
+    public function resultado($id_page, $studies_id = null, $page_2 = null, $nr_pesquisa = null) {
+        
+                
         $datas["title"] = 'Jornada de Autoconhecimento';
         $datas["page_id"] = $id_page;
         $id_user = $this->session_data['id'];
-        $now = new DateTime();
+        $now = new DateTime('now', new DateTimeZone( 'America/Sao_Paulo'));       
+
         $datastudies = $_POST;
         $datastudies["session_id"] = $_SESSION['unitid'];
         $datastudies["study_id"] = $studies_id;
         $datas["study_id"] = $studies_id;
+        
+        //Validar a repetição na mesma sessão - não permitir que grave duas vezes na mesma sessão
+        $this->load->model("Pages_model");       
+        $qtd_session_id = $this->Pages_model->verificaEstudoSession($id_user, $id_page, $datastudies["session_id"], $nr_pesquisa);
+        
         $datastudies["created"] = $now->format('Y-m-d H:i:s');
         $datastudies["modified"] = $now->format('Y-m-d H:i:s');
         $datastudies["ended"] = $now->format('Y-m-d H:i:s');
@@ -90,8 +104,9 @@ class Pesquisas extends CI_Controller {
             echo 'Exceção capturada: ', $e->getMessage(), "\n";
         }
 
-// Deve ser incrementado para permitir que se diferencie a nova pesquisa preenchida        
-        $nr_pesquisa = 1;
+        if (empty($nr_pesquisa)) {
+            $nr_pesquisa = 1;
+        }
         
         $survey_studies_where = [
             'use_id' => $id_user,
@@ -100,30 +115,20 @@ class Pesquisas extends CI_Controller {
             'nr_pesquisa' => $nr_pesquisa ];
         
         $find_survey_studies = $this->Pesquisas_model->countPerceResp($survey_studies_where);
-                
+        
         $datas['rest'] = false;
         if ((!isset($_POST['resposta'])) && ($find_survey_studies == 0)) {
+            if ($qtd_session_id != 0){
+                redirect("/index.php/dashboard");
+            }
             // Grava no banco FORMR na tabela para a pesquisa as escolhas do usuário
             $this->Pesquisas_model->storeAll($keys, $results_table, $datastudies);
         } else {
             $datas['rest'] = true;
         }
-
-        $sessionsIds = $this->Pesquisas_model->getSessions($this->session_data['id']);
-        $sessions = array();
-        foreach ($sessionsIds as $sessionId) {
-            $sessions[] = $sessionId->session_id;
-        }
-
-        $result_session = $this->Pesquisas_model->getAllTablesFindSession(
-                $results_table,
-                $sessions);
-
-        if (count($result_session) == 0) {
-            redirect("/index.php/dashboard");
-        }
-
-        $session_id = $result_session[0]['session_id'];
+        
+        $sessionId = $this->Pages_model->getEstudoSession($id_user, $id_page, $nr_pesquisa);
+        $session_id = $sessionId["session_id"];
 
 //echo '$session_id: ' . $session_id;
 //echo "<br />";
@@ -137,6 +142,7 @@ class Pesquisas extends CI_Controller {
 
         if ( $this->config->item('base_url') != 'http://localhost:81/idor/') {
             $content = file_get_contents(CAMINHO_FORMR . $session_id . '/' . $studies_id);
+            
             $datas["resultados2"] = $content;
         }
         $datas["resultados"] = $this->Pesquisas_model->result($id_page, $studies_id);
@@ -304,7 +310,7 @@ class Pesquisas extends CI_Controller {
         redirect("/index.php/dashboard/list/" . $id_page . "");
     }
 
-    public function respostas($id_page, $page_id, $studies_id = NULL) {
+    public function respostas($id_page, $page_id, $studies_id = null,  $nr_pesquisa = null) {
         $datas["title"] = 'Respostas - Pesquisa-r';
 
         if ($studies_id == 'finish') {
@@ -312,10 +318,12 @@ class Pesquisas extends CI_Controller {
         }
         $this->load->model("Quiz_model");
         $this->load->model("Pesquisas_model");
+        $this->load->model("Pages_model");
 
         $datas['pages_runs'] = $this->Quiz_model->showRuns($id_page);
         $datas["studies"] = $this->Pesquisas_model->studies($id_page);
         $studies = $datas["studies"];
+        
         //$datas["page_id"] = $id_page;
         if (empty($studies_id)) {            
             $studies_id = $studies[0]['unit_id'];
@@ -324,13 +332,28 @@ class Pesquisas extends CI_Controller {
             }
         }
 
-        $sessionsIds = $this->Pesquisas_model->getSessions($this->session_data['id']);
-        $sessions = array();
-        foreach ($sessionsIds as $sessionId) {
-            $sessions[] = $sessionId->session_id;
+        if(empty($nr_pesquisa)){
+            $sessionsIds = $this->Pesquisas_model->getSessions($this->session_data['id']);
+            $sessions = array();
+            foreach ($sessionsIds as $sessionId) {
+                $sessions[] = $sessionId->session_id;
+            }
+            $nr_pesquisa = 1;
+        } else {
+            $sessionId = $this->Pages_model->getEstudoSession($this->session_data['id'], $id_page, $nr_pesquisa);
+
+            if ($sessionId ) {
+                $sessions = array();
+                $sessions[] = $sessionId["session_id"];
+            } else {
+                redirect("/index.php/dashboard");
+            }
         }
 
+        $datas["nr_pesquisa"] = $nr_pesquisa;
+        
         $resultTab = $this->Pesquisas_model->studiesTable($studies_id);
+        
         $result = $this->Pesquisas_model->getAllTablesFindSession(
                 $resultTab[0]['results_table'],
                 $sessions);

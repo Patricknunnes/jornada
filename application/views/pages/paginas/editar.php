@@ -101,6 +101,8 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Pesquisa</th>
+                                <th scope="col">Balão</th>
+                                <th scope="col">Repetir</th>
                                 <th scope="col">Ações</th>
                             </tr>
                         </thead>
@@ -110,8 +112,10 @@
                                 ?>
                                 <tr id="<?php echo $questionario->id; ?>">
 
-                                    <th class="col-4" scope="row"><?php echo $questionario->id; ?></th>
+                                    <th class="col-2" scope="row"><?php echo $questionario->id; ?></th>
                                     <td class="col-4"><?php echo $questionario->run_titulo; ?></td>
+                                    <td class="col-1"><?php echo $questionario->qtd_exibicao; ?></td>
+                                    <td class="col-1"><?php echo $questionario->dias_para_refazer; ?></td>
                                     <td class="col-4">
                                         <a href="<?= base_url() ?>index.php/paginas/editarPesquisa/<?= $pages['id']; ?>/<?= $questionario->id; ?>" class="btn btn-warning" title="Configurar"><i class="fas fa-gear"></i></a>
                                         <a onclick="javascript:deletarRegiaoPage(<?= $questionario->id; ?>, <?= $pages['id']; ?>)" class="btn btn-danger"  title="Excluir"><i class="fas fa-trash-alt"></i></a>

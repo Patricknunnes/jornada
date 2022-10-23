@@ -12,6 +12,7 @@
 				<a class="nav-link" style="color:#fff" href="<?= base_url('') ?>index.php/dashboard/">Jornada de Autoconhecimento</a>
 				<a class="nav-link" style="color:#fff" href="<?= base_url('') ?>index.php/dashboard/#dashboard">Dashboard</a>
 				<a class="nav-link" style="color:#fff" href="<?= base_url('') ?>index.php/dashboard/feedback/<?php echo $_SESSION['logged_user']['id']; ?>">Contato</a>
+                                <a class="nav-link" style="color:#fff" href="<?= base_url('') ?>index.php/termos/exibir">Termo de Consentimento</a>
 			</div>
 			 <div class="navbar-nav" style="margin-left: auto !important;">
 				<div class="nav-item dropdown">

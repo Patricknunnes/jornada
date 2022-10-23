@@ -16,6 +16,17 @@ class Termos extends CI_Controller
                 $this->load->model("Users_model");
 	}
 
+	public function exibir()
+	{
+
+		$data["title"] = 'Termos - Pesquisa-r';
+
+		$this->load->view('templates/header', $data);
+
+		$this->load->view('pages/termos/termo');
+		$this->load->view('templates/js');
+	}
+        
 	public function index()
 	{
 		$id = @$this->session_data['id'];
