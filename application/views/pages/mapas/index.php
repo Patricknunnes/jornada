@@ -56,7 +56,7 @@ $name = $session['name'];
 		</div>
 		<div class="row mt-5">
 			<div class="col-12">
-				<p class="text-2" style=" margin-top: -10px">
+				<p class="text-2" style=" margin-top: -10px"></p>
 				<div id="row-img" style="text-align: center;">
 					<img class="img-fluid" src="<?= base_url('') ?>assets/img/mapa.png" alt="" style="width: 80%!important; text-align: center">
 
@@ -78,7 +78,7 @@ $name = $session['name'];
 
 
 				</div>
-				</p>
+				
 				<p class="text-1" id="poppins_text" style="margin-left: 20px; color: #989999; margin-top: 80px;">
 					Regiões em andamento:
 				</p>
@@ -86,7 +86,7 @@ $name = $session['name'];
 		</div>
 
 		<div class="container" style="margin-top: 50px; text-align: center;">
-			<div class="row">
+			<div class="row row-align">
 				<?php
 				$i = 0;
 				foreach ($regioes as $regiao) {
@@ -105,7 +105,7 @@ $name = $session['name'];
                                     }
                                     ?>
 
-					<div class="pesquisas col-sm" id="poppins_title" style="margin-right: 30px;" >
+					<div class="pesquisas col-8 col-sm-5 col-md col-lg-2 col-xl " id="poppins_title" style="margin-right: 30px;" >
 
                                     <?php
                                     if (($atuPage['qtd_exibicao'] == 0) || ( $puu['cont_exibicao'] <= $atuPage['qtd_exibicao'] )) {
@@ -114,11 +114,29 @@ $name = $session['name'];
                             if ($atuPage['momento_exibicao'] == 1){
                                 echo " balao-d-none ";
                             }
-                            ?>" >
-                                <div class="balao-texto">
+                            ?>"  >
+                                <div style="display: table-row;">
+                                    <div style="display: table-cell;">
+                                        <img class="balao-img col" src="<?= base_url('') ?>assets/img/svg/balao_link01.svg" 
+                                             height="30" width="30" 
+                                             usemap="#map_balao<?php echo $atuPage['id']; ?>" 
+                                             style="display: block; margin-left: auto; margin-right: 0;"/>
+                                        
+                                    </div>
+                                </div>
+                                <div style="display: table-row;">
+                                <div class="balao-texto col">
                                     <span><?php echo $atuPage['texto_balao']; ?></span>
                                 </div>
+                                </div>
                             </div>
+                            <map name="map_balao<?php echo $atuPage['id']; ?>">
+                                <area shape="circle" coords="10,18,10"
+                                      href="#"
+                                      alt="Fechar"
+                                      onclick="bl<?php echo $atuPage['id']; ?>.style='display: none;';return false;"              
+                                      >
+                            </map>
                                     <?php }?>
 
 						<img class="img-valores" src="<?= base_url('') ?>assets/img/<?php echo  $tipos[$regiao->tipo]['icone']; ?> ">
