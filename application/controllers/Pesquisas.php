@@ -123,12 +123,16 @@ class Pesquisas extends CI_Controller {
             }
             // Grava no banco FORMR na tabela para a pesquisa as escolhas do usuário
             $this->Pesquisas_model->storeAll($keys, $results_table, $datastudies);
+            
+            $session_id = $_SESSION['unitid'];
         } else {
             $datas['rest'] = true;
+            
+            $sessionId = $this->Pages_model->getEstudoSession($id_user, $id_page, $nr_pesquisa);
+            $session_id = $sessionId["session_id"];
         }
         
-        $sessionId = $this->Pages_model->getEstudoSession($id_user, $id_page, $nr_pesquisa);
-        $session_id = $sessionId["session_id"];
+        
 
 //echo '$session_id: ' . $session_id;
 //echo "<br />";
@@ -333,6 +337,7 @@ class Pesquisas extends CI_Controller {
         }
 
         if(empty($nr_pesquisa)){
+
             $sessionsIds = $this->Pesquisas_model->getSessions($this->session_data['id']);
             $sessions = array();
             foreach ($sessionsIds as $sessionId) {
@@ -340,11 +345,16 @@ class Pesquisas extends CI_Controller {
             }
             $nr_pesquisa = 1;
         } else {
-            $sessionId = $this->Pages_model->getEstudoSession($this->session_data['id'], $id_page, $nr_pesquisa);
 
+            $sessionId = $this->Pages_model->getEstudoSession($this->session_data['id'], $id_page, $nr_pesquisa);
+                        
             if ($sessionId ) {
-                $sessions = array();
-                $sessions[] = $sessionId["session_id"];
+                if(! is_null( $sessionId["session_id"] ) ) {
+                    $sessions = array();
+                    $sessions[] = $sessionId["session_id"];
+                } else {
+                    redirect("/index.php/dashboard");
+                }
             } else {
                 redirect("/index.php/dashboard");
             }
@@ -354,6 +364,9 @@ class Pesquisas extends CI_Controller {
         
         $resultTab = $this->Pesquisas_model->studiesTable($studies_id);
         
+        if (sizeof($resultTab) == 0) {
+            redirect("/index.php/dashboard");
+        }        
         $result = $this->Pesquisas_model->getAllTablesFindSession(
                 $resultTab[0]['results_table'],
                 $sessions);

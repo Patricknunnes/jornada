@@ -138,7 +138,7 @@
 	padding-left: 0;
 }
 
-@media (min-width: 980px) {
+@media (min-width: 992px) {
 	.content {
 		height: 950px !important;
 	}
@@ -278,7 +278,7 @@
 
 /**** Responsividade texto das bolinhas ****/
 
-@media (max-width: 980px) {
+@media (max-width: 992px) {
 	.textItens-1, .textItens-2, .textItens-3 {
 		display: none;
 		justify-content: center;
@@ -289,7 +289,7 @@
 	}
 }
 
-@media (max-width: 980px) {
+@media (max-width: 992px) {
 	.textItens-4 {
 		display: none;
 		justify-content: center;
@@ -301,7 +301,7 @@
 	}
 }
 
-@media (max-width: 980px) {
+@media (max-width: 992px) {
 	.textItens-5 {
 		display: none;
 		justify-content: center;
@@ -533,7 +533,7 @@ Balões
         z-index: 200;
         margin-top: -200px;
         margin-left: 0px;
-        display: table;        
+        display: none;        
     }
     
     .balao-texto {
@@ -547,6 +547,7 @@ Balões
         height: 100%;        
         z-index: 210;
     }
+        
 }
 
 @media (min-width: 295px) {
@@ -563,7 +564,7 @@ Balões
         z-index: 200;
         margin-top: -200px;
         margin-left: 40px;
-        display: table;        
+        display: none;        
     }
     
     .balao-texto {
@@ -578,39 +579,18 @@ Balões
         z-index: 210;
     }
     
-}
-/*
-@media (min-width: 500px) {
-    .row-align{
-        justify-content: center;
-    }
-    
-    .balao-qd {
-        background-image: url("../img/svg/balao04.svg");
+    .balao-pq {
+        background-image: url("../img/svg/balaopq.svg");
         background-repeat: no-repeat;
-        width: 180px; 
-        height: 205px;
+        width: 50px; 
+        height: 60px;
         position:absolute;
         z-index: 200;
-        margin-top: -220px;
-        margin-left: 40px;
-        display: table;        
+        margin-top: 0px;
+        margin-left: 140px;
     }
-    
-    .balao-texto {
-        font-family: 'Poppins', sans-serif;
-
-        padding: 12px;
-        padding-bottom: 35px;
-        font-size: 10pt;
-        display: table-cell;
-        vertical-align: middle;
-        height: 100%;        
-        z-index: 210;
-    }
-    
 }
-*/
+
 @media (min-width: 576px) {
     .row-align{
         justify-content: flex-start;
@@ -636,6 +616,9 @@ Balões
         vertical-align: middle;
         height: 100%;        
         z-index: 210;
+    }
+    .balao-pq {
+        display: none;
     }
     
 }
@@ -763,58 +746,109 @@ Balões
 
 /* PESQUISA */
 
-@media (max-width: 770px) {
-    .balao-texto-ld {
-       display: none;        
-    }
-    .balao-ld {
-        display: none;        
-    }
-}
-@media (min-width: 771px) {
+@media (max-width: 575px) {
     .balao-ld-texto {
         font-family: 'Poppins', sans-serif;
         font-size: 11pt;
         font-weight: bold;
-        padding: 18px;
-        padding-right: 55px;
         display: table-cell;
-        vertical-align: middle;
+        padding: 18px;
+        padding-top: 0px;        
+        padding-bottom: 35px;
+        vertical-align: middle;  
+        height: 100%;
+        z-index: 210;  
     }
     .balao-ld {
-        background-image: url("../img/balao_lado_inv_alto.png");
+        background-image: url("../img/svg/balao_ld03.svg");
         background-repeat: no-repeat;
-        width: 266px !important; 
-        height: 200px;
+        width: 200px !important; 
+        height: 250px;
         position:absolute;
-        left: -29px;
+        top: -160px;
+        right: 10px;
+        left: auto;
         z-index: 200;
-        margin-top: 85px !important;
-        display: table;
-    }
+        margin-top: 40px !important;
+        display: none;           
+    }    
+    .balao-ld-pq {
+        background-image: url("../img/svg/balaopq.svg");
+        background-repeat: no-repeat;
+        width: 50px; 
+        height: 60px;
+        position:absolute;
+        z-index: 200;
+        margin-top: -40px !important;
+        margin-left: 40px;
+    }    
 }
 
-@media (min-width: 980px) {
+@media (min-width: 576px) {
     .balao-ld-texto {
         font-family: 'Poppins', sans-serif;
         font-size: 11pt;
         font-weight: bold;
-        padding: 18px;
-        padding-right: 55px;
         display: table-cell;
-        vertical-align: middle;
+        padding: 18px;
+        padding-top: 0px;        
+        padding-bottom: 35px;
+        vertical-align: middle;  
+        height: 100%;
+        z-index: 210;  
     }
     .balao-ld {
-        background-image: url("../img/balao_lado_inv_alto.png");
+        background-image: url("../img/svg/balao_ld03.svg");
         background-repeat: no-repeat;
-        width: 266px !important; 
-        height: 200px;
+        width: 200px !important; 
+        height: 250px;
         position:absolute;
-        left: -80px;
+        top: -160px;
+        left: 310px;
         z-index: 200;
-        margin-top: 125px !important;
+        margin-top: 40px !important;
+        display: none;           
+    }    
+    .balao-ld-pq {
+        background-image: url("../img/svg/balaopq.svg");
+        background-repeat: no-repeat;
+        width: 50px; 
+        height: 60px;
+        position:absolute;
+        z-index: 200;
+        margin-top: -40px !important;
+        margin-left: 40px;
+    }    
+}
+
+@media (min-width: 768px) {
+    .balao-ld-texto {
+        font-family: 'Poppins', sans-serif;
+        font-size: 11pt;
+        font-weight: bold;
+        display: table-cell;
+        padding: 18px;
+        padding-top: 0px;        
+        padding-bottom: 35px;
+        vertical-align: middle;  
+        height: 100%;
+        z-index: 210;        
+    }
+    .balao-ld {
+        background-image: url("../img/svg/balao_ld03.svg");
+        background-repeat: no-repeat;
+        width: 200px !important; 
+        height: 250px;
+        position:absolute;
+        top: -160px;
+        left: 490px;
+        z-index: 200;
+        margin-top: 40px !important;
         display: table;
     }
+    .balao-ld-pq {
+        display: none;
+    }    
 }
 
 @media (min-width: 992px) {
@@ -822,45 +856,56 @@ Balões
         font-family: 'Poppins', sans-serif;
         font-size: 11pt;
         font-weight: bold;
-        padding: 18px;
-        padding-right: 55px;
         display: table-cell;
+        padding: 18px;
+        padding-top: 0px;        
+        padding-bottom: 35px;
+        vertical-align: middle;  
+        height: 100%;
+        z-index: 210;        
     }
     .balao-ld {
-        background-image: url("../img/balao_lado_inv_alto.png");
+        background-image: url("../img/svg/balao_ld02.svg");
         background-repeat: no-repeat;
-        width: 297px !important; 
-        height: 200px;
+        width: 270px !important; 
+        height: 185px;
         position:absolute;
-        left: -100px;
+        top: -160px;
+        left: 580px;
         z-index: 200;
         margin-top: 40px !important;
         display: table;
+
     }
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 1200px) {
     .balao-ld-texto {
         font-family: 'Poppins', sans-serif;
         font-size: 11pt;
         font-weight: bold;
-        padding: 18px;
-        padding-right: 55px;
         display: table-cell;
+        padding: 18px;
+        padding-top: 0px;        
+        padding-bottom: 35px;
+        vertical-align: middle;  
+        height: 100%;
+        z-index: 210;        
     }
     .balao-ld {
-        background-image: url("../img/balao_lado_inv_md.png");
+        background-image: url("../img/svg/balao_ld01.svg");
         background-repeat: no-repeat;
-        width: 344px !important; 
+        width: 330px !important; 
         height: 150px;
         position:absolute;
-        left: -80px;
+        top: -160px;
+        left: 700px;
         z-index: 200;
         margin-top: 40px !important;
         display: table;
+
     }
 }
-
 
 @media (min-width: 1400px) {
     .balao-ld-texto {
@@ -869,28 +914,55 @@ Balões
         font-weight: bold;
         display: table-cell;
         padding: 18px;
-        padding-right: 55px;
+        padding-top: 0px;        
+        padding-bottom: 35px;
+        vertical-align: middle;  
+        height: 100%;
+        z-index: 210;        
     }
     .balao-ld {
-        background-image: url("../img/balao_lado_inv_fino.png");
+        background-image: url("../img/svg/balao_ld01.svg");
         background-repeat: no-repeat;
-        width: 400px !important; 
-        height: 126px;
+        width: 330px !important; 
+        height: 150px;
         position:absolute;
-        left: -80px;
+        top: -160px;
+        left: 880px;
         z-index: 200;
         margin-top: 40px !important;
+        display: table;
+
     }
 }
 
 @media (pointer: coarse) {
-    .balao-d-none  {
+    .balao-d-none, balao-mouse  {
         
     }
 }
 
 @media (pointer: fine) {
     .balao-d-none {
+        display: none !important;
+    }    
+}
+
+
+@media (pointer: fine)  {
+    .balao-mouse {
+    }    
+    .balao-ld-mouse {
+    }    
+}
+
+@media (pointer: fine) and (min-width: 576px) {
+    .balao-mouse {
+        display: none !important;
+    }    
+}
+
+@media (pointer: fine) and (min-width: 768px) {
+    .balao-ld-mouse {
         display: none !important;
     }    
 }

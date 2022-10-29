@@ -12,7 +12,7 @@
                 <div class="text_gif">
                     <p>Parabéns!</p>
                     <p> Você completou a região <?php echo $tipo ?>!</p>
-                    <p> Acesse o <a href="/index.php/dashboard/#dashboard">Dashboard</a> e veja os resultados!</p>
+                    <p> Acesse o <a href="<?= base_url() ?>index.php/dashboard/#dashboard">Dashboard</a> e veja os resultados!</p>
                 </div>
             </div>
             <div class="container" style="position:absolute">
@@ -89,33 +89,22 @@ $name = $session['name'];
         <?php } ?>
 
         <div class="perguntas mt-5" style="position: relative">
-            
-            <?php            
+
+            <?php
             $i = 0;
             foreach ($pages1 as $page) {
-                $i++
+                $i++;
                 ?>
-            <div class="row" id="row_mobile" style="position:relative; z-index: 0;">
-                
-                <?php 
-                // Recupera a quantidade exibida para o usuário
-                foreach( $pageaux as $pagesuxAtu)  {
-                    if ($pagesuxAtu["id_page"]==$page->id){
-                        $puu = $pagesuxAtu;
+                <div class="row" id="row_mobile" style="position:relative; z-index: 0;">
+
+                    <?php
+                    // Recupera a quantidade exibida para o usuário
+                    foreach ($pageaux as $pagesuxAtu) {
+                        if ($pagesuxAtu["id_page"] == $page->id) {
+                            $puu = $pagesuxAtu;
+                        }
                     }
-                }                    
-                if (($page->qtd_exibicao == 0 ) || ( $puu['cont_exibicao'] <= $page->qtd_exibicao )) { ?>
-                    <div id="bl<?php echo $page->id; ?>" class="balao-ld <?php 
-                            if ($page->momento_exibicao == 1){
-                                echo " d-none ";
-                            }
-                            ?>" >
-                        <div class="balao-ld-texto">
-                            <?php echo str_replace("\r", "<br />", $page->texto_balao ); ?>
-                        </div>
-                    </div>
-                <?php } ?>
-                
+                    ?>                
                     <div class="col-1" style="position:relative; z-index: 0;">
 
                         <div class="perguntas-1 text-left" id="imagem_desk" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
@@ -142,10 +131,9 @@ $name = $session['name'];
                     </div>
                     <div class="col-3" id="p_mobile" style="position:relative; z-index: 0;">
                         <i class="fas fa-check-circle" id="ckeck-i" style=" <?php if ($page->percent_new < 100.00) { ?> color: green; font-size: 32px; opacity: 0.4;
-    <?php } else { ?> color: green; font-size: 32px; <?php } ?>">
+                           <?php } else { ?> color: green; font-size: 32px; <?php } ?>">
                         </i>
                         <br />
-
                         <?php if ($page->percent_new < 100.00 && $page->percent_new > 0.00) { ?>
                             <a href="<?= base_url() ?>index.php/pesquisas/index/<?= $page->run_id; ?>/<?= $page->pag_id ?>" id="button-color-list"><button type="button" class="btn mt-5" id="exo_subtitle" style="width: 100% !important; padding: 10px 20px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;">Continuar</button></a>
                         <?php } ?>
@@ -159,46 +147,89 @@ $name = $session['name'];
                         <?php
                         if ($pesquisas_jornada['total'] == $pesquisas_jornada['tot_realizadas']) {
                             foreach ($pesquisas_repetidas as $pesquisa_repetida) {
-                                if ($page->run_id == $pesquisa_repetida['id']){
+                                if ($page->run_id == $pesquisa_repetida['id']) {
                                     //echo 'diferenca: ' . $pesquisa_repetida['diferenca'] . "<br />";
                                     //echo $pesquisa_repetida['dias_para_refazer'] . "<br />";
 
-                                    if (($pesquisa_repetida['diferenca'] >= $pesquisa_repetida['dias_para_refazer'])
-                                            && ( $pesquisa_repetida['dias_para_refazer'] > 0)){
-                                        if ($pesquisa_repetida['percent_atual'] == 100){
+                                    if (($pesquisa_repetida['diferenca'] >= $pesquisa_repetida['dias_para_refazer']) && ( $pesquisa_repetida['dias_para_refazer'] > 0)) {
+                                        if ($pesquisa_repetida['percent_atual'] == 100) {
                                             ?>
-                            <a href="<?= base_url() ?>index.php/pesquisas/respostas/<?= $page->run_id; ?>/<?= $page_id; ?>/<?= $pesquisa_repetida['studies_id']; ?>/<?php echo $pesquisa_repetida['nr_pesquisa']?>" id="button-color-list"><button type="button" class="btn mt-5" id="exo_subtitle" style="width: 100% !important; padding: 10px 20px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;">Ver Respostas (<?php echo $pesquisa_repetida['nr_pesquisa']?>)</button></a>
-                                            <?php
-                                        } else if($session_id != $pesquisa_repetida['session_id_ant']){?>
-                            <a href="<?= base_url() ?>index.php/pesquisas/index/<?= $page->run_id; ?>/<?= $page->pag_id ?>/<?php echo $pesquisa_repetida['nr_pesquisa']?>" id="button-color-list"><button type="button" class="btn mt-5" id="exo_subtitle" style="width: 100% !important; padding: 10px 20px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;">Refazer (<?php echo $pesquisa_repetida['nr_pesquisa']?>)</button></a>                                            
+                                            <a href="<?= base_url() ?>index.php/pesquisas/respostas/<?= $page->run_id; ?>/<?= $page_id; ?>/<?= $pesquisa_repetida['studies_id']; ?>/<?php echo $pesquisa_repetida['nr_pesquisa'] ?>" id="button-color-list"><button type="button" class="btn mt-5" id="exo_subtitle" style="width: 100% !important; padding: 10px 20px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;">Ver Respostas (<?php echo $pesquisa_repetida['nr_pesquisa'] ?>)</button></a>
+                                        <?php } else if ($session_id != $pesquisa_repetida['session_id_ant']) {
+                                            ?>
+                                            <a href="<?= base_url() ?>index.php/pesquisas/index/<?= $page->run_id; ?>/<?= $page->pag_id ?>/<?php echo $pesquisa_repetida['nr_pesquisa'] ?>" id="button-color-list"><button type="button" class="btn mt-5" id="exo_subtitle" style="width: 100% !important; padding: 10px 20px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;">Refazer (<?php echo $pesquisa_repetida['nr_pesquisa'] ?>)</button></a>                                            
                                             <?php
                                         }
                                     }
-
                                 }
                             }
                         }
                         ?>                            
                     </div>
+                    <?php
+                    if ((($page->qtd_exibicao == 0 ) || ( $puu['cont_exibicao'] <= $page->qtd_exibicao )) && (strlen($page->texto_balao) > 1)) {
+                        ?>                              <div id="bl_pq<?php echo $page->id; ?>" class="balao-ld-pq">
+                            <img class="balao-img col " src="<?= base_url('') ?>assets/img/svg/balao_fundo.gif" 
+                                 height="100%" width="100%" 
+                                 usemap="#map_balaopq<?php echo $page->id; ?>" />
+                            <map name="map_balaopq<?php echo $page->id; ?>">
+                                <area shape="poly" coords="10,3, 3,10, 3,35, 10,45, 15,45, 23,58, 31,45, 40,45, 48,35, 48,10, 40,3 "
+                                      href="#"
+                                      alt="Fechar"
+                                      onclick="bl<?php echo $page->id; ?>.style = 'display: table;'; bl_pq<?php echo $page->id; ?>.style = 'display: none;'; return false;"              
+                                      >
+                            </map>                                
+                        </div>
+                        <div id="bl<?php echo $page->id; ?>" class="balao-ld <?php
+                        if ($page->momento_exibicao == 1) {
+                            echo " balao-ld-mouse ";
+                        }
+                        ?>" >
+                            <div style="display: table-row;">
+                                <div style="display: table-cell;">
+                                    <img class="balao-img col <?php
+                                    if ($page->momento_exibicao == 1) {
+                                        echo "balao-ld-mouse";
+                                    }
+                                    ?>" src="<?= base_url('') ?>assets/img/svg/balao_link01.svg" 
+                                         height="30" width="30" 
+                                         usemap="#map_balao<?php echo $page->id; ?>" 
+                                         style="display: block; margin-left: auto; margin-right: 0;"/>
+
+                                </div>
+                            </div>
+                            <div style="display: table-row;">
+                                <div class="balao-ld-texto">
+                                    <span><?php echo $page->texto_balao; ?></span>
+                                </div>
+                            </div>
+                            <map name="map_balao<?php echo $page->id; ?>">
+                                <area shape="circle" coords="10,18,10"
+                                      href="#"
+                                      alt="Fechar"
+                                      onclick="bl<?php echo $page->id; ?>.style = 'display: none;';return false;"              
+                                      >
+                            </map>                                
+                        </div>
+                    <?php } ?>
                     <div class="col-5" id="p_mobile" style="position:relative; z-index: 0;">
                         <p class="text-1" id="exo_subtitle" style="text-align: left; margin-left:30px;">
                             <b><?php echo $page->run_titulo; ?></b>
                         </p>
                         <p class="text-1 " id="poppins_text" style="text-align: left; margin-left:30px;"
-                        <?php 
+                        <?php
                         if (($page->momento_exibicao == 1) &&
-                            (
-                                ($page->qtd_exibicao == 0) 
-                                || ( $puu['cont_exibicao'] <= $page->qtd_exibicao )
-                            )
-                        ){
-                        echo " onmouseenter='document.getElementById(\"bl" . $page->id . "\").classList.remove(\"d-none\") '";
-                        echo " onmouseout='document.getElementById(\"bl" . $page->id . "\").classList.add(\"d-none\")' ";
+                                (
+                                ($page->qtd_exibicao == 0) || ( $puu['cont_exibicao'] <= $page->qtd_exibicao )
+                                )
+                        ) {
+                            echo " onmouseenter='document.getElementById(\"bl" . $page->id . "\").classList.remove(\"balao-ld-mouse\") '";
+                            echo " onmouseout='document.getElementById(\"bl" . $page->id . "\").classList.add(\"balao-ld-mouse\")' ";
                         }
                         ?>                                                   
-                           
+
                            >
-    <?php echo $page->run_descricao; ?>
+                               <?php echo $page->run_descricao; ?>
                         </p>
                     </div>
                     <div class="col-3" id="p_mobile2" style="position:relative; z-index: 0;">
@@ -222,36 +253,36 @@ $name = $session['name'];
                                 <b><?php echo $page->run_titulo; ?></b>
                             </p>
                             <p class="text-1 " id="poppins_text" style="text-align: left; margin-left:30px;">
-    <?php echo $page->run_descricao; ?>
+                                <?php echo $page->run_descricao; ?>
                             </p>
                         </div>
                         <i class="fas fa-check-circle" id="ckeck-i" style=" <?php if ($page->percent_new < 100.00) { ?> color: green; font-size: 32px; opacity: 0.4;
-    <?php } else { ?> color: green; font-size: 32px; <?php } ?>">
+                           <?php } else { ?> color: green; font-size: 32px; <?php } ?>">
                         </i>
                         <br />
 
-    <?php if ($page->percent_new < 100.00 && $page->percent_new > 0.00) { ?>
+                        <?php if ($page->percent_new < 100.00 && $page->percent_new > 0.00) { ?>
 
                             <a href="<?= base_url() ?>index.php/pesquisas/index/<?= $page->run_id; ?>/<?= $page->pag_id ?>" id="button-color-list"><button type="button" class="btn mt-5" id="exo_subtitle" style="width: 100% !important; padding: 10px 20px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;">Continuar</button></a>
 
-    <?php } ?>
-    <?php if ($page->percent_new == 0.00) { ?>
+                        <?php } ?>
+                        <?php if ($page->percent_new == 0.00) { ?>
 
                             <a href="<?= base_url() ?>index.php/pesquisas/index/<?= $page->run_id; ?>/<?= $page->pag_id ?>" id="button-color-list"><button type="button" class="btn mt-5" id="exo_subtitle" style="width: 100% !important; padding: 10px 20px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;">Iniciar</button></a>
 
                         <?php } ?>
 
-    <?php if ($page->percent_new >= 100.00) { ?>
+                        <?php if ($page->percent_new >= 100.00) { ?>
 
                             <a href="<?= base_url() ?>index.php/pesquisas/respostas/<?= $page->run_id; ?>/<?= $page_id; ?>" id="button-color-list"><button type="button" class="btn mt-5" id="exo_subtitle" style="width: 100% !important; padding: 10px 20px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;">Ver respostas</button></a>
 
-    <?php } ?>
-                           
+                        <?php } ?>
+
                     </div>
 
                 </div>
                 <hr style="margin-bottom: 40px; position:relative; z-index:1;">
-<?php } ?>
+            <?php } ?>
             <!-- <button type="button" class="button-pesquisas" onclick="javascript:onContinuar();">Voltar</button> -->
 
         </div>
@@ -259,7 +290,7 @@ $name = $session['name'];
 </div>
 
 <style>
-    @media(max-width: 768px) {
+    @media(max-width: 767px) {
         #row_mobile {
             display: flex;
             flex-direction: column;
