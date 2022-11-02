@@ -132,7 +132,6 @@ class Pesquisas extends CI_Controller {
             $session_id = $sessionId["session_id"];
         }
         
-        
 
 //echo '$session_id: ' . $session_id;
 //echo "<br />";

@@ -36,7 +36,9 @@ $.ajax({
 			});
 
 }
-<?php if(isset($page_id2) && isset($page_id)){ ?>
+<?php 
+if(isset($page_id2) && isset($page_id) && isset($rest)){ 
+    if (! $rest) {?>
 
 document.querySelectorAll('img').forEach((item, index) => {
     setTimeout(() => {
@@ -61,7 +63,11 @@ document.querySelectorAll('img').forEach((item, index) => {
 
     }, index * 200);
   });
-<?php } ?>
+<?php 
+
+    } 
+}
+?>
 
 	
 
