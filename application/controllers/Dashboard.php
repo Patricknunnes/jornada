@@ -340,7 +340,7 @@ class Dashboard extends CI_Controller
 		$data['regiao'] = $regiao;
 		$data['usu_id'] = $this->session_data['id'];
 
-		$data['graficos'] = $this->Pesquisas_model->graficos_select($data);
+		$data['graficos'] = $this->Pesquisas_model->graficos_survey_studies($data);
 		// print_r($data);
 
 		$id = $this->session_data['id'];

@@ -213,6 +213,29 @@ class Pesquisas_model extends CI_model
         return $result; 
 	}
 
+	public function graficos_survey_studies($pages)
+	{
+		$sql = "
+                            SELECT distinct * 
+                            FROM graficos g
+                            INNER JOIN survey_studies ss
+                                ON g.pesquisa = ss.id_page
+                                    AND g.usu_id = ss.use_id
+                                    AND g.session_id = ss.session_id
+                            WHERE regiao = {$pages['regiao']}  
+                                AND usu_id = {$pages['usu_id']}
+                            ORDER BY 
+                                    CASE
+                                        WHEN ss.nr_pesquisa = 1 THEN -1
+                                        ELSE 0
+                                    END,
+                                    g.pesquisa, ss.nr_pesquisa";
+                                
+        $query = $this->db->query($sql);
+		$result = $query->result();
+        return $result; 
+	}
+
 	public function showif($campo){
 		$sql = "SELECT x.* FROM formr.survey_items x
 		WHERE showif like '{$campo}%'";

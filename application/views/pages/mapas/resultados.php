@@ -48,9 +48,11 @@ $name = $session['name'];
 		<div class="row" id='grafico_desk' style="justify-content: space-between; margin-top: 15px; row-gap: 15px;">
 			<?php foreach ($graficos as $grafico) { ?>
 				<div class="col-6" id='graf1_mobile' style="padding-left: 0;">
-					<div class="card col-12" id='sombra' style="border-radius: 6px;">
+					<div class="card col-12" id='sombra' style="border-radius: 6px; text-align: center;">
 						<div class="card-body" style="width: 100%; height: 100%;">
 							<img width="100%" class="img-fluid"  src="<?= base_url() ?>/uploads/graphic/<?php echo $grafico->imagem; ?>">
+                                                        <p style="color: #000; font-size:14px; font-family: Exo, Sans-serif;">Data de Preenchimento</p>
+                                                        <p style="color: #000; font-weight: bold;font-size:16px;"><?php echo  date_format( new DateTime($grafico->data_gravacao), 'd/m/Y'); ?></p>
 						</div>
 					</div>
 				</div>
