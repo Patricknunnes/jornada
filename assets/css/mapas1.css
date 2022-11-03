@@ -516,7 +516,17 @@ Balões
 
 .balao-img {
     position:relative;
-    z-index: 210;    
+    z-index: 210;
+}
+
+.balao-texto {
+    font-family: 'Poppins', sans-serif;
+    padding: 12px;
+    display: table-cell;
+    vertical-align: middle;
+    height: 100%;
+    z-index: 210;
+    text-shadow: 0 0 50px #CCCCEE;
 }
 
 @media (max-width: 294px) {
@@ -537,15 +547,8 @@ Balões
     }
     
     .balao-texto {
-        font-family: 'Poppins', sans-serif;
-
-        padding: 12px;
         padding-bottom: 35px;
         font-size: 10pt;
-        display: table-cell;
-        vertical-align: middle;
-        height: 100%;        
-        z-index: 210;
     }
         
 }
@@ -568,15 +571,8 @@ Balões
     }
     
     .balao-texto {
-        font-family: 'Poppins', sans-serif;
-
-        padding: 12px;
         padding-bottom: 35px;
         font-size: 10pt;
-        display: table-cell;
-        vertical-align: middle;
-        height: 100%;        
-        z-index: 210;
     }
     
     .balao-pq {
@@ -607,15 +603,8 @@ Balões
     }
     
     .balao-texto {
-        font-family: 'Poppins', sans-serif;
-
-        padding: 12px;
         padding-bottom: 35px;
         font-size: 10pt;
-        display: table-cell;
-        vertical-align: middle;
-        height: 100%;        
-        z-index: 210;
     }
     .balao-pq {
         display: none;
@@ -639,15 +628,8 @@ Balões
     }
     
     .balao-texto {
-        font-family: 'Poppins', sans-serif;
-
-        padding: 12px;
         padding-bottom: 35px;
         font-size: 10pt;
-        display: table-cell;
-        vertical-align: middle;
-        height: 100%;        
-        z-index: 210;
     }
     
 }
@@ -671,15 +653,8 @@ Balões
     }
     
     .balao-texto {
-        font-family: 'Poppins', sans-serif;
-
-        padding: 12px;
         padding-bottom: 35px;
         font-size: 10pt;
-        display: table-cell;
-        vertical-align: middle;
-        height: 100%;        
-        z-index: 210;
     }
     
 }
@@ -700,15 +675,9 @@ Balões
     }
     
     .balao-texto {
-        font-family: 'Poppins', sans-serif;
-        padding: 12px;
         padding-bottom: 50px;
         padding-top: 0px;
         font-size: 11pt;
-        display: table-cell;
-        vertical-align: middle;
-        height: 100%;
-        z-index: 210;
     }    
         
 }
@@ -730,35 +699,30 @@ Balões
     }
     
     .balao-texto {
-        font-family: 'Poppins', sans-serif;
-        padding: 12px;
         padding-bottom: 50px;
         padding-top: 0px;
         font-size: 11pt;
-        display: table-cell;
-        vertical-align: middle;
-        height: 100%;
-        z-index: 210;
     }    
         
 }
 
 
 /* PESQUISA */
+.balao-ld-texto {
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    font-size: 11pt;
+    display: table-cell;
+    padding: 18px;
+    padding-top: 0px;        
+    padding-bottom: 35px;
+    vertical-align: middle;  
+    height: 100%;
+    z-index: 210;  
+    text-shadow: 0 0 15px #CCCCEE;    
+}
 
 @media (max-width: 575px) {
-    .balao-ld-texto {
-        font-family: 'Poppins', sans-serif;
-        font-size: 11pt;
-        font-weight: bold;
-        display: table-cell;
-        padding: 18px;
-        padding-top: 0px;        
-        padding-bottom: 35px;
-        vertical-align: middle;  
-        height: 100%;
-        z-index: 210;  
-    }
     .balao-ld {
         background-image: url("../img/svg/balao_ld03.svg");
         background-repeat: no-repeat;
@@ -785,18 +749,6 @@ Balões
 }
 
 @media (min-width: 576px) {
-    .balao-ld-texto {
-        font-family: 'Poppins', sans-serif;
-        font-size: 11pt;
-        font-weight: bold;
-        display: table-cell;
-        padding: 18px;
-        padding-top: 0px;        
-        padding-bottom: 35px;
-        vertical-align: middle;  
-        height: 100%;
-        z-index: 210;  
-    }
     .balao-ld {
         background-image: url("../img/svg/balao_ld03.svg");
         background-repeat: no-repeat;
@@ -822,18 +774,6 @@ Balões
 }
 
 @media (min-width: 768px) {
-    .balao-ld-texto {
-        font-family: 'Poppins', sans-serif;
-        font-size: 11pt;
-        font-weight: bold;
-        display: table-cell;
-        padding: 18px;
-        padding-top: 0px;        
-        padding-bottom: 35px;
-        vertical-align: middle;  
-        height: 100%;
-        z-index: 210;        
-    }
     .balao-ld {
         background-image: url("../img/svg/balao_ld03.svg");
         background-repeat: no-repeat;
@@ -852,18 +792,6 @@ Balões
 }
 
 @media (min-width: 992px) {
-    .balao-ld-texto {
-        font-family: 'Poppins', sans-serif;
-        font-size: 11pt;
-        font-weight: bold;
-        display: table-cell;
-        padding: 18px;
-        padding-top: 0px;        
-        padding-bottom: 35px;
-        vertical-align: middle;  
-        height: 100%;
-        z-index: 210;        
-    }
     .balao-ld {
         background-image: url("../img/svg/balao_ld02.svg");
         background-repeat: no-repeat;
@@ -880,18 +808,6 @@ Balões
 }
 
 @media (min-width: 1200px) {
-    .balao-ld-texto {
-        font-family: 'Poppins', sans-serif;
-        font-size: 11pt;
-        font-weight: bold;
-        display: table-cell;
-        padding: 18px;
-        padding-top: 0px;        
-        padding-bottom: 35px;
-        vertical-align: middle;  
-        height: 100%;
-        z-index: 210;        
-    }
     .balao-ld {
         background-image: url("../img/svg/balao_ld01.svg");
         background-repeat: no-repeat;
@@ -908,18 +824,6 @@ Balões
 }
 
 @media (min-width: 1400px) {
-    .balao-ld-texto {
-        font-family: 'Poppins', sans-serif;
-        font-size: 11pt;
-        font-weight: bold;
-        display: table-cell;
-        padding: 18px;
-        padding-top: 0px;        
-        padding-bottom: 35px;
-        vertical-align: middle;  
-        height: 100%;
-        z-index: 210;        
-    }
     .balao-ld {
         background-image: url("../img/svg/balao_ld01.svg");
         background-repeat: no-repeat;
