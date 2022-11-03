@@ -183,6 +183,9 @@ class Pesquisas extends CI_Controller {
                 'nr_pesquisa' => $nr_pesquisa
             ];
             $this->Pesquisas_model->createPerceResp($percent);
+            
+            //Envia email apenas quando grava os dados
+            $this->send_mail($id_page, $studies_id, $page_2);            
         }
 
         $this->load->model("Pages_model");
@@ -196,10 +199,6 @@ class Pesquisas extends CI_Controller {
         } else {
             $datas["page_id2"] = $id_page; //
         }
-
-
-        $this->send_mail($id_page, $studies_id, $page_2);
-
 
         $this->load->view('templates/mapas', $datas);
         $this->load->view('templates/nav-top2', $datas);
