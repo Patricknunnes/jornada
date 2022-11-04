@@ -35,7 +35,7 @@ class Pesquisas_model extends CI_model
                                         AND sru.id = {$survey_runs_id}
 					order by sru.position, sis.item_order ";
 		$result = $this->banco->query($sql);
-		return $result;
+		return $result->fetch_all(MYSQLI_ASSOC);
 	}
 
 	public function indexResposta($run_id , $studies_id = null)

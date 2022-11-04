@@ -35,7 +35,7 @@ class Pesquisas extends CI_Controller {
         $datas["page_id2"] = $page_2;
 
         $datas["studies"] = $this->Pesquisas_model->studies($id_page);
-        
+
         $studies = $datas["studies"];
         
         if (empty($nr_pesquisa)){
@@ -53,6 +53,15 @@ class Pesquisas extends CI_Controller {
 
         $result = $this->Pesquisas_model->index($id_page, $studies_id, $studies[0]['id']);
         $survey = $result;
+        
+//print_r($studies);
+//echo "<br />";
+//echo '$id_page: ' . $id_page . "<br />";
+//echo '$studies_id: ' . $studies_id . "<br />";
+//echo '$studies[0][ id ]: ' . $studies[0]['id'] . "<br />";
+//print_r($survey);
+//echo "<br />";
+//exit();
 
         $datas['success'] = $this->session->flashdata('success');
         $datas['error'] = $this->session->flashdata('error');
