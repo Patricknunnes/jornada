@@ -344,6 +344,38 @@ document.querySelectorAll('img').forEach((item, index) => {
                     regiao2.text(textTemp);
                     
                     if (jornada == 'N'){
+                        //Guardar valores
+                        var aguardar1I = $("#aguardar"+ ordem1 + " input").is(':checked');
+                        var aguardar2I = $("#aguardar"+ ordem2 + " input").is(':checked');
+                        //Trocar HTML
+                        var aguardar1 = $("#aguardar"+ ordem1 );
+                        var aguardar2 = $("#aguardar"+ ordem2);
+                        var aguardaTemp = aguardar1.html();
+                        aguardar1.html(aguardar2.html());
+                        aguardar2.html(aguardaTemp);
+                        //Ajustar checked
+                        var aguardar1 = $("#aguardar"+ ordem1 + " input");
+                        var aguardar2 = $("#aguardar"+ ordem2 + " input");                        
+                        aguardar1.prop('checked', aguardar2I);
+                        aguardar2.prop('checked', aguardar1I);
+                        
+                        //Guardar valores
+                        var visivel1I = $("#visivel"+ ordem1 + " input").is(':checked');
+                        var visivel2I = $("#visivel"+ ordem2 + " input").is(':checked');
+                        //Trocar HTML
+                        var visivel1 = $("#visivel"+ ordem1 );
+                        var visivel2 = $("#visivel"+ ordem2 );
+                        var visivelTemp = visivel1.html();
+                        visivel1.html( visivel2.html());
+                        visivel2.html( visivelTemp);
+                        //Ajustar checked
+                        var visivel1 = $("#visivel"+ ordem1 + " input");
+                        var visivel2 = $("#visivel"+ ordem2 + " input");
+                        visivel1.prop('checked', visivel2I);
+                        visivel2.prop('checked', visivel1I);
+                        
+                        
+                        /*                        
                         var aguardar1 = $("#aguardar"+ ordem1 + " input" );
                         var aguardar2 = $("#aguardar"+ ordem2 + " input");
                         var aguardaTemp = aguardar1.is(':checked');
@@ -355,6 +387,7 @@ document.querySelectorAll('img').forEach((item, index) => {
                         var visivelTemp = visivel1.is(':checked');
                         visivel1.prop('checked', visivel2.is(':checked'));
                         visivel2.prop('checked', visivelTemp);
+                        */
                         
                     }
 

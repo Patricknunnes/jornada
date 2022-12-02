@@ -68,6 +68,55 @@ class Pages_model extends CI_model {
     public function getOrdensConclusas() {
         return $this->db->get("pages_ordens_conclusas")->result_array();
     }
+    public function getOrdensConclusasExibicao( $id, $reg_id ) {
+        /*
+        A partir da regiao atual são recuperadas as exigências de regiões conclusas.
+        É verificado o percentual de conclusão das regiões precedentes exigidas.        
+        */
+        $sql = "
+                SELECT 
+                        ps_atu.id, 
+                        CASE WHEN COUNT( poc.ordem ) = 0 THEN 'N' ELSE 'S' END necessita_regiao, 
+                        IFNULL( ROUND ((COUNT( s.studies_id ) * 100) / COUNT( r.run_id )), 0) perc
+
+                FROM pages ps_atu
+
+                LEFT JOIN pages_ordens_conclusas poc
+
+                        INNER JOIN pages ps
+                                ON ps.pertence_a_jornada = poc.jornada
+                                AND ps.ordem = poc.ordem_ant
+
+                        LEFT JOIN page p
+                                ON p.pag_id = ps.id
+
+                        LEFT JOIN run r 
+                                ON r.run_id = p.id
+
+                        LEFT OUTER JOIN survey_studies s
+                                ON s.use_id = {$id} 
+                                        AND s.nr_pesquisa = 1
+                                AND s.id_page = p.id 
+
+                        ON poc.jornada = ps_atu.pertence_a_jornada
+                        AND poc.ordem = ps_atu.ordem
+
+
+                WHERE ps_atu.ativo = 'S'
+                    AND (
+                        ps_atu.id = {$reg_id}
+                        OR
+                        0 = {$reg_id}
+                        )
+
+                GROUP BY ps_atu.id;";
+        
+        
+        $query = $this->db->query($sql);
+        $result = $query->result();
+
+        return $result;        
+    }            
     
     public function getPesquisasRepetidas($id_user, $id_pages) {
         $sql = "SELECT p.id, p.dias_para_refazer, ss.data_gravacao, 
@@ -276,6 +325,33 @@ class Pages_model extends CI_model {
         return $result;
     }
 
+    public function showQuestionsPerc($user_id) {
+         $sql = "
+                SELECT 
+                    p.pag_id,
+                    ps.pertence_a_jornada,
+                    COUNT( r.run_id) tot_run, 
+                    COUNT( s.studies_id) tot_studies, 
+                    IFNULL( ROUND ((COUNT( s.studies_id ) * 100) / COUNT( r.run_id )), 0) perc
+                FROM page p
+                INNER JOIN pages ps
+                    ON p.pag_id = ps.id
+                LEFT JOIN run r 
+                    ON r.run_id = p.id
+                LEFT OUTER JOIN survey_studies s
+                    ON s.use_id = {$user_id} 
+                        AND s.nr_pesquisa = 1
+                        AND s.id_page = p.id 
+
+                GROUP BY p.pag_id
+                ORDER BY p.pag_id;";
+         
+        $query = $this->db->query($sql);
+        $result = $query->result();
+
+        return $result;                 
+    }
+    
     public function showQuestionsUserStudiesId($id) {
         //Recuperando o id na tabela survey_studies 
 

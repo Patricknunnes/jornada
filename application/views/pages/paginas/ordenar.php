@@ -76,7 +76,7 @@
                             <!-- <th scope="col">#</th> -->
                             <th scope="col">Título - Outras</th>
                             <th scope="col">Aguardar Jornada</th>
-                            <th scope="col">Sempre Visível</th>
+                            <th scope="col">Sempre Visível (*)</th>
                             <th scope="col">Ordens que devem estar conclusas</th>                            
                             <th scope="col" style="width: 150px;">Actions</th>
                         </tr>
@@ -149,6 +149,12 @@
                         <?php } ?>
                     </tbody>            
                 </table>
+                <div >
+                    <em>As gravações são realizadas automaticamente.</em>
+                </div>
+                <div >
+                    <em>* - Não possui funcionalidade quando "Aguardar Jornada" estiver desmarcado.</em>
+                </div>
             </div>
 
             <div class="row justify-content-between mt-5">

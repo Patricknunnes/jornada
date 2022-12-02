@@ -41,99 +41,35 @@ class Dashboard extends CI_Controller {
 
         //Apresentação do balão
         $data["pagesux"] = $this->Pages_model->updateContaUx($id);
+        $data['percent'] = $this->Pages_model->showQuestionsPerc( $id );
 
-//        $data["regioes"] = $this->Users_model->getsRegioes($regioes);
-//
-//        if (count($data["regioes"]) == 0) {
-//            redirect("/index.php/dashboard/escolha");
-//            return;
-//        }
-      
-        $data["pages1"] = $this->Pages_model->showQuestions(['pag_id' => 1, 'use_id' => $id]);
-        $data["pages2"] = $this->Pages_model->showQuestions(['pag_id' => 2, 'use_id' => $id]);
-        $data["pages3"] = $this->Pages_model->showQuestions(['pag_id' => 3, 'use_id' => $id]);
-        $data["pages4"] = $this->Pages_model->showQuestions(['pag_id' => 4, 'use_id' => $id]);
-        $data["pages5"] = $this->Pages_model->showQuestions(['pag_id' => 5, 'use_id' => $id]);
 
-//        $data["countpesquisa"] = count($data["pages1"]);
-//
-//        $data["countpesquisa2"] = count($data["pages2"]);
-//
-//        $data["countpesquisa3"] = count($data["pages3"]);
-//
-//        $data["countpesquisa4"] = count($data["pages4"]);
-//
-//        $data["countpesquisa5"] = count($data["pages5"]);
-
-        $conta = 0;
-        $percent_new = 0;
-        foreach ($data["pages1"] as $page) {
-            $percent_new = $percent_new + $page->percent_new;
-            $conta++;
-        }
-        if ($conta == 0) {
-            $conta = 1;
-        }
-        $percent = $percent_new / $conta;
-        $data['percent'][] = $percent;
-
-        $conta = 0;
-        $percent_new = 0;
-        foreach ($data["pages2"] as $page) {
-            $percent_new = $percent_new + $page->percent_new;
-            $conta++;
-        }
-        if ($conta == 0) {
-            $conta = 1;
-        }
-        $percent = $percent_new / $conta;
-        $data['percent'][] = $percent;
-
-        $conta = 0;
-        $percent_new = 0;
-        foreach ($data["pages3"] as $page) {
-            $percent_new = $percent_new + $page->percent_new;
-            $conta++;
-        }
-        if ($conta == 0) {
-            $conta = 1;
-        }
-        $percent = $percent_new / $conta;
-        $data['percent'][] = $percent;
-
-        $conta = 0;
-        $percent_new = 0;
-        foreach ($data["pages4"] as $page) {
-            $percent_new = $percent_new + $page->percent_new;
-            $conta++;
-        }
-        if ($conta == 0) {
-            $conta = 1;
-        }
-        $percent = $percent_new / $conta;
-        $data['percent'][] = $percent;
-
-        $conta = 0;
-        $percent_new = 0;
-        foreach ($data["pages5"] as $page) {
-            $percent_new = $percent_new + $page->percent_new;
-            $conta++;
-        }
-        if ($conta == 0) {
-            $conta = 1;
-        }
-        $percent = $percent_new / $conta;
-        $data['percent'][] = $percent;
-
-        //$data["tipos"] = $this->tipo;
-
+        $data['regioes_percent'] = array();
+        $data['jornada_percent'] = array();
         foreach ($data['pages'] as $ret) {
+            $retId = $ret["id"];
+            $percRegiao = array_values( array_filter(
+                                        $data['percent'],
+                                        function($obj) use ( $retId) { 
+                                            return $obj->pag_id == $retId; 
+                                         })); 
 
-            if ( @$data['percent'][$ret["id"]-1] == 100 ) {
-                $data['regioes_percent'][] = $ret;
+            if (count($percRegiao) > 0) {
+                if ( $percRegiao[0]->perc == 100 ) {
+                    $data['regioes_percent'][] = $ret;
+                }
+                if ( 
+                    ($percRegiao[0]->perc == 100)
+                    &&
+                    ($ret["pertence_a_jornada"]  == "S")
+                    ) {
+                    $data['jornada_percent'][] = $ret;
+                }
             }
         }
-
+                
+        $data["pagesOrdensConclusas"] = $this->Pages_model->getOrdensConclusasExibicao( $id, 0 );
+       
         $this->load->view('templates/mapas', $data);
         $this->load->view('templates/nav-top2', $data);
         $this->load->view('pages/mapas/index', $data);
@@ -154,10 +90,41 @@ class Dashboard extends CI_Controller {
         }
         $data['regiao'] = $regioes[0];
         
-//        $data['tipo'] = $this->tipo[$op]['titulo'];
-//        $data['icone'] = $this->tipo[$op]['icone'];
-//        $data['banner'] = $this->tipo[$op]['banner'];
+        $pagesOrdensConclusas = $this->Pages_model->getOrdensConclusasExibicao( $data['usid'], $op );
+        $pagesOrdensConclusas = $pagesOrdensConclusas[0];
+        
+        $percents = $this->Pages_model->showQuestionsPerc( $data['usid'] );
+        $cont100perc = 0;
+        foreach ( $percents as $percent) {
+            if (($percent->perc == 100) && ($percent->pertence_a_jornada == 'S')) {
+                $cont100perc++;
+            }
+        }
+/*
+echo '$pagesOrdensConclusas->necessita_regiao: ' . $pagesOrdensConclusas->necessita_regiao;
+echo "<br />";
+echo '$pagesOrdensConclusas->perc: ' . $pagesOrdensConclusas->perc;
+echo "<br />";
+echo "aguarda_jornada: " . $data['regiao']->aguarda_jornada;
+echo "<br />";
+echo '$cont100perc: ' . $cont100perc;
+echo "<br />";
+exit();
 
+*/
+
+        if (
+            ($pagesOrdensConclusas->necessita_regiao == 'S') && ( $pagesOrdensConclusas->perc < 100)
+            ||
+            ( $data['regiao']->aguarda_jornada == "S"
+            &&
+            $cont100perc < 5 )
+            ) {
+           redirect("/index.php/dashboard"); 
+        }
+
+
+                            
         $data['page_id'] = $op;
         if (isset($_SESSION['unitid'])) {
             $data['session_id'] = $_SESSION['unitid'];
@@ -287,9 +254,6 @@ class Dashboard extends CI_Controller {
 		</style>
 		';
 
-        //email_padrao( $emailRemetente, $nomeRemetente, 
-        //              $emailDestinatario, $nomeDestinatario, 
-        //              $mensagem_html, $titulo)
         if (email_padrao(
                         $_SESSION['logged_user']['email'],
                         $_SESSION['logged_user']['name'],

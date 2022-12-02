@@ -32,15 +32,7 @@ $name = $session['name'];
                         </p>
                         <p class="text-1" style="margin-top: -6px;">
                             <span id="poppins_title" style="color: #424f8b;"> <i class="fas fa-trophy"></i> 5 regiões</span> estão disponíveis para você conquistar, <span id="poppins_title" style="color: #424f8b;">você já completou
-                                <?php $i = 0 ?>
-
-                                <?php foreach ($percent as $ret) { ?>
-                                    <?php if ($ret == 100) { ?>
-                                        <?php $i++; ?>
-                                    <?php } ?>
-                                <?php } ?>
-
-                                <?php echo $i; ?>.
+                            <?php echo count($jornada_percent)?>.
                             </span>
                         </p>
                         <p class="text-1" id="poppins_text" style=" margin-top: -10px;">
@@ -90,11 +82,32 @@ $name = $session['name'];
 
         <div class="container container-fluid" style="margin-top: 50px; text-align: center;">
             <div class="container-fluid" style="max-width: 1140px">
-            <div class="row row-align row-cols-sm-2 row-cols-md-3 row-cols-lg-5 row-cols-xl-5">
+            <div class="row row-align row-cols-sm-2 row-cols-md-3 row-cols-lg-5 row-cols-xl-5">                
                 <?php
-                $i = 0;
-                foreach ($pages as $regiao) {                  
-                    $i++;
+                //$i = 0;
+                foreach ($pages as $regiao) {
+                    if( $regiao["pertence_a_jornada"] == "S" 
+                        || (
+                            $regiao["pertence_a_jornada"] == "N"
+                            && 
+                                ( 
+                                $regiao["sempre_visivel"] == "S"
+                                ||
+                                $regiao["aguarda_jornada"] == "N"
+                                ||
+                                count($jornada_percent) == 5                                    
+                                )
+                            )                             
+                        ){
+                    
+                    $retId = $regiao["id"];
+                    $OrdensConclusas = array_values( array_filter(
+                                $pagesOrdensConclusas,
+                                function($obj) use ( $retId) { 
+                                    return $obj->id == $retId; 
+                                 }));                      
+                    $OrdensConclusas = $OrdensConclusas[0];
+                    //$i++;
 
                     $atuPage = $regiao;
                     // Recupera a quantidade exibida para o usuário
@@ -106,7 +119,17 @@ $name = $session['name'];
                     ?>
 
                     <div class="pesquisas  " id="poppins_title"  >
-
+                        <div <?php
+                        if (
+                                ($OrdensConclusas->necessita_regiao == 'S') && ( $OrdensConclusas->perc < 100)
+                                ||
+                                ( $regiao["aguarda_jornada"] == "S"
+                                &&
+                                count($jornada_percent) < 5 )
+                                ) {
+                        ?> class="bloqueio" <?php
+                        }
+                        ?> ></div>
                         <?php
                         if ((($atuPage['qtd_exibicao_bl'] == 0) || ( $puu['cont_exibicao'] <= $atuPage['qtd_exibicao_bl'] )) && (strlen($atuPage['texto_balao']) > 1)) {
                             ?>
@@ -187,34 +210,66 @@ $name = $session['name'];
                         </p>
 
                         <p class="" id="exo_subtitle" style="color: #424f8b;">
-                            <?php print(number_format(@$percent[$regiao["id"]-1], 0, '.', ',')); ?>%
-
+                            <?php 
+                            $retId = $regiao["id"];
+                            $percRegiao = array_values( array_filter(
+                                        $percent,
+                                        function($obj) use ( $retId) { 
+                                            return $obj->pag_id == $retId; 
+                                         }));                             
+                            if (count($percRegiao)>0) {
+                                $percAtual = $percRegiao[0]->perc;
+                                print(number_format( $percAtual, 0, '.', ',')); 
+                            } else {
+                                $percAtual = 0;
+                                echo 0;
+                            }
+                            ?>%
                         </p>
                         <div class="progress">
                             <div class="progress-bar" id="progress-bar" role="progressbar" 
-                                 style="width:<?php echo (@$percent[$regiao["id"]-1]); ?>%" 
+                                 style="width:<?php echo (@$percAtual); ?>%" 
                                  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-
+                        
+                        <?php 
+                        if (
+                                ($OrdensConclusas->necessita_regiao == 'S') && ( $OrdensConclusas->perc < 100)
+                                ||
+                                ( $regiao["aguarda_jornada"] == "S"
+                                &&
+                                count($jornada_percent) < 5 )
+                                ) {
+                        ?>
+                        <button type="button" class="button-pesquisas mt-3" id="exo_subtitle" style="width: 100% !important; padding: 10px 20px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;" onclick="javascript: return false;">
+                            Aguarde
+                        </button>
+                        <?php
+                        } else {
+                        ?>
                         <button type="button" class="button-pesquisas mt-3" id="exo_subtitle" style="width: 100% !important; padding: 10px 20px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;" onclick="javascript:onContinuar(<?php echo $regiao["id"] ?>);">
                             <?php
-                            if ( @$percent[$regiao["id"]-1] >= 100 ) {
+                            if ( @$percAtual >= 100 ) {
                                 ?>
                                 Finalizado
                             <?php } ?>
 
                             <?php
-                            if ( @$percent[$regiao["id"]-1] > 0 && @$percent[$regiao["id"]-1] < 100 ) {
+                            if ( @$percAtual > 0 && @$percAtual < 100 ) {
                                 ?>
                                 Continuar
                                 <?php
-                            } else if ( @$percent[$regiao["id"]-1] <= 0 ) {
+                            } else if ( @$percAtual <= 0 ) {
                                 ?>
                                 Iniciar
                             <?php } ?>
                         </button>
+                        <?php
+                        }
+                        ?>
                     </div>
                     <?php
+                    } // if( $regiao["pertence_a_jornada"] ... 
                 }
                 //Fim de foreach ($regioes as $regiao) {
                 ?>
@@ -228,7 +283,8 @@ $name = $session['name'];
 
     <?php
     if (
-            @$percent[0] < 100 && @$percent[1] < 100 && @$percent[2] < 100 && @$percent[3] < 100 && @$percent[4] < 100
+            count($regioes_percent) == 0
+           /* @$percent[0] < 100 && @$percent[1] < 100 && @$percent[2] < 100 && @$percent[3] < 100 && @$percent[4] < 100*/
     ) {
         ?>
         <div class="container text-center mt-3 pb-3">

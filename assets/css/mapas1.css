@@ -877,3 +877,69 @@ Balões
     }    
 }
 
+/*************************
+
+Bloqueio de Região
+
+
+*************************/
+
+.bloqueio {
+    margin-top: -50px;
+    z-index: 150;
+    position: absolute;
+    margin-left: -12px;
+    background-color: #CCCCCC;
+    opacity: 0.2;
+}
+
+
+@media (max-width: 294px) {
+    .bloqueio {
+        height: 428px;
+        width: 218px;
+    }
+}
+
+@media (min-width: 295px) {
+    .bloqueio {
+        height: 428px;
+        width: 218px;
+    }
+}
+
+@media (min-width: 576px) {
+    .bloqueio {
+        height: 428px;
+        width: 218px;
+    }
+}
+
+@media (min-width: 768px) {
+    .bloqueio {
+        height: 430px;
+        width: 214px;
+    }
+}
+
+@media (min-width: 992px) {
+    .bloqueio {
+        height: 440px;
+        width: 175px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .bloqueio {
+        height: 440px;
+        width: 210px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .bloqueio {
+        height: 440px;
+        width: 217px;
+    }
+}
+
