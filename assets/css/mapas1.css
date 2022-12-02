@@ -505,6 +505,11 @@
 	  padding-right: 0;
   }
 
+@media (min-width: 992px) {
+    .col-lg-2 {
+        width: 20%  !important; 
+    }
+}
 /*************************
 
 Balões
@@ -624,6 +629,7 @@ Balões
         position:absolute;
         z-index: 200;
         margin-top: -240px;
+        margin-left: 0;
         display: table;        
     }
     
@@ -648,7 +654,7 @@ Balões
         position:absolute;
         z-index: 200;
         margin-top: -240px;
-        margin-left: 0px;
+        margin-left: 0;
         display: table;        
     }
     
@@ -666,7 +672,7 @@ Balões
     .balao-qd {
         background-image: url("../img/svg/balao02.svg");
         background-repeat: no-repeat;
-        width: 220px; 
+        width: 210px; 
         height: 205px;
         position:absolute;
         z-index: 200;
@@ -690,7 +696,7 @@ Balões
     .balao-qd {
         background-image: url("../img/svg/balao01.svg");
         background-repeat: no-repeat;
-        width: 240px; 
+        width: 220px; 
         height: 205px;
         position:absolute;
         z-index: 200;

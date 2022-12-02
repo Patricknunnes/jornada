@@ -40,7 +40,7 @@ class Paginas extends CI_Controller {
 
     public function cadastro() {
         $data["title"] = 'Cadastro - Pesquisa-r';
-        $data["quiz"] = $this->Quiz_model->index();
+//        $data["quiz"] = $this->Quiz_model->index();
 
         $response = file_get_contents('' . $this->config->base_url() . 'api/runs.php');
         $jsons = json_decode($response);
@@ -67,13 +67,13 @@ class Paginas extends CI_Controller {
 
     /* Remove a associação de um run(Pesquisa) com um pages(Região) */
 
-    public function destroyRegiao() {
+    public function destroyPesquisa() {
 
         $id = $_POST["id"];
         $pag_id = $_POST["pag_id"];
 
         $this->load->model("Pages_model");
-        $this->Pages_model->destroyRegiao($id, $pag_id);
+        $this->Pages_model->destroyPesquisa($id, $pag_id);
     }
 
     public function editar($id) {
@@ -125,6 +125,35 @@ class Paginas extends CI_Controller {
         $this->load->view('templates/js', $data);
     }
 
+    public function ordenar() {
+
+        $data["pagesJornada"] = $this->Pages_model->getRegioesJornada();
+
+        $data["pagesOutras"] = $this->Pages_model->getRegioesOutras();
+        $maxOrdem = $this->Pages_model->getMaxOrdemRegiaoOutras();
+        $data["countOutras"] = $maxOrdem["ordem"];
+
+        $data["pagesOrdensConclusas"] = $this->Pages_model->getOrdensConclusas();
+            
+        $data["title"] = 'Paginas - Pesquisa-r';
+        
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/nav-top', $data);
+        $this->load->view('pages/paginas/ordenar', $data);
+        $this->load->view('templates/footer', $data);
+        $this->load->view('templates/js', $data);        
+    }
+
+    public function ordenarProcessa() {
+        
+        $ordem1 = $_POST["ordem1"];
+        $ordem2 = $_POST["ordem2"];
+        $jornada = $_POST["jornada"];
+        
+        $this->Pages_model->trocaOrdemRegioes($ordem1, $ordem2, $jornada);
+        
+    }
+    
     public function pages() {
         $data["title"] = 'Dashboard - Pesquisa-r';
 
@@ -216,32 +245,92 @@ class Paginas extends CI_Controller {
             "run_titulo" => $_POST["run_titulo"],
         );
 
-        $this->Pages_model->setPage($page);
-        echo '<tr id=' . $_POST["id"] . '><th>' . $_POST["id"] . '</th><td>' . $_POST["run_titulo"] . '</td><td><a onclick="javascript:deletarRegiaoPage(' . $_POST["id"] . ', ' . $_POST["pag_id"] . ')"  class="btn btn-danger"><i class="fas fa-trash-alt"></i></a><td></tr>';
+        $page = $this->Pages_model->setPage($page);
+        echo '<tr id=' . $_POST["id"] . '><th>' . $_POST["id"] . '</th>'
+                . '<td>' . $_POST["run_titulo"] . '</td>'
+                . '<td class="col-1">-1</td>'
+                . '<td class="col-1">0</td>'
+                . '<td>'
+                    . '<a href="' . base_url() . 'index.php/paginas/editarPesquisa/'
+                            . $_POST["pag_id"] . '/' . $_POST["id"] .'" '
+                            . 'class="btn btn-warning" title="Configurar"><i class="fas fa-gear"></i></a> '
+                    . '<a onclick="javascript:deletarRegiaoPage(' . $_POST["id"] . ', ' . 
+                        $_POST["pag_id"] . ')"  class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>'
+                . '<td>'
+            . '</tr>';        
     }
 
     public function store() {
-        $tmp_name = $_FILES["img-upload"]["tmp_name"];
-
-        $name = basename($_FILES["img-upload"]["name"]);
-        move_uploaded_file($tmp_name, "uploads/$name");
+        
+        $regiao = $this->Pages_model->getMaxOrdemRegiaoOutras();
 
         $pages = array(
             "titulo" => $_POST["titulo"],
             "descricao" => $_POST["descricao"],
-            "cor-texto" => $_POST["cor-texto"],
-            "cor_desc" => $_POST["cor_desc"],
-            "questionario" => $_POST["questionario"],
-            "img_pages" => $name,
-            "link_formr" => $_POST["link_formr"],
-            "tipo" => $_POST["tipo"],
+            "dash_descricao" => $_POST["dash_descricao"],
+            "cor-texto" => '',
+            "cor_desc" => '',
+            "questionario" => '',
+            "img_pages" => '',
+            "ativo" => 'S',
+            "link_formr" => 0,
+            "texto_balao" => '',
+            "qtd_exibicao_bl" => 0,
+            "momento_exibicao_bl" => 0,
+            "pertence_a_jornada" => 'N',
+            "ordem" => ($regiao["ordem"] + 1)
         );
+        
+        $id = $this->Pages_model->store($pages);
+        
+        if (! empty($_FILES['img-upload-icone']['size'])){
+            
+            $tmp_name = $_FILES["img-upload-icone"]["tmp_name"];
 
-        $this->Pages_model->store($pages);
+            //$name = basename($_FILES["img-upload"]["name"]);
+            $name = "regiao_" . $id . ".png";
+            move_uploaded_file($tmp_name, "uploads/icones/$name");
+        }
 
+        if (! empty($_FILES['img-upload-banner']['size']) ){
+
+            $tmp_name = $_FILES["img-upload-banner"]["tmp_name"];
+
+            //$name = basename($_FILES["img-upload"]["name"]);
+            $name = "banner_" . $id . ".png";
+            move_uploaded_file($tmp_name, "uploads/$name");
+        }
+        
         redirect("/index.php/paginas/");
     }
+    
+    public function storeAguardaJornada(){
 
+        $regiaoId = $_POST["regiaoId"];
+        $aguardaJornada = $_POST["aguardaJornada"];
+        
+        $this->Pages_model->storeAguardaJornada( $regiaoId, $aguardaJornada);
+        
+    }
+
+    public function storeOrdemConclusa() {
+ 
+        $ordemAtual = $_POST["ordemAtual"];
+        $ordemAnt = $_POST["ordemAnt"];
+        $aguardaConclusa = $_POST["aguardaConclusa"];
+        $jornada = $_POST["jornada"];
+        
+        $this->Pages_model->storeOrdemConclusa( $ordemAtual, $ordemAnt, $aguardaConclusa, $jornada);
+    }
+    
+    public function storeSempreVisivel() {
+        
+        $regiaoId = $_POST["regiaoId"];
+        $sempreVisivel = $_POST["sempreVisivel"];
+        
+        $this->Pages_model->storeSempreVisivel( $regiaoId, $sempreVisivel);     
+    }
+    
     public function update($id) {
         /*
         if (!empty($_FILES["img-upload"]["name"])) {
@@ -269,8 +358,8 @@ class Paginas extends CI_Controller {
             "tipo" => $_POST["tipo"],
             "img_pages" => $name, 
             "texto_balao" => $this->input->post("texto_balao"),
-            "qtd_exibicao" => $this->input->post("qtd_exibicao"),
-            "momento_exibicao" => $this->input->post("momento_exibicao")    
+            "qtd_exibicao_bl" => $this->input->post("qtd_exibicao_bl"),
+            "momento_exibicao_bl" => $this->input->post("momento_exibicao_bl")    
         );
 
         $this->Pages_model->update($id, $page);
@@ -290,8 +379,8 @@ class Paginas extends CI_Controller {
         
         $page = array(            
             'texto_balao' => $this->input->post("texto_balao"),
-            'qtd_exibicao' => $this->input->post("qtd_exibicao"),
-            'momento_exibicao' => $this->input->post("momento_exibicao"),
+            'qtd_exibicao_bl' => $this->input->post("qtd_exibicao_bl"),
+            'momento_exibicao_bl' => $this->input->post("momento_exibicao_bl"),
             'dias_para_refazer' => $this->input->post("dias_para_refazer")
         );
         

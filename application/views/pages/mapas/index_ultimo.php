@@ -88,9 +88,8 @@ $name = $session['name'];
             </div>
         </div>
 
-        <div class="container container-fluid" style="margin-top: 50px; text-align: center;">
-            <div class="container-fluid" style="max-width: 1140px">
-            <div class="row row-align row-cols-sm-2 row-cols-md-3 row-cols-lg-5 row-cols-xl-5">
+        <div class="container" style="margin-top: 50px; text-align: center;">
+            <div class="row row-align container-fluid">
                 <?php
                 $i = 0;
                 foreach ($pages as $regiao) {                  
@@ -105,7 +104,7 @@ $name = $session['name'];
                     }
                     ?>
 
-                    <div class="pesquisas  " id="poppins_title"  >
+                    <div class="pesquisas col-8 col-sm-5 col-md col-lg-2 col-xl-2 " id="poppins_title" style="margin-right: 30px;" >
 
                         <?php
                         if ((($atuPage['qtd_exibicao_bl'] == 0) || ( $puu['cont_exibicao'] <= $atuPage['qtd_exibicao_bl'] )) && (strlen($atuPage['texto_balao']) > 1)) {
@@ -220,7 +219,6 @@ $name = $session['name'];
                 ?>
             </div>
         </div>
-        </div>
     </div>
     <hr id="dashboard" style="margin-left: 30px!important; margin-right: 30px!important;">
     <p class="text-1" id="poppins_text" style="color: #989999; margin-left:30px;">Regiões finalizadas:</p>
@@ -307,11 +305,11 @@ $name = $session['name'];
             text-overflow: ellipsis;
         }
 
-/*        @media(max-width: 600px) {
+        @media(max-width: 600px) {
             .text-235 {
                 height: 100%;
             }
-        }*/
+        }
 
 
         @media (max-width: 1024px) {

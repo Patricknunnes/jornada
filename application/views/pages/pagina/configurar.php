@@ -19,9 +19,9 @@
                     <textarea class="form-control" cols="10" rows="3" id="texto_balao" name="texto_balao" maxlength="120"><?php echo $page['texto_balao']  ?></textarea>
                 </div>
                 <div class="form-group mt-5">
-                    <label for="qtd_exibicao">Número de Vezes que o Balão Será Exibido para Um Usuário</label>                                        
-                    <select class="form-select" cols="10" id="qtd_exibicao" name="qtd_exibicao" value="<?php echo $page['qtd_exibicao']  ?>"  >
-                        <?php for ($qtd = -1; $qtd <= 20; $qtd++) { ?><option <?php if ($page['qtd_exibicao'] == $qtd ){ echo 'selected="selected"';}  ?>><?php
+                    <label for="qtd_exibicao_bl">Número de Vezes que o Balão Será Exibido para Um Usuário</label>                                        
+                    <select class="form-select" cols="10" id="qtd_exibicao_bl" name="qtd_exibicao_bl" value="<?php echo $page['qtd_exibicao_bl']  ?>"  >
+                        <?php for ($qtd = -1; $qtd <= 20; $qtd++) { ?><option <?php if ($page['qtd_exibicao_bl'] == $qtd ){ echo 'selected="selected"';}  ?>><?php
                                 echo $qtd;
                                 if ($qtd == -1)
                                     echo " - Desabilitado";
@@ -45,12 +45,12 @@
                     <label >Momento da Exibição
                     </label>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" value="0" id="momento_exibicao" name="momento_exibicao" <?php if ($page['momento_exibicao'] == 0 ){ echo ' checked="checked"';}  ?>>
-                        <label class="form-check-label" for="momento_exibicao">Automaticamente</label>
+                        <input class="form-check-input" type="radio" value="0" id="momento_exibicao_bl" name="momento_exibicao_bl" <?php if ($page['momento_exibicao_bl'] == 0 ){ echo ' checked="checked"';}  ?>>
+                        <label class="form-check-label" for="momento_exibicao_bl">Automaticamente</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" value="1" id="momento_exibicao" name="momento_exibicao" <?php if ($page['momento_exibicao'] == 1 ){ echo ' checked="checked"';}  ?>>
-                        <label class="form-check-label" for="momento_exibicao">Quando o Usuário passa o mouse pela Pesquisa</label>
+                        <input class="form-check-input" type="radio" value="1" id="momento_exibicao_bl" name="momento_exibicao_bl" <?php if ($page['momento_exibicao_bl'] == 1 ){ echo ' checked="checked"';}  ?>>
+                        <label class="form-check-label" for="momento_exibicao_bl">Quando o Usuário passa o mouse pela Pesquisa</label>
                     </div>
                 </div>
 

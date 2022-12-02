@@ -1,247 +1,251 @@
 <?php
-class Dashboard extends CI_Controller
-{
-	public $tipo = [
-		4 => ['titulo' => 'Valores', 'icone' => 'icones/Valores.png', 'banner' => 'valores_banner.png'],
-		1 => ['titulo' => 'Personalidade', 'icone' => 'icones/regiao-personalidade.png', 'banner' => 'personalidade.png'],
-		2 => ['titulo' => 'Relacionamentos', 'icone' => 'icones/regiao-relacionamentos.png', 'banner' => 'relacionamento.png'],
-		3 => ['titulo' => 'Bem estar', 'icone' => 'icones/bem-estar.png', 'banner' => 'bem_estar.png'],
-		5 => ['titulo' => 'Crenças', 'icone' => 'icones/regiao-crencas.png', 'banner' => 'espiritualidade.png'],
-	];
-	public $perfil = [
-		1 => 'Administrador',
-		2 => 'Usuário',
-	];
-	private $loggedUser;
-	public function __construct()
-	{
-		parent::__construct();
-		$this->loggedUser = permission();
-		$this->load->library('session');
-		$this->load->model("Termos_model");
-		$this->load->model("Pages_model");
-		$this->load->model("Pesquisas_model");
-		$this->session_data = $this->session->userdata('logged_user');
-	}
 
-	public function index()
-	{
-		$this->load->model("Pages_model");
-		$this->load->model("Users_model");
-		$id = $this->session_data['id'];
-		$regioes = ['use_id' => $id];
-		$data["title"] = 'Jornada de Autoconhecimento';
-		$data["pages"] = $this->Pages_model->index();
-                
-                //Apresentação do balão
-                $data["pagesux"] = $this->Pages_model->updateContaUx( $id );
+class Dashboard extends CI_Controller {
 
-		$data["regioes"] = $this->Users_model->getsRegioes($regioes);
-                
-                if (count($data["regioes"]) == 0 ) {
-                    redirect("/index.php/dashboard/escolha");
-                    return;
-                }
-		$data["pages1"] = $this->Pages_model->showQuestions(['pag_id' => 1, 'use_id' => $id]);
-		$data["pages2"] = $this->Pages_model->showQuestions(['pag_id' => 2, 'use_id' => $id]);
-		$data["pages3"] = $this->Pages_model->showQuestions(['pag_id' => 3, 'use_id' => $id]);
-		$data["pages4"] = $this->Pages_model->showQuestions(['pag_id' => 4, 'use_id' => $id]);
-		$data["pages5"] = $this->Pages_model->showQuestions(['pag_id' => 5, 'use_id' => $id]);
+    /*
+    public $tipo = [
+        4 => ['titulo' => 'Valores', 'icone' => 'icones/Valores.png', 'banner' => 'valores_banner.png'],
+        1 => ['titulo' => 'Personalidade', 'icone' => 'icones/regiao-personalidade.png', 'banner' => 'personalidade.png'],
+        2 => ['titulo' => 'Relacionamentos', 'icone' => 'icones/regiao-relacionamentos.png', 'banner' => 'relacionamento.png'],
+        3 => ['titulo' => 'Bem estar', 'icone' => 'icones/bem-estar.png', 'banner' => 'bem_estar.png'],
+        5 => ['titulo' => 'Crenças', 'icone' => 'icones/regiao-crencas.png', 'banner' => 'espiritualidade.png'],
+    ];
+    */
+    
+    public $perfil = [
+        1 => 'Administrador',
+        2 => 'Usuário',
+    ];
+    private $loggedUser;
 
-		$data["countpesquisa"] = count($data["pages1"]);
+    public function __construct() {
+        parent::__construct();
+        $this->loggedUser = permission();
+        $this->load->library('session');
+        $this->load->model("Termos_model");
+        $this->load->model("Pages_model");
+        $this->load->model("Pesquisas_model");
+        $this->session_data = $this->session->userdata('logged_user');
+    }
 
-		$data["countpesquisa2"] = count($data["pages2"]);
+    public function index() {
+        
+        $this->load->model("Pages_model");
+        $this->load->model("Users_model");
 
-		$data["countpesquisa3"] = count($data["pages3"]);
+        $id = $this->session_data['id'];
+        $regioes = ['use_id' => $id];
+        $data["title"] = 'Jornada de Autoconhecimento';
 
-		$data["countpesquisa4"] = count($data["pages4"]);
+        $data["pages"] = $this->Pages_model->index();
 
-		$data["countpesquisa5"] = count($data["pages5"]);
+        //Apresentação do balão
+        $data["pagesux"] = $this->Pages_model->updateContaUx($id);
 
-		$conta = 0;
-		$percent_new = 0;
-		foreach ($data["pages1"] as $page) {
-			$percent_new  = $percent_new + $page->percent_new;
-			$conta++;
-		}
-		if ($conta == 0) {
-			$conta = 1;
-		}
-		$percent = $percent_new / $conta;
-		$data['percent'][] = $percent;
+//        $data["regioes"] = $this->Users_model->getsRegioes($regioes);
+//
+//        if (count($data["regioes"]) == 0) {
+//            redirect("/index.php/dashboard/escolha");
+//            return;
+//        }
+      
+        $data["pages1"] = $this->Pages_model->showQuestions(['pag_id' => 1, 'use_id' => $id]);
+        $data["pages2"] = $this->Pages_model->showQuestions(['pag_id' => 2, 'use_id' => $id]);
+        $data["pages3"] = $this->Pages_model->showQuestions(['pag_id' => 3, 'use_id' => $id]);
+        $data["pages4"] = $this->Pages_model->showQuestions(['pag_id' => 4, 'use_id' => $id]);
+        $data["pages5"] = $this->Pages_model->showQuestions(['pag_id' => 5, 'use_id' => $id]);
 
-		$conta = 0;
-		$percent_new = 0;
-		foreach ($data["pages2"] as $page) {
-			$percent_new  = $percent_new + $page->percent_new;
-			$conta++;
-		}
-		if ($conta == 0) {
-			$conta = 1;
-		}
-		$percent = $percent_new / $conta;
-		$data['percent'][] = $percent;
+//        $data["countpesquisa"] = count($data["pages1"]);
+//
+//        $data["countpesquisa2"] = count($data["pages2"]);
+//
+//        $data["countpesquisa3"] = count($data["pages3"]);
+//
+//        $data["countpesquisa4"] = count($data["pages4"]);
+//
+//        $data["countpesquisa5"] = count($data["pages5"]);
 
-		$conta = 0;
-		$percent_new = 0;
-		foreach ($data["pages3"] as $page) {
-			$percent_new  = $percent_new + $page->percent_new;
-			$conta++;
-		}
-		if ($conta == 0) {
-			$conta = 1;
-		}
-		$percent = $percent_new / $conta;
-		$data['percent'][] = $percent;
+        $conta = 0;
+        $percent_new = 0;
+        foreach ($data["pages1"] as $page) {
+            $percent_new = $percent_new + $page->percent_new;
+            $conta++;
+        }
+        if ($conta == 0) {
+            $conta = 1;
+        }
+        $percent = $percent_new / $conta;
+        $data['percent'][] = $percent;
 
-		$conta = 0;
-		$percent_new = 0;
-		foreach ($data["pages4"] as $page) {
-			$percent_new  = $percent_new + $page->percent_new;
-			$conta++;
-		}
-		if ($conta == 0) {
-			$conta = 1;
-		}
-		$percent = $percent_new / $conta;
-		$data['percent'][] = $percent;
+        $conta = 0;
+        $percent_new = 0;
+        foreach ($data["pages2"] as $page) {
+            $percent_new = $percent_new + $page->percent_new;
+            $conta++;
+        }
+        if ($conta == 0) {
+            $conta = 1;
+        }
+        $percent = $percent_new / $conta;
+        $data['percent'][] = $percent;
 
-		$conta = 0;
-		$percent_new = 0;
-		foreach ($data["pages5"] as $page) {
-			$percent_new  = $percent_new + $page->percent_new;
-			$conta++;
-		}
-		if ($conta == 0) {
-			$conta = 1;
-		}
-		$percent = $percent_new / $conta;
-		$data['percent'][] = $percent;
+        $conta = 0;
+        $percent_new = 0;
+        foreach ($data["pages3"] as $page) {
+            $percent_new = $percent_new + $page->percent_new;
+            $conta++;
+        }
+        if ($conta == 0) {
+            $conta = 1;
+        }
+        $percent = $percent_new / $conta;
+        $data['percent'][] = $percent;
 
-		$data["tipos"] = $this->tipo;
+        $conta = 0;
+        $percent_new = 0;
+        foreach ($data["pages4"] as $page) {
+            $percent_new = $percent_new + $page->percent_new;
+            $conta++;
+        }
+        if ($conta == 0) {
+            $conta = 1;
+        }
+        $percent = $percent_new / $conta;
+        $data['percent'][] = $percent;
 
-		foreach ($data['regioes'] as $ret) {
+        $conta = 0;
+        $percent_new = 0;
+        foreach ($data["pages5"] as $page) {
+            $percent_new = $percent_new + $page->percent_new;
+            $conta++;
+        }
+        if ($conta == 0) {
+            $conta = 1;
+        }
+        $percent = $percent_new / $conta;
+        $data['percent'][] = $percent;
 
-			if (
-				$ret->tipo == 1 && @$data['percent'][0] == 100
-				|| $ret->tipo == 2 && @$data['percent'][1] == 100
-				|| $ret->tipo == 3 && @$data['percent'][2] == 100
-				|| $ret->tipo == 4 && @$data['percent'][3] == 100
-				|| $ret->tipo == 5 && @$data['percent'][4] == 100
-			) {
-				$data['regioes_percent'][] = $ret;
-			}
-		}
+        //$data["tipos"] = $this->tipo;
 
-		$this->load->view('templates/mapas', $data);
-		$this->load->view('templates/nav-top2', $data);
-		$this->load->view('pages/mapas/index', $data);
-		$this->load->view('templates/footer');
-		$this->load->view('templates/js');
-	}
+        foreach ($data['pages'] as $ret) {
 
-	public function list($op)
-	{
-            //$op = região
-            
-		$this->load->model("Pages_model");
-		$data['usid'] = $this->loggedUser['id'];
-		$data['tipo'] = $this->tipo[$op]['titulo'];
-		$data['icone'] = $this->tipo[$op]['icone'];
-		$data['banner'] = $this->tipo[$op]['banner'];
+            if ( @$data['percent'][$ret["id"]-1] == 100 ) {
+                $data['regioes_percent'][] = $ret;
+            }
+        }
 
-		$data['page_id'] = $op;
-                if (isset($_SESSION['unitid'])) {
-                    $data['session_id'] = $_SESSION['unitid'];
-                } else {
-                    $data['session_id'] = -1;
-                }
+        $this->load->view('templates/mapas', $data);
+        $this->load->view('templates/nav-top2', $data);
+        $this->load->view('pages/mapas/index', $data);
+        $this->load->view('templates/footer');
+        $this->load->view('templates/js');
+    }
 
-                //Apresentação do balão
-                $data["pageaux"] = $this->Pages_model->updateContaUxPesq( $data['usid'], $data['page_id'] );
-                
-		$heads["title"] = 'Jornada de Autoconhecimento';
-		$data["pages"] = $this->Pages_model->index();
+    public function list($op) {
+        //$op = região
 
-                //Retorna as Pesquisas da região informada
-		$data["pages1"] = $this->Pages_model->showQuestions(['pag_id' => $op, 'use_id' => $data['usid']]);
-                
-		$conta = 0;
-		$percent_new = 0;
-		foreach ($data["pages1"] as $page) {
-			$percent_new  = $percent_new + $page->percent_new;
-			$conta++;
-		}
-		if ($conta == 0) {
-			$conta = 1;
-		}
-		$percent = $percent_new / $conta;
-                
-                //Percentual total da Região
-		$data['percent'] = $percent;
-                
-                //Número de pesqusisas da região
-		$data["countpesquisa"] = count($data["pages1"]);
+        $this->load->model("Pages_model");
+        $data['usid'] = $this->loggedUser['id'];
+        
+        $regioes =  $this->Pages_model->gets($op);
+        
+        if (count($regioes) <= 0) {
+            redirect("/index.php/dashboard");
+        }
+        $data['regiao'] = $regioes[0];
+        
+//        $data['tipo'] = $this->tipo[$op]['titulo'];
+//        $data['icone'] = $this->tipo[$op]['icone'];
+//        $data['banner'] = $this->tipo[$op]['banner'];
 
-		$getGifRegiao = $this->Pages_model->getRegiao($_SESSION['logged_user']['id'],	$data['page_id']);
+        $data['page_id'] = $op;
+        if (isset($_SESSION['unitid'])) {
+            $data['session_id'] = $_SESSION['unitid'];
+        } else {
+            $data['session_id'] = -1;
+        }
 
-		if (empty($getGifRegiao)) {
+        //Apresentação do balão
+        $data["pageaux"] = $this->Pages_model->updateContaUxPesq($data['usid'], $data['page_id']);
 
-			$data['gif_regiao'][]['status'] = 1;
-		} else {
+        $heads["title"] = 'Jornada de Autoconhecimento';
+        $data["pages"] = $this->Pages_model->index();
 
-			$array = json_decode(json_encode($getGifRegiao), true);
+        //Retorna as Pesquisas da região informada
+        $data["pages1"] = $this->Pages_model->showQuestions(['pag_id' => $op, 'use_id' => $data['usid']]);
 
-			$data['gif_regiao'] = $array;
-		}
-                
-                $data["pesquisas_jornada"] = $this->Pages_model->getTotPesquisasJornada( $data['usid'] );
-                $data["pesquisas_repetidas"] = $this->Pages_model->getPesquisasRepetidas( $data['usid'], $data['page_id'] );
-                
-		$this->load->view('templates/mapas', $heads);
-		$this->load->view('templates/nav-top2', $heads);
-		$this->load->view('pages/mapas/list', $data);
-		$this->load->view('templates/footer');
-		$this->load->view('templates/js');
-	}
+        $conta = 0;
+        $percent_new = 0;
+        foreach ($data["pages1"] as $page) {
+            $percent_new = $percent_new + $page->percent_new;
+            $conta++;
+        }
+        if ($conta == 0) {
+            $conta = 1;
+        }
+        $percent = $percent_new / $conta;
 
-	public function perfil($id)
-	{
-		$id = $this->session_data['id'];
-		$data['message'] = $this->session->flashdata('success');
-		$this->load->model("Users_model");
-		$data["users"] = $this->Users_model->show($id);
-		$data['perfil'] = $this->perfil;
-		$data["title"] = 'Perfil';
-		$data["termos"] = $this->Termos_model->index($id);
+        //Percentual total da Região
+        $data['percent'] = $percent;
 
-		$this->load->view('templates/mapas', $data);
-		$this->load->view('templates/nav-top2', $data);
-		$this->load->view('pages/mapas/perfil', $data);
-		$this->load->view('templates/footer', $data);
-		$this->load->view('templates/js', $data);
-	}
+        //Número de pesqusisas da região
+        $data["countpesquisa"] = count($data["pages1"]);
 
-	public function feedback($id)
-	{
-		$this->load->model("Users_model");
-		$data["users"] = $this->Users_model->show($id);
-		$data['perfil'] = $this->perfil;
-		$data["title"] = 'Contato';
-		$this->load->view('templates/mapas', $data);
-		$this->load->view('templates/nav-top2', $data);
-		$this->load->view('pages/mapas/feedback', $data);
-		$this->load->view('templates/footer', $data);
-		$this->load->view('templates/js', $data);
-	}
+        $getGifRegiao = $this->Pages_model->getRegiao($_SESSION['logged_user']['id'], $data['page_id']);
 
-	public function send_mail()
-	{
+        if (empty($getGifRegiao)) {
 
-		$id_user = $_SESSION['logged_user']['id'];
-            
-		$message =
-			'<div style="display: flex; background: #f5f5f5; width: 100%; height: 600px; flex-direction: column; position: relative; justify-content: space-between">
+            $data['gif_regiao'][]['status'] = 1;
+        } else {
+
+            $array = json_decode(json_encode($getGifRegiao), true);
+
+            $data['gif_regiao'] = $array;
+        }
+
+        $data["pesquisas_jornada"] = $this->Pages_model->getTotPesquisasJornada($data['usid']);
+        $data["pesquisas_repetidas"] = $this->Pages_model->getPesquisasRepetidas($data['usid'], $data['page_id']);
+
+        $this->load->view('templates/mapas', $heads);
+        $this->load->view('templates/nav-top2', $heads);
+        $this->load->view('pages/mapas/list', $data);
+        $this->load->view('templates/footer');
+        $this->load->view('templates/js');
+    }
+
+    public function perfil($id) {
+        $id = $this->session_data['id'];
+        $data['message'] = $this->session->flashdata('success');
+        $this->load->model("Users_model");
+        $data["users"] = $this->Users_model->show($id);
+        $data['perfil'] = $this->perfil;
+        $data["title"] = 'Perfil';
+        $data["termos"] = $this->Termos_model->index($id);
+
+        $this->load->view('templates/mapas', $data);
+        $this->load->view('templates/nav-top2', $data);
+        $this->load->view('pages/mapas/perfil', $data);
+        $this->load->view('templates/footer', $data);
+        $this->load->view('templates/js', $data);
+    }
+
+    public function feedback($id) {
+        $this->load->model("Users_model");
+        $data["users"] = $this->Users_model->show($id);
+        $data['perfil'] = $this->perfil;
+        $data["title"] = 'Contato';
+        $this->load->view('templates/mapas', $data);
+        $this->load->view('templates/nav-top2', $data);
+        $this->load->view('pages/mapas/feedback', $data);
+        $this->load->view('templates/footer', $data);
+        $this->load->view('templates/js', $data);
+    }
+
+    public function send_mail() {
+
+        $id_user = $_SESSION['logged_user']['id'];
+
+        $message = '<div style="display: flex; background: #f5f5f5; width: 100%; height: 600px; flex-direction: column; position: relative; justify-content: space-between">
 				<div class="text26982" style="">
 					<div style="display: flex; background-color: #32549b; height: 50px; width: 100%;">
 						<img width="100" height="45" src="<?= base_url() ?>assets/img/logo.png" />
@@ -282,156 +286,151 @@ class Dashboard extends CI_Controller
 			}
 		</style>
 		';
-                
-                //email_padrao( $emailRemetente, $nomeRemetente, 
-                //              $emailDestinatario, $nomeDestinatario, 
-                //              $mensagem_html, $titulo)
-                if( email_padrao( 
-                                $_SESSION['logged_user']['email'],
-                                $_SESSION['logged_user']['name'], 
-                                EMAIL_CONTATO, 
-                                'Contato Saúde Mental Idor', 
-                                $message, 
-                                'FeedBacks') ){                    
-			redirect("/index.php/dashboard/feedback/$id_user");
-		} else {
-			redirect("/index.php/dashboard/feedback/$id_user");
-		}
-	}
 
-	public function escolha()
-	{
-		$this->load->model("Users_model");
-		$id = $this->session_data['id'];
-		$data["users"] = $this->Users_model->show($id);
-		$data['perfil'] = $this->perfil;
-		$data['tipos'] = $this->tipo;
-		$data["title"] = 'Escolha a ordem das regiões de autoconhecimento';
+        //email_padrao( $emailRemetente, $nomeRemetente, 
+        //              $emailDestinatario, $nomeDestinatario, 
+        //              $mensagem_html, $titulo)
+        if (email_padrao(
+                        $_SESSION['logged_user']['email'],
+                        $_SESSION['logged_user']['name'],
+                        EMAIL_CONTATO,
+                        'Contato Saúde Mental Idor',
+                        $message,
+                        'FeedBacks')) {
+            redirect("/index.php/dashboard/feedback/$id_user");
+        } else {
+            redirect("/index.php/dashboard/feedback/$id_user");
+        }
+    }
 
-		$regioes = ['use_id' => $id];
+    public function escolha() {
+        $this->load->model("Users_model");
+        $id = $this->session_data['id'];
+        $data["users"] = $this->Users_model->show($id);
+        $data['perfil'] = $this->perfil;
+        $data['tipos'] = $this->tipo;
+        $data["title"] = 'Escolha a ordem das regiões de autoconhecimento';
 
-		$data["regioes"] = $this->Users_model->getRegioes($regioes);
+        $regioes = ['use_id' => $id];
 
-		if (!empty($data["regioes"])) {
+        $data["regioes"] = $this->Users_model->getRegioes($regioes);
 
-			//redirect("/index.php/dashboard");
-		}
+        if (!empty($data["regioes"])) {
 
-		$this->load->view('templates/mapas', $data);
-		$this->load->view('templates/nav-top2', $data);
-		$this->load->view('pages/mapas/escolha', $data);
-		$this->load->view('templates/footer', $data);
-		$this->load->view('templates/js', $data);
-	}
+            //redirect("/index.php/dashboard");
+        }
 
-	public function storeescolha()
-	{
-		redirect("/index.php/dashboard");
-	}
+        $this->load->view('templates/mapas', $data);
+        $this->load->view('templates/nav-top2', $data);
+        $this->load->view('pages/mapas/escolha', $data);
+        $this->load->view('templates/footer', $data);
+        $this->load->view('templates/js', $data);
+    }
 
-	public function resultados($regiao = null)
-	{
+    public function storeescolha() {
+        redirect("/index.php/dashboard");
+    }
+
+    public function resultados($regiao = null) {
 
 
-		$this->load->model("Pages_model");
-		$this->load->model("Users_model");
-		$this->load->model("Pesquisas_model");
+        $this->load->model("Pages_model");
+        $this->load->model("Users_model");
+        $this->load->model("Pesquisas_model");
 
-		$data['regiao'] = $regiao;
-		$data['usu_id'] = $this->session_data['id'];
+        $data['regiao'] = $regiao;
+        $data['usu_id'] = $this->session_data['id'];
 
-		$data['graficos'] = $this->Pesquisas_model->graficos_survey_studies($data);
-		// print_r($data);
+        $data['graficos'] = $this->Pesquisas_model->graficos_survey_studies($data);
+        // print_r($data);
 
-		$id = $this->session_data['id'];
-		$regioes = ['use_id' => $id];
-		$data["title"] = 'Resultados';
-		$data["pages"] = $this->Pages_model->index();
-		$allRegioes = $this->Users_model->getsRegioes($regioes);
-		foreach ($allRegioes as $ret) {
-			if ($ret->tipo == $regiao) {
-				$data['regioes'] = $ret;
-			}
-		}
-                
-		$questionsAll =  $this->Pages_model->showQuestions(['pag_id' => $regiao, 'use_id' => $id]);
+        $id = $this->session_data['id'];
+        $regioes = ['use_id' => $id];
+        $data["title"] = 'Resultados';
+        $data["pages"] = $this->Pages_model->index();
+        $allRegioes = $this->Users_model->getsRegioes($regioes);
+        foreach ($allRegioes as $ret) {
+            if ($ret->tipo == $regiao) {
+                $data['regioes'] = $ret;
+            }
+        }
 
-		$conta = 0;
-		$percent = 0;
-		foreach ($questionsAll as $question) {
+        $questionsAll = $this->Pages_model->showQuestions(['pag_id' => $regiao, 'use_id' => $id]);
 
-			$percent = $question->percent_new;
-			$conta++;
-			if ($percent == 100) {
-				$data["countpesquisa"] = count($questionsAll);
-			}
-		}
+        $conta = 0;
+        $percent = 0;
+        foreach ($questionsAll as $question) {
 
-                
-		//$filter['pag_id'] = $regiao;
-                
-                //$results = $this->Pages_model->showQuestions($filter);
-		$results = $this->Pages_model->showQuestionsUserStudiesId(
-                                        ['pag_id' => $regiao, 'use_id' => $id]);
-                
-                $sessionsIds = $this->Pesquisas_model->getSessions($id);
+            $percent = $question->percent_new;
+            $conta++;
+            if ($percent == 100) {
+                $data["countpesquisa"] = count($questionsAll);
+            }
+        }
 
-                $sessions = array();
-                foreach ($sessionsIds as $sessionId) {
-                    $sessions[] = $sessionId->session_id;
+
+        //$filter['pag_id'] = $regiao;
+        //$results = $this->Pages_model->showQuestions($filter);
+        $results = $this->Pages_model->showQuestionsUserStudiesId(
+                ['pag_id' => $regiao, 'use_id' => $id]);
+
+        $sessionsIds = $this->Pesquisas_model->getSessions($id);
+
+        $sessions = array();
+        foreach ($sessionsIds as $sessionId) {
+            $sessions[] = $sessionId->session_id;
+        }
+
+        foreach ($results as $ret) {
+
+            $resultTab = $this->Pesquisas_model->studiesTable($ret->studies_id);
+
+
+            if (!empty($resultTab)) {
+
+                $result_respostas = $this->Pesquisas_model->getAllTablesFindSession(
+                        $resultTab[0]['results_table'],
+                        $sessions);
+
+                foreach ($result_respostas as $rrep) {
+                    $total_questoes[] = count($rrep);
                 }
 
-		foreach ($results as $ret) {
-
-			$resultTab = $this->Pesquisas_model->studiesTable($ret->studies_id);
-                        
-
-			if (!empty($resultTab)) {
-
-				$result_respostas = $this->Pesquisas_model->getAllTablesFindSession(
-                                                                $resultTab[0]['results_table'],
-                                                                $sessions);
-
-				foreach ($result_respostas as $rrep) {
-					$total_questoes[] = count($rrep);
-				}
-
-                                    //Foram reduzidas 9 colunas da tabela
-                                    // que estavam sendo contadas como respostas
-                                    // session_id, study_id, created, modified, ended, fbnumber
-                                    // note_fb_2, note_fb_3, note_fb_4
-				$data['total_questoes'] = array_sum($total_questoes) - 9 ;
-			} else {
-				$data['total_questoes'] = 0;
-			}
-		}
+                //Foram reduzidas 9 colunas da tabela
+                // que estavam sendo contadas como respostas
+                // session_id, study_id, created, modified, ended, fbnumber
+                // note_fb_2, note_fb_3, note_fb_4
+                $data['total_questoes'] = array_sum($total_questoes) - 9;
+            } else {
+                $data['total_questoes'] = 0;
+            }
+        }
 
 
-		$data["tipos"] = $this->tipo;
-		$this->load->view('templates/mapas', $data);
-		$this->load->view('templates/nav-top2', $data);
-		$this->load->view('pages/mapas/resultados', $data);
-		$this->load->view('templates/footer');
-		$this->load->view('templates/js');
-	}
+        $data["tipos"] = $this->tipo;
+        $this->load->view('templates/mapas', $data);
+        $this->load->view('templates/nav-top2', $data);
+        $this->load->view('pages/mapas/resultados', $data);
+        $this->load->view('templates/footer');
+        $this->load->view('templates/js');
+    }
 
+    public function update_gif_regiao($id_page) {
 
-	public function update_gif_regiao($id_page)
-	{
+        $getGifRegiao = $this->Pages_model->getRegiao($_SESSION['logged_user']['id'], $id_page);
 
-		$getGifRegiao = $this->Pages_model->getRegiao($_SESSION['logged_user']['id'], $id_page);
+        if (empty($getGifRegiao)) {
 
-		if (empty($getGifRegiao)) {
+            $regiao = array(
+                "id_page" => $id_page,
+                "id_user" => $_SESSION['logged_user']['id'],
+                "status" => 0
+            );
 
-			$regiao = array(
-				"id_page" => $id_page,
-				"id_user" => $_SESSION['logged_user']['id'],
-				"status" => 0
-			);
+            $this->Pages_model->insertRegiaoGif($regiao);
+        } else {
+            return;
+        }
+    }
 
-			$this->Pages_model->insertRegiaoGif($regiao);
-		} else {
-			return;
-		}
-	}
 }

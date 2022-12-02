@@ -42,7 +42,7 @@ $name = $session['name'];
 
     <div class="container text-center mt-3 pt-5 pb-5">
         <div class="container text-center mt-3">
-            <img class="img-regiao mt-4" src="<?= base_url('') ?>assets/img/<?php echo $icone; ?>" alt="" alt="">
+            <img class="img-regiao mt-4" src="<?= base_url('') ?>assets/img/icones/regiao_<?php echo $page_id; ?>.png" alt="" alt="">
             <div class="d-flex justify-content-start">
                     <!-- <a type="button" id="voltar-valores" class="icon1"><i class="fas fa-chevron-left"></i></a> -->
                 <!-- <a type="button" id="voltar-valores1" class="text-4">Voltar região</a> -->
@@ -52,7 +52,8 @@ $name = $session['name'];
             <div class="d-flex justify-content-end">
                     <!-- <a type="button" id="proximo-relacionamento" class="icon"><i class="fas fa-chevron-right"></i></a> -->
             </div>
-            <p class="mt-2 pb-3"><span id="exo_title"><?php echo $tipo; ?></span></p>
+
+            <p class="mt-2 pb-3"><span id="exo_title"><?php echo $regiao->titulo; ?></span></p>
             <p class=" mt-5" style="color: #424f8b; font-weight: bold; font-family: Exo, Sans-serif;">
                 <?php echo number_format($percent, 0, ',', '.'); ?>%
             </p>
@@ -62,22 +63,16 @@ $name = $session['name'];
             </div>
             <div class="mt-3">
                 <p class="text-1" id="poppins_text">
-                    A <span id="poppins_title" style="color: #424f8b;">região <?php echo $tipo; ?></span> contém <?php echo $countpesquisa; ?> pesquisas.
+                    A <span id="poppins_title" style="color: #424f8b;">região <?php echo $regiao->titulo; ?></span> contém <?php echo $countpesquisa; ?> pesquisas.
                 </p>
-                <?php foreach ($pages as $page1) { ?>
-
-                    <?php if ($page1['titulo'] == $tipo) { ?>
-                        <p class="text-1" id="titles" style=" margin-top: -10px; padding: 0 15%; font-family: Poppins, sans-serif;">
-                            <?php echo $page1['descricao'] ?>
-                        </p>
-                    <?php } ?>
-
-                <?php } ?>
+                <p class="text-1" id="titles" style=" margin-top: -10px; padding: 0 15%; font-family: Poppins, sans-serif;">
+                    <?php echo $regiao->descricao ?>
+                </p>
 
             </div>
             <div class="mt-3">
                 <p class="text-1">
-                    <img class="img-fluid" src="<?= base_url('') ?>assets/img/<?php echo $banner; ?>" alt="">
+                    <img class="img-fluid" src="<?= base_url('') ?>assets/img/banner_<?php echo $page_id; ?>.png" alt="">
                 </p>
             </div>
         </div>
@@ -145,6 +140,7 @@ $name = $session['name'];
                             <a href="<?= base_url() ?>index.php/pesquisas/respostas/<?= $page->run_id; ?>/<?= $page_id; ?>/<?= $page->studies_id ?>/1" id="button-color-list"><button type="button" class="btn mt-5" id="exo_subtitle" style="width: 100% !important; padding: 10px 20px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;">Ver Respostas</button></a>
                         <?php } ?>
                         <?php
+                        //repetir embaixo
                         if ($pesquisas_jornada['total'] == $pesquisas_jornada['tot_realizadas']) {
                             foreach ($pesquisas_repetidas as $pesquisa_repetida) {
                                 if ($page->run_id == $pesquisa_repetida['id']) {
@@ -164,10 +160,11 @@ $name = $session['name'];
                                 }
                             }
                         }
+                        //repetir embaixo
                         ?>                            
                     </div>
                     <?php
-                    if ((($page->qtd_exibicao == 0 ) || ( $puu['cont_exibicao'] <= $page->qtd_exibicao )) && (strlen($page->texto_balao) > 1)) {
+                    if ((($page->qtd_exibicao_bl == 0 ) || ( $puu['cont_exibicao'] <= $page->qtd_exibicao_bl)) && (strlen($page->texto_balao) > 1)) {
                         ?>                              <div id="bl_pq<?php echo $page->id; ?>" class="balao-ld-pq">
                             <img class="balao-img col " src="<?= base_url('') ?>assets/img/svg/balao_fundo.gif" 
                                  height="100%" width="100%" 
@@ -181,14 +178,14 @@ $name = $session['name'];
                             </map>                                
                         </div>
                         <div id="bl<?php echo $page->id; ?>" class="balao-ld <?php
-                        if ($page->momento_exibicao == 1) {
+                        if ($page->momento_exibicao_bl == 1) {
                             echo " balao-ld-mouse ";
                         }
                         ?>" >
                             <div style="display: table-row;">
                                 <div style="display: table-cell;">
                                     <img class="balao-img col <?php
-                                    if ($page->momento_exibicao == 1) {
+                                    if ($page->momento_exibicao_bl == 1) {
                                         echo "balao-ld-mouse";
                                     }
                                     ?>" src="<?= base_url('') ?>assets/img/svg/balao_link01.svg" 
@@ -218,9 +215,9 @@ $name = $session['name'];
                         </p>
                         <p class="text-1 " id="poppins_text" style="text-align: left; margin-left:30px;"
                         <?php
-                        if (($page->momento_exibicao == 1) &&
+                        if (($page->momento_exibicao_bl == 1) &&
                                 (
-                                ($page->qtd_exibicao == 0) || ( $puu['cont_exibicao'] <= $page->qtd_exibicao )
+                                ($page->qtd_exibicao_bl == 0) || ( $puu['cont_exibicao'] <= $page->qtd_exibicao_bl)
                                 )
                         ) {
                             echo " onmouseenter='document.getElementById(\"bl" . $page->id . "\").classList.remove(\"balao-ld-mouse\") '";
@@ -277,6 +274,29 @@ $name = $session['name'];
                             <a href="<?= base_url() ?>index.php/pesquisas/respostas/<?= $page->run_id; ?>/<?= $page_id; ?>" id="button-color-list"><button type="button" class="btn mt-5" id="exo_subtitle" style="width: 100% !important; padding: 10px 20px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;">Ver respostas</button></a>
 
                         <?php } ?>
+                        <?php
+                        //repetir acima
+                        if ($pesquisas_jornada['total'] == $pesquisas_jornada['tot_realizadas']) {
+                            foreach ($pesquisas_repetidas as $pesquisa_repetida) {
+                                if ($page->run_id == $pesquisa_repetida['id']) {
+                                    //echo 'diferenca: ' . $pesquisa_repetida['diferenca'] . "<br />";
+                                    //echo $pesquisa_repetida['dias_para_refazer'] . "<br />";
+
+                                    if (($pesquisa_repetida['diferenca'] >= $pesquisa_repetida['dias_para_refazer']) && ( $pesquisa_repetida['dias_para_refazer'] > 0)) {
+                                        if ($pesquisa_repetida['percent_atual'] == 100) {
+                                            ?>
+                                            <a href="<?= base_url() ?>index.php/pesquisas/respostas/<?= $page->run_id; ?>/<?= $page_id; ?>/<?= $pesquisa_repetida['studies_id']; ?>/<?php echo $pesquisa_repetida['nr_pesquisa'] ?>" id="button-color-list"><button type="button" class="btn mt-5" id="exo_subtitle" style="width: 100% !important; padding: 10px 20px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;">Ver Respostas (<?php echo $pesquisa_repetida['nr_pesquisa'] ?>)</button></a>
+                                        <?php } else if ($session_id != $pesquisa_repetida['session_id_ant']) {
+                                            ?>
+                                            <a href="<?= base_url() ?>index.php/pesquisas/index/<?= $page->run_id; ?>/<?= $page->pag_id ?>/<?php echo $pesquisa_repetida['nr_pesquisa'] ?>" id="button-color-list"><button type="button" class="btn mt-5" id="exo_subtitle" style="width: 100% !important; padding: 10px 20px; min-height: 40px; background: #2C234D; border-radius: 30px; color: #fff;">Refazer (<?php echo $pesquisa_repetida['nr_pesquisa'] ?>)</button></a>                                            
+                                            <?php
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        //repetir acima
+                        ?>                            
 
                     </div>
 

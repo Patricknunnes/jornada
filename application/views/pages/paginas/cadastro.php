@@ -1,77 +1,104 @@
 <div class="header">
-	<div class="container infos">
-		<h4>Criar Páginas</h4>
-		<p>Home - Páginas - Cadastrar </p>
-	</div>
+    <div class="container infos">
+        <h4>Criar Região</h4>
+        <p>Home - Região - Cadastrar </p>
+    </div>
 </div>
 <div class="container">
-	<div class="card">
-		<div class="cadastro1">
-			<form action="<?= base_url('') ?>index.php/paginas/store" enctype="multipart/form-data" class="" method="post">
-				<h5>Páginas</h5>
-				<!-- <div class="row col-md-12 mt-5">
-					<div class="img-paginas shadow"><img class="preview" src="<?= base_url('') ?>assets/img/upload.png"></div>
-					<input class="default-btn" id="img-upload" name="img-upload" type="file" hidden>
-					<button onclick="defaultBtnActive()" type="button" id="custom-btn" class="btn mt-3">Colocar Banner</button>
-				</div> -->
+    <div class="card">
+        <div class="cadastro1">
+            <form action="<?= base_url('') ?>index.php/paginas/store" enctype="multipart/form-data" class="" method="post">
+                <h5>Região</h5>
+                <div class="row col-md-12 mt-5">
+                    <div class=" shadow"><img id="icone-preview" src="<?= base_url('') ?>assets/img/icones/regiao.png" height="200" width="200"></div>
+                    <input class="default-btn" id="img-upload-icone" name="img-upload-icone" type="file" hidden>
+                    <button onclick="defaultBtnActive()" type="button" id="custom-btn" class="btn mt-3">Trocar Ícone</button>
+                    <button onclick="defaultBtnClean()" type="button" id="custom-btn-clear" class="btn mt-3">Limpar Ícone</button>
+                </div>
 
-				<div class="form-group mt-5">
-					<label for="link_formr">Link run formR</label>
-					<select name="link_formr" id="link_formr" class="form-select">
-						<option></option>
-						<?php foreach($pages_formr as $pf){ ?>
-						<option value="<?php echo $pf['id']; ?>"   ><?php echo $pf['name']; ?> </option>
-						<?php } ?>
-					</select>
-				</div>	
-				<div class="form-group mt-5">
-					<label for="nome">Título</label>
-					<input type="text" class="form-control" name="titulo" id="titulo" placeholder="Digite o título: " required>
-				</div>
-				<div class="form-group mt-5">
-					<label for="descricao">Descrição</label>
-					<textarea class="form-control" cols="10" id="descricao" name="descricao" required></textarea>
-				</div>
-				<div class="form-group mt-5">
-					<label for="questionario">Tipos</label>
-					<select name="tipo" id="tipo" class="form-select">
-						<option></option>
-						<?php for($i=1;$i<=(count($tipo));$i++){ ?>
-							<option value='<?php echo $i; ?>' ><?php echo $tipo[$i]; ?></option>
-							<?php } ?>
-					</select>
-					
-				</div>
-				<div class="row">
-					<div class="form-group mt-5 col-2">
-						<label for="cor-texto">Cores do texto</label>
-						<input type="color" name="cor-texto" value="cor-texto" class="form-control" >
-					</div>
-					<div class="form-group mt-5 col-2">
-						<label for="cor-desc">Cores do fundo</label>
-						<input type="color" name="cor_desc" value="cor_desc" class="form-control" >
-					</div>
-				</div>
-				<!-- <div class="form-group mt-5">
-					<label for="questionario">Questionário</label>
-					<input list="browsers" name="questionario" class="form-control" value="" id="questionario">
-					<datalist id="browsers">
-					<?php foreach($quiz as $q){ ?>
-						<option value="<?php echo $q['titulo']; ?>">
-					<?php } ?>				
-					</datalist>
-				</div> -->
+                <div class="form-group mt-5">
+                    <label for="nome">Título</label>
+                    <input type="text" class="form-control" name="titulo" value="" id="titulo" placeholder="Digite o título: ">
+                </div>	
 
-				<div class="row justify-content-between mt-5">
-					<div class="col mr-5">
-						<button type="button" class="btn btn-danger"><a href="<?= base_url('') ?>index.php/paginas" style=" text-decoration:none; color: white; font-family: Poppins;">Cancelar</a> </button>
-					</div>
-					<div class="col-auto">
-						<button type="submit" class="btn btn-primary" style="font-family: Poppins;">Gravar</button>
-					</div>
-				</div>
-		</div>
-		</form>
-	</div>
+                <div class="form-group mt-5">
+                    <label for="descricao">Descrição List</label>
+                    <textarea class="form-control" cols="10" id="descricao" name="descricao" placeholder="Digite a descrição apresentada na pesquisa: "></textarea>
+                </div>
+                
+                <div class="form-group mt-5">
+                    <label for="dash_descricao">Descrição Dashboard</label>
+                    <textarea class="form-control" cols="10" id="dash_descricao" name="dash_descricao" placeholder="Digite a descrição apresentada no dashboard: "></textarea>
+                </div>
+
+                <div class="row col-md-12 mt-5">
+                    <div class=" shadow"><img id="banner-preview" src="<?= base_url('') ?>assets/img/banner.png" height="305" width="200"></div>
+                    <input class="banner-btn" id="img-upload-banner" name="img-upload-banner" type="file" hidden>
+                    <button onclick="bannerBtnActive()" type="button" id="banner-btn" class="btn mt-3">Trocar Banner</button>
+                    <button onclick="bannerBtnClean()" type="button" id="banner-btn-clear" class="btn mt-3">Limpar Banner</button>
+                </div>
+                
+                <div class="row justify-content-between mt-5">
+                    <div class="col mr-5">
+                        <button type="button" class="btn btn-danger"><a href="<?= base_url('') ?>index.php/paginas" style=" text-decoration:none; color: white; font-family: Poppins;">Cancelar</a> </button>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary" style="font-family: Poppins;">Gravar</button>
+                    </div>
+                </div>
+        </div>
+        </form>
+    </div>
 
 </div>
+<script>
+    const iconeFile= document.querySelector("#img-upload-icone");
+    const imgIcone = document.querySelector("#icone-preview");
+
+    const bannerFile= document.querySelector("#img-upload-banner");
+    const imgBanner = document.querySelector("#banner-preview");
+
+    function defaultBtnActive() {
+        iconeFile.click();
+    }
+
+    iconeFile.addEventListener("change", function () {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function () {
+                const result = reader.result;
+                imgIcone.src = result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+    
+    function defaultBtnClean() {
+        iconeFile.value = "";
+        imgIcone.src="<?= base_url('') ?>assets/img/icones/regiao.png";
+    }
+    
+    
+    function bannerBtnActive() {
+        bannerFile.click();
+    }
+
+    bannerFile.addEventListener("change", function () {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function () {
+                const result = reader.result;
+                imgBanner.src = result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+    
+    function bannerBtnClean() {
+        bannerFile.value = "";
+        imgBanner.src="<?= base_url('') ?>assets/img/banner.png";
+    }
+    
+</script>

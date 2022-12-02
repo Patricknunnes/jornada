@@ -1,5 +1,5 @@
 
-<svg id="svg_balao" width="220" height="205" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg id="svg_balao" width="210" height="205" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <path 
         d="
                 M 23,3
@@ -9,10 +9,10 @@
                 H 45
                 L 75,202
                 L 105,185
-                H 197
-                C 212,185 217,180 217,165
+                H 187
+                C 202,185 207,180 207,165
                 V 23
-                C 217,8 212,3 197,3
+                C 207,8 202,3 187,3
                 H 23
 
                 " fill="#EEEEFF" fill-opacity="0.75"

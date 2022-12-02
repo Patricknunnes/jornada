@@ -1,0 +1,96 @@
+
+
+delete g.* 
+FROM `graficos` g 
+LEFT JOIN `page` p
+	ON p.id = g.pesquisa
+   
+WHERE p.id IS NULL;
+
+
+DELETE g.* 
+FROM `graficos` g 
+LEFT JOIN `users` u
+	ON g.usu_id = u.id
+   
+WHERE u.id IS NULL;
+
+
+
+DELETE FROM `graficos` WHERE regiao = 0;
+
+
+
+ALTER TABLE `orderregiao` CHANGE `tipo` `tipo` INT(1) NULL DEFAULT NULL;
+
+DELETE o.* 
+FROM `orderregiao` o
+LEFT JOIN `users` u
+	ON u.id = o.use_id
+WHERE u.id IS NULL;
+
+
+DELETE FROM `run_report` WHERE 1=1;
+
+
+
+DELETE r.* 
+
+FROM `run_report_user` r
+
+LEFT JOIN `users` u 
+	ON u.id = r.use_id
+    
+WHERE u.id IS NULL;
+
+
+DELETE s.* 
+
+FROM `survey_studies` s
+
+LEFT JOIN `users` u
+	ON u.id = s.use_id
+    
+WHERE u.id IS NULL;
+
+
+
+DELETE s.* 
+
+FROM `survey_studies` s
+
+LEFT JOIN `page` p
+	ON p.id = s.use_id
+    
+WHERE p.id IS NULL;
+
+
+DELETE s.* 
+
+FROM `survey_unit_sessions` s
+
+LEFT JOIN `users` u
+	ON u.id = s.use_id
+    
+WHERE u.id IS NULL;
+
+DELETE t.* 
+
+FROM `termos` t 
+
+LEFT JOIN `users` u
+	ON u.id = t.id_user
+    
+WHERE u.id IS NULL;
+
+
+DELETE FROM `gif_regiao` g WHERE g.id_page > 5
+
+
+DELETE g.* 
+FROM `gif_regiao` g 
+LEFT JOIN `users` u
+	ON g.id_user = u.id
+   
+WHERE u.id IS NULL;
+

@@ -15,7 +15,7 @@ $.ajax({
 				type: "POST",
 				data: 'campo='+campo,
 				beforeSend: function() {
-					console.log('Carregando')
+					console.log('Carregando');
 				},
 				success: function(data) {
 					var at = $("#div_"+data).attr('data-showif'); 
@@ -247,7 +247,7 @@ document.querySelectorAll('img').forEach((item, index) => {
 	function deletarRegiaoPage(id, pag_id) {
 		$(document).ready(function(e) {
 			$.ajax({
-				url: "<?php echo  base_url() ?>index.php/paginas/destroyRegiao",
+				url: "<?php echo  base_url() ?>index.php/paginas/destroyPesquisa",
 				type: "POST",
 				data: 'id=' + id + '&pag_id=' + pag_id,
 				beforeSend: function() {
@@ -319,6 +319,126 @@ document.querySelectorAll('img').forEach((item, index) => {
 			type: "POST",
 		});
 	}
+
+        var processandoORP = false;
+        function OrdenarRegiaoPages( ordem1, ordem2, jornada) {
+            if (processandoORP) {
+                alert("Aguarde a ordenação anterior");
+                return;
+            }
+            var regiao1 = $("#regiao"+jornada+ordem1); 
+            var regiao2 = $("#regiao"+jornada+ordem2);
+                        
+            processandoORP = true;
+            
+            $.ajax({
+                url: "<?php echo  base_url() ?>index.php/paginas/ordenarProcessa",
+                type: "POST",
+                data: 'ordem1='+ordem1 + '&ordem2=' + ordem2 + '&jornada=' + jornada,
+                beforeSend: function() {
+
+                },
+                success: function(data) {
+                    var textTemp = regiao1.text();
+                    regiao1.text(regiao2.text());
+                    regiao2.text(textTemp);
+                    
+                    if (jornada == 'N'){
+                        var aguardar1 = $("#aguardar"+ ordem1 + " input" );
+                        var aguardar2 = $("#aguardar"+ ordem2 + " input");
+                        var aguardaTemp = aguardar1.is(':checked');
+                        aguardar1.prop('checked', aguardar2.is(':checked'));
+                        aguardar2.prop('checked', aguardaTemp);
+                        
+                        var visivel1 = $("#visivel"+ ordem1 + " input" );
+                        var visivel2 = $("#visivel"+ ordem2 + " input" );
+                        var visivelTemp = visivel1.is(':checked');
+                        visivel1.prop('checked', visivel2.is(':checked'));
+                        visivel2.prop('checked', visivelTemp);
+                        
+                    }
+
+                    processandoORP = false;
+
+                },
+                error: function(e) {
+                    alert("Ocorreu um erro ao tentar mudar a ordenação!");
+                    processandoORP = false;
+                }
+            });
+        }
+        
+        function AlterarAguardaJornada( regiaoId) {
+            var aguardaJornada = 'N';
+            if ($("#aguardarCH" + regiaoId).is(':checked')) {
+                aguardaJornada = 'S';
+            }
+
+            $.ajax({
+                url: "<?php echo  base_url() ?>index.php/paginas/storeAguardaJornada",
+                type: "POST",
+                data: 'regiaoId='+regiaoId + '&aguardaJornada=' + aguardaJornada,
+                beforeSend: function() {
+
+                },
+                success: function() {
+
+                },
+                error: function(e) {
+                    alert("Ocorreu um erro ao tentar salvar aguarda Jornada!");
+                    processandoORP = false;
+                }
+            });
+        }
+
+        function AlterarSempreVisivel( regiaoId){
+            var sempreVisivel = 'N';
+            if ($("#visivelCH" + regiaoId).is(':checked')) {
+                sempreVisivel = 'S';
+            }
+
+            $.ajax({
+                url: "<?php echo  base_url() ?>index.php/paginas/storeSempreVisivel",
+                type: "POST",
+                data: 'regiaoId='+regiaoId + '&sempreVisivel=' + sempreVisivel,
+                beforeSend: function() {
+
+                },
+                success: function() {
+
+                },
+                error: function(e) {
+                    alert("Ocorreu um erro ao tentar salvar sempre visível!");
+                    processandoORP = false;
+                }
+            });
+        }
+        
+        function salvarOrdemConclusa( ordemAtual, ordemAnt, jornada ) {
+        
+            var aguardaConclusa = 'N';
+            if ($("#conclusa" + jornada + ordemAtual + "_" + ordemAnt).is(':checked')) {
+                aguardaConclusa = 'S';
+            }
+            
+            $.ajax({
+                url: "<?php echo  base_url() ?>index.php/paginas/storeOrdemConclusa",
+                type: "POST",
+                data: 'ordemAtual='+ordemAtual + '&ordemAnt=' + ordemAnt + 
+                        '&aguardaConclusa=' + aguardaConclusa + '&jornada=' + jornada,
+                beforeSend: function() {
+
+                },
+                success: function() {
+
+                },
+                error: function(e) {
+                    alert("Ocorreu um erro ao tentar mudar a ordenação!");
+                    processandoORP = false;
+                }
+            });
+        
+        }
 </script>
 
 </html>

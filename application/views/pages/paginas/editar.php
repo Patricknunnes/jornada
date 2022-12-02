@@ -26,9 +26,9 @@
                     <textarea class="form-control" cols="10" rows="3" id="texto_balao" name="texto_balao" maxlength="120"><?php echo $pages['texto_balao'] ?></textarea>
                 </div>
                 <div class="form-group mt-5">
-                    <label for="qtd_exibicao">Número de Vezes que o Balão Será Exibido para Um Usuário</label>                                        
-                    <select class="form-select" cols="10" id="qtd_exibicao" name="qtd_exibicao" value="<?php echo $pages['qtd_exibicao'] ?>"  >
-                        <?php for ($qtd = -1; $qtd <= 20; $qtd++) { ?><option <?php if ($pages['qtd_exibicao'] == $qtd) {
+                    <label for="qtd_exibicao_bl">Número de Vezes que o Balão Será Exibido para Um Usuário</label>                                        
+                    <select class="form-select" cols="10" id="qtd_exibicao_bl" name="qtd_exibicao_bl" value="<?php echo $pages['qtd_exibicao_bl'] ?>"  >
+                        <?php for ($qtd = -1; $qtd <= 20; $qtd++) { ?><option <?php if ($pages['qtd_exibicao_bl'] == $qtd) {
                             echo 'selected="selected"';
                         } ?>><?php
                                 echo $qtd;
@@ -54,31 +54,21 @@
                     <label >Momento da Exibição                         
                     </label>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" value="0" id="momento_exibicao" name="momento_exibicao" <?php 
-                            if ($pages['momento_exibicao'] == 0) {
+                        <input class="form-check-input" type="radio" value="0" id="momento_exibicao_bl" name="momento_exibicao_bl" <?php 
+                            if ($pages['momento_exibicao_bl'] == 0) {
                                 echo ' checked="checked"';
                             } ?> />
-                        <label class="form-check-label" for="momento_exibicao">Automaticamente</label>
+                        <label class="form-check-label" for="momento_exibicao_bl">Automaticamente</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" value="1" id="momento_exibicao" name="momento_exibicao" <?php 
-                            if ($pages['momento_exibicao'] == 1) {
+                        <input class="form-check-input" type="radio" value="1" id="momento_exibicao_bl" name="momento_exibicao_bl" <?php 
+                            if ($pages['momento_exibicao_bl'] == 1) {
                                 echo ' checked="checked"';
                             } ?> />
-                        <label class="form-check-label" for="momento_exibicao">Quando o Usuário passa o mouse pela Região</label>
+                        <label class="form-check-label" for="momento_exibicao_bl">Quando o Usuário passa o mouse pela Região</label>
                     </div>
                 </div>
                 
-                <?php /* <!-- <div class="form-group mt-5">
-                  <label for="questionario">Tipos</label>
-                  <select name="tipo" id="tipo" class="form-select">
-                  <option></option>
-                  <?php for($i=1;$i<=(count($tipo));$i++){ ?>
-                  <option value='<?php echo $i; ?>' <?php echo $i==$pages['tipo'] ? 'selected="selected"' : ''; ?>><?php echo $tipo[$i]; ?></option>
-                  <?php } ?>
-                  </select>
-
-                  </div> --> */ ?>
                 <div class="form-group mt-5">
                     <label for="link_formr">Pesquisa FormR</label>
                     <select name="link_formr" id="link_formr" class="form-select">
@@ -99,11 +89,11 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Pesquisa</th>
-                                <th scope="col">Balão</th>
-                                <th scope="col">Repetir</th>
-                                <th scope="col">Ações</th>
+                                <th class="col-2" scope="col">#</th>
+                                <th class="col-4" scope="col">Pesquisa</th>
+                                <th class="col-1" scope="col">Balão</th>
+                                <th class="col-1" scope="col">Repetir</th>
+                                <th class="col-4" scope="col">Ações</th>
                             </tr>
                         </thead>
                         <tbody id="table-page">
@@ -114,34 +104,17 @@
 
                                     <th class="col-2" scope="row"><?php echo $questionario->id; ?></th>
                                     <td class="col-4"><?php echo $questionario->run_titulo; ?></td>
-                                    <td class="col-1"><?php echo $questionario->qtd_exibicao; ?></td>
+                                    <td class="col-1"><?php echo $questionario->qtd_exibicao_bl; ?></td>
                                     <td class="col-1"><?php echo $questionario->dias_para_refazer; ?></td>
                                     <td class="col-4">
-                                        <a href="<?= base_url() ?>index.php/paginas/editarPesquisa/<?= $pages['id']; ?>/<?= $questionario->id; ?>" class="btn btn-warning" title="Configurar"><i class="fas fa-gear"></i></a>
-                                        <a onclick="javascript:deletarRegiaoPage(<?= $questionario->id; ?>, <?= $pages['id']; ?>)" class="btn btn-danger"  title="Excluir"><i class="fas fa-trash-alt"></i></a>
+                                        <a href="<?= base_url() ?>index.php/paginas/editarPesquisa/<?= $pages['id']; ?>/<?= $questionario->id; ?>" class="btn btn-warning  btn-adm" title="Configurar"><i class="fas fa-gear"></i></a>
+                                        <a onclick="javascript:deletarRegiaoPage(<?= $questionario->id; ?>, <?= $pages['id']; ?>)" class="btn btn-danger  btn-adm"  title="Excluir"><i class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
                             <?php } ?>
                         </tbody>
                     </table>
-                </div>	
-                <!-- <div class="row">
-                        <div class="form-group mt-5 col-2">
-                                <label for="cor-texto">Cores do texto</label>
-                                <input type="color" name="cor-texto" id="cor-texto" value="<?php echo $pages['cor-texto'] ?>" class="form-control">
-                        </div>
-                        <div class="form-group mt-5 col-2">
-                                <label for="cor-desc">Cores do fundo</label>
-                                <input type="color" name="cor_desc" id="cor_desc" value="<?php echo $pages['cor_desc'] ?>" class="form-control">
-                        </div>
-                </div> -->
-
-                <!-- <div class="form-group mt-5">
-                        <label for="questionario">Questionário</label>
-                        <input list="browsers" name="questionario" class="form-control" value="<?php echo $pages['questionario'] ?>" id="questionario">
-                        <datalist id="browsers">			
-                        </datalist>
-                </div> -->
+                </div>
 
                 <div class="row justify-content-between mt-5">
                     <div class="col mr-5">
@@ -151,8 +124,8 @@
                         <button type="submit" class="btn btn-primary">Gravar</button>
                     </div>
                 </div>
-        </div>
         </form>
+        </div>
     </div>
 
 </div>

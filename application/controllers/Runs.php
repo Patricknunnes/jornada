@@ -24,20 +24,26 @@ class Runs extends CI_Controller
 
 		$data["title"] = 'Pesquisa - Pesquisa-r';
 		$response = file_get_contents(''. $this->config->base_url() .'api/runs.php');
-                
+
                 //Adiciona Pesquisas novas do formr
                 // que ainda não existam em BDFormR
 		$jsons = json_decode($response);
+                
 		foreach ($jsons as $json) {
 			$pages = [
 				'run_id' => $json->id,
 				'run_titulo' => $json->name,
 				'run_original' => $json->name,
+                                'run_ativo' => 'S'
 			];
 			$run = $this->Quiz_model->showRuns($json->id);
+
 			if (count($run) <= 0) {
+                            
 				$this->Quiz_model->storeRuns($pages);
-			}
+			} else {
+                            //echo $run[0]->run_id;
+                        }
 		}
 
 		$data['pages'] = $this->Quiz_model->showsRuns();
