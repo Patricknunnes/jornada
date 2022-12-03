@@ -10,6 +10,7 @@
             <form action="<?= base_url('') ?>index.php/paginas/store" enctype="multipart/form-data" class="" method="post">
                 <h5>Região</h5>
                 <div class="row col-md-12 mt-5">
+                    <label >Ícone (Tamanho: 200 x 200)</label>
                     <div class=" shadow"><img id="icone-preview" src="<?= base_url('') ?>assets/img/icones/regiao.png" height="200" width="200"></div>
                     <input class="default-btn" id="img-upload-icone" name="img-upload-icone" type="file" hidden>
                     <button onclick="defaultBtnActive()" type="button" id="custom-btn" class="btn mt-3">Trocar Ícone</button>
@@ -32,6 +33,7 @@
                 </div>
 
                 <div class="row col-md-12 mt-5">
+                    <label >Imagem de Fundo (Tamanho: 1248 x 1902)</label>
                     <div class=" shadow"><img id="banner-preview" src="<?= base_url('') ?>assets/img/banner.png" height="305" width="200"></div>
                     <input class="banner-btn" id="img-upload-banner" name="img-upload-banner" type="file" hidden>
                     <button onclick="bannerBtnActive()" type="button" id="banner-btn" class="btn mt-3">Trocar Banner</button>

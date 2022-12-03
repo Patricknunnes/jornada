@@ -42,7 +42,20 @@ $name = $session['name'];
 
     <div class="container text-center mt-3 pt-5 pb-5">
         <div class="container text-center mt-3">
-            <img class="img-regiao mt-4" src="<?= base_url('') ?>assets/img/icones/regiao_<?php echo $page_id; ?>.png" alt="" alt="">
+            <img class="img-regiao mt-4" src="<?= base_url() ?><?php
+                        if( 
+                            file_exists(
+                                        "uploads/icones/regiao_" . $page_id . ".png"
+                                        )
+                            ){                            
+                            echo "uploads/icones/regiao_" . $page_id ;
+
+                        } else {
+                            echo "assets/img/icones/regiao";
+                            if ($regiao->pertence_a_jornada == 'S') {
+                                echo "_" . $page_id; 
+                            }                         }
+                        ?>.png" alt="" alt="">
             <div class="d-flex justify-content-start">
                     <!-- <a type="button" id="voltar-valores" class="icon1"><i class="fas fa-chevron-left"></i></a> -->
                 <!-- <a type="button" id="voltar-valores1" class="text-4">Voltar região</a> -->
@@ -72,7 +85,20 @@ $name = $session['name'];
             </div>
             <div class="mt-3">
                 <p class="text-1">
-                    <img class="img-fluid" src="<?= base_url('') ?>assets/img/banner_<?php echo $page_id; ?>.png" alt="">
+                    <img class="img-fluid" src="<?= base_url() ?><?php
+                        if( 
+                            file_exists(
+                                        "uploads/banner_" . $page_id . ".png"
+                                        )
+                            ){                            
+                            echo "uploads/banner_" . $page_id ;
+
+                        } else {
+                            echo "assets/img/banner";
+                            if ($regiao->pertence_a_jornada == 'S') {
+                                echo "_" . $page_id; 
+                            }                         }
+                        ?>.png" alt="">
                 </p>
             </div>
         </div>

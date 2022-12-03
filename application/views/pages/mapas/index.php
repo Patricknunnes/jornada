@@ -81,7 +81,7 @@ $name = $session['name'];
         </div>
 
         <div class="container container-fluid" style="margin-top: 50px; text-align: center;">
-            <div class="container-fluid" style="max-width: 1140px">
+            <div class="container-fluid" style="max-width: 1100px">
             <div class="row row-align row-cols-sm-2 row-cols-md-3 row-cols-lg-5 row-cols-xl-5">                
                 <?php
                 //$i = 0;
@@ -123,7 +123,10 @@ $name = $session['name'];
                         if (
                                 ($OrdensConclusas->necessita_regiao == 'S') && ( $OrdensConclusas->perc < 100)
                                 ||
-                                ( $regiao["aguarda_jornada"] == "S"
+                                ( 
+                                $regiao["pertence_a_jornada"] == "N"
+                                &&
+                                $regiao["aguarda_jornada"] == "S"
                                 &&
                                 count($jornada_percent) < 5 )
                                 ) {
@@ -236,7 +239,10 @@ $name = $session['name'];
                         if (
                                 ($OrdensConclusas->necessita_regiao == 'S') && ( $OrdensConclusas->perc < 100)
                                 ||
-                                ( $regiao["aguarda_jornada"] == "S"
+                                ( 
+                                $regiao["pertence_a_jornada"] == "N"
+                                &&
+                                $regiao["aguarda_jornada"] == "S"
                                 &&
                                 count($jornada_percent) < 5 )
                                 ) {

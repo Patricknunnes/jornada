@@ -535,10 +535,7 @@ Balões
 }
 
 @media (max-width: 294px) {
-    .row-align{
-        justify-content: center;
-    }
-    
+
     .balao-qd {
         background-image: url("../img/svg/balao04.svg");
         background-repeat: no-repeat;
@@ -559,10 +556,7 @@ Balões
 }
 
 @media (min-width: 295px) {
-    .row-align{
-        justify-content: center;
-    }
-    
+
     .balao-qd {
         background-image: url("../img/svg/balao04.svg");
         background-repeat: no-repeat;
@@ -592,10 +586,13 @@ Balões
     }
 }
 
-@media (min-width: 576px) {
+@media (max-width: 575px) {
     .row-align{
-        justify-content: flex-start;
-    }    
+        justify-content: center;
+    }
+}
+
+@media (min-width: 576px) {
     .balao-qd {
         background-image: url("../img/svg/balao04.svg");
         background-repeat: no-repeat;
@@ -618,9 +615,7 @@ Balões
 }
 
 @media (min-width: 768px) {
-    .row-align{
-        justify-content: flex-start;
-    }    
+
     .balao-qd {
         background-image: url("../img/svg/balao04.svg");
         background-repeat: no-repeat;
@@ -643,9 +638,7 @@ Balões
 
  
 @media (min-width: 992px) {
-    .row-align{
-        justify-content: flex-start;
-    }    
+
     .balao-qd {
         background-image: url("../img/svg/balao03.svg");
         background-repeat: no-repeat;
@@ -666,9 +659,7 @@ Balões
 }
 
 @media (min-width: 1200px) {
-    .row-align{
-        justify-content: flex-start;
-    }        
+
     .balao-qd {
         background-image: url("../img/svg/balao02.svg");
         background-repeat: no-repeat;
@@ -689,10 +680,8 @@ Balões
 }
 
 @media (min-width: 1400px) {
-    .row-align{
-        justify-content: flex-start;
-    }
 
+    
     .balao-qd {
         background-image: url("../img/svg/balao01.svg");
         background-repeat: no-repeat;

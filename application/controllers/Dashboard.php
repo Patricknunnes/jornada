@@ -100,18 +100,6 @@ class Dashboard extends CI_Controller {
                 $cont100perc++;
             }
         }
-/*
-echo '$pagesOrdensConclusas->necessita_regiao: ' . $pagesOrdensConclusas->necessita_regiao;
-echo "<br />";
-echo '$pagesOrdensConclusas->perc: ' . $pagesOrdensConclusas->perc;
-echo "<br />";
-echo "aguarda_jornada: " . $data['regiao']->aguarda_jornada;
-echo "<br />";
-echo '$cont100perc: ' . $cont100perc;
-echo "<br />";
-exit();
-
-*/
 
         if (
             ($pagesOrdensConclusas->necessita_regiao == 'S') && ( $pagesOrdensConclusas->perc < 100)
