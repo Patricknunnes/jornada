@@ -57,6 +57,7 @@ class Paginas extends CI_Controller {
         $this->load->view('pages/paginas/cadastro');
         $this->load->view('templates/footer');
         $this->load->view('templates/js');
+        $this->load->view('templates/js-regiao');
     }
 
     public function destroy($id) {
@@ -105,6 +106,8 @@ class Paginas extends CI_Controller {
         $this->load->view('pages/paginas/editar', $data);
         $this->load->view('templates/footer', $data);
         $this->load->view('templates/js', $data);
+        $this->load->view('templates/js-regiao');
+        
     }
 
     public function editarPesquisa($pag_id, $id) {
@@ -332,16 +335,6 @@ class Paginas extends CI_Controller {
     }
     
     public function update($id) {
-        /*
-        if (!empty($_FILES["img-upload"]["name"])) {
-            $tmp_name = $_FILES["img-upload"]["tmp_name"];
-
-            $name = basename($_FILES["img-upload"]["name"]);
-            move_uploaded_file($tmp_name, "uploads/$name");
-        } else {
-            $name = $_POST["d-img-upload"];
-        }
-        */
         
         if($this->input->post("reiniciar_contagem")) {
                 $this->Pages_model->limpaRegiaoUx($id);
@@ -351,18 +344,52 @@ class Paginas extends CI_Controller {
             "titulo" => $_POST["titulo"],
             "descricao" => $_POST["descricao"],
             "dash_descricao" => $_POST["dash_descricao"],
-            "cor-texto" => $_POST["cor-texto"],
-            "cor_desc" => $_POST["cor_desc"],
-            "questionario" => $_POST["questionario"],
-            "link_formr" => $_POST["link_formr"],
-            "tipo" => $_POST["tipo"],
-            "img_pages" => $name, 
+            "cor-texto" => '',
+            "cor_desc" => '',
+            "questionario" => '',
+            "link_formr" => 0,
+            "tipo" => 0,
+            "img_pages" => '', 
             "texto_balao" => $this->input->post("texto_balao"),
             "qtd_exibicao_bl" => $this->input->post("qtd_exibicao_bl"),
             "momento_exibicao_bl" => $this->input->post("momento_exibicao_bl")    
         );
 
         $this->Pages_model->update($id, $page);
+
+        if (! empty($_FILES['img-upload-icone']['size'])){
+            
+            $tmp_name = $_FILES["img-upload-icone"]["tmp_name"];
+
+            //$name = basename($_FILES["img-upload"]["name"]);
+            $name = "regiao_" . $id . ".png";
+            move_uploaded_file($tmp_name, "uploads/icones/$name");
+        }
+
+        if (! empty($_FILES['img-upload-banner']['size']) ){
+
+            $tmp_name = $_FILES["img-upload-banner"]["tmp_name"];
+
+            //$name = basename($_FILES["img-upload"]["name"]);
+            $name = "banner_" . $id . ".png";
+            move_uploaded_file($tmp_name, "uploads/$name");
+        }
+
+        if ( isset($_POST["chk-icone-remover"])){
+            $name = "uploads/icones/regiao_" . $id . ".png";
+            if (file_exists( $name )) {
+                unlink( $name );
+            }
+        } 
+        
+        if ( isset($_POST["chk-banner-remover"])){
+            $name = "uploads/banner_" . $id . ".png";
+            if (file_exists( $name )) {
+                unlink( $name );
+            }
+        }
+        
+         
         redirect("/index.php/paginas/");
     }
     

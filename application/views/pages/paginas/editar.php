@@ -21,10 +21,55 @@
                     <label for="dash_descricao">Descrição Dashboard</label>
                     <textarea class="form-control" cols="10" id="dash_descricao" name="dash_descricao"><?php echo $pages['dash_descricao'] ?></textarea>
                 </div>
+                <?php 
+                if ($pages['pertence_a_jornada'] == 'N' ) { ?>
+                <div class="row col-md-12 mt-5">
+                    <label >Ícone (Tamanho: 200 x 200)</label>
+                    <div class=" shadow"><img id="icone-preview" src="<?= base_url() ?><?php
+                        if( 
+                            file_exists(
+                                        "uploads/icones/regiao_" . $pages['id'] . ".png"
+                                        )
+                            ){                            
+                            echo "uploads/icones/regiao_" . $pages['id'];
+
+                        } else {
+                            echo "assets/img/icones/regiao";
+                        }
+                        ?>.png" height="200" width="200"></div>
+                    <input class="default-btn" id="img-upload-icone" name="img-upload-icone" type="file" hidden>
+                    <input class="banner-btn" id="chk-icone-remover" name="chk-icone-remover" type="checkbox" hidden>
+                    <button onclick="defaultBtnActive()" type="button" id="custom-btn" class="btn mt-3">Trocar Ícone</button>
+                    <button onclick="defaultBtnClean()" type="button" id="custom-btn-clear" class="btn mt-3">Limpar Ícone</button>
+                </div>
+                
+                <div class="row col-md-12 mt-5">
+                    <label >Imagem de Fundo (Tamanho: 1248 x 1902)</label>
+                    <div class=" shadow"><img id="banner-preview" src="<?= base_url() ?><?php
+                        if( 
+                            file_exists(
+                                        "uploads/banner_" . $pages['id'] . ".png"
+                                        )
+                            ){                            
+                            echo "uploads/banner_" . $pages['id'] ;
+
+                        } else {
+                            echo "assets/img/banner";
+                         }
+                        ?>.png" height="305" width="200"></div>
+                    <input class="banner-btn" id="img-upload-banner" name="img-upload-banner" type="file" hidden>
+                    <input class="banner-btn" id="chk-banner-remover" name="chk-banner-remover" type="checkbox" hidden>
+                    <button onclick="bannerBtnActive()" type="button" id="banner-btn" class="btn mt-3">Trocar Banner</button>
+                    <button onclick="bannerBtnClean()" type="button" id="banner-btn-clear" class="btn mt-3">Limpar Banner</button>
+                </div>
+                <?php
+                }
+                ?>                
                 <div class="form-group mt-5">
                     <label for="texto_balao">Texto do Balão Informativo <span class="small">(Use a tecla <ENTER> para quebrar a linha)</span></label>
                     <textarea class="form-control" cols="10" rows="3" id="texto_balao" name="texto_balao" maxlength="120"><?php echo $pages['texto_balao'] ?></textarea>
                 </div>
+                
                 <div class="form-group mt-5">
                     <label for="qtd_exibicao_bl">Número de Vezes que o Balão Será Exibido para Um Usuário</label>                                        
                     <select class="form-select" cols="10" id="qtd_exibicao_bl" name="qtd_exibicao_bl" value="<?php echo $pages['qtd_exibicao_bl'] ?>"  >

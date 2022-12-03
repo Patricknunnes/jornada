@@ -373,22 +373,7 @@ document.querySelectorAll('img').forEach((item, index) => {
                         var visivel2 = $("#visivel"+ ordem2 + " input");
                         visivel1.prop('checked', visivel2I);
                         visivel2.prop('checked', visivel1I);
-                        
-                        
-                        /*                        
-                        var aguardar1 = $("#aguardar"+ ordem1 + " input" );
-                        var aguardar2 = $("#aguardar"+ ordem2 + " input");
-                        var aguardaTemp = aguardar1.is(':checked');
-                        aguardar1.prop('checked', aguardar2.is(':checked'));
-                        aguardar2.prop('checked', aguardaTemp);
-                        
-                        var visivel1 = $("#visivel"+ ordem1 + " input" );
-                        var visivel2 = $("#visivel"+ ordem2 + " input" );
-                        var visivelTemp = visivel1.is(':checked');
-                        visivel1.prop('checked', visivel2.is(':checked'));
-                        visivel2.prop('checked', visivelTemp);
-                        */
-                        
+                                                
                     }
 
                     processandoORP = false;
@@ -472,6 +457,8 @@ document.querySelectorAll('img').forEach((item, index) => {
             });
         
         }
+
+    
 </script>
 
 </html>

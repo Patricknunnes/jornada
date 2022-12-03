@@ -9,13 +9,6 @@
         <div class="cadastro1">
             <form action="<?= base_url('') ?>index.php/paginas/store" enctype="multipart/form-data" class="" method="post">
                 <h5>Região</h5>
-                <div class="row col-md-12 mt-5">
-                    <label >Ícone (Tamanho: 200 x 200)</label>
-                    <div class=" shadow"><img id="icone-preview" src="<?= base_url('') ?>assets/img/icones/regiao.png" height="200" width="200"></div>
-                    <input class="default-btn" id="img-upload-icone" name="img-upload-icone" type="file" hidden>
-                    <button onclick="defaultBtnActive()" type="button" id="custom-btn" class="btn mt-3">Trocar Ícone</button>
-                    <button onclick="defaultBtnClean()" type="button" id="custom-btn-clear" class="btn mt-3">Limpar Ícone</button>
-                </div>
 
                 <div class="form-group mt-5">
                     <label for="nome">Título</label>
@@ -31,11 +24,20 @@
                     <label for="dash_descricao">Descrição Dashboard</label>
                     <textarea class="form-control" cols="10" id="dash_descricao" name="dash_descricao" placeholder="Digite a descrição apresentada no dashboard: "></textarea>
                 </div>
-
+                
+                <div class="row col-md-12 mt-5">
+                    <label >Ícone (Tamanho: 200 x 200)</label>
+                    <div class=" shadow"><img id="icone-preview" src="<?= base_url('') ?>assets/img/icones/regiao.png" height="200" width="200"></div>
+                    <input class="default-btn" id="img-upload-icone" name="img-upload-icone" type="file" hidden>
+                    <button onclick="defaultBtnActive()" type="button" id="custom-btn" class="btn mt-3">Trocar Ícone</button>
+                    <button onclick="defaultBtnClean()" type="button" id="custom-btn-clear" class="btn mt-3">Limpar Ícone</button>
+                </div>
+                
                 <div class="row col-md-12 mt-5">
                     <label >Imagem de Fundo (Tamanho: 1248 x 1902)</label>
                     <div class=" shadow"><img id="banner-preview" src="<?= base_url('') ?>assets/img/banner.png" height="305" width="200"></div>
                     <input class="banner-btn" id="img-upload-banner" name="img-upload-banner" type="file" hidden>
+                    <input class="banner-btn" id="chk-banner-remover" name="chk-banner-remover" type="checkbox" hidden>
                     <button onclick="bannerBtnActive()" type="button" id="banner-btn" class="btn mt-3">Trocar Banner</button>
                     <button onclick="bannerBtnClean()" type="button" id="banner-btn-clear" class="btn mt-3">Limpar Banner</button>
                 </div>
@@ -53,54 +55,3 @@
     </div>
 
 </div>
-<script>
-    const iconeFile= document.querySelector("#img-upload-icone");
-    const imgIcone = document.querySelector("#icone-preview");
-
-    const bannerFile= document.querySelector("#img-upload-banner");
-    const imgBanner = document.querySelector("#banner-preview");
-
-    function defaultBtnActive() {
-        iconeFile.click();
-    }
-
-    iconeFile.addEventListener("change", function () {
-        const file = this.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function () {
-                const result = reader.result;
-                imgIcone.src = result;
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-    
-    function defaultBtnClean() {
-        iconeFile.value = "";
-        imgIcone.src="<?= base_url('') ?>assets/img/icones/regiao.png";
-    }
-    
-    
-    function bannerBtnActive() {
-        bannerFile.click();
-    }
-
-    bannerFile.addEventListener("change", function () {
-        const file = this.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function () {
-                const result = reader.result;
-                imgBanner.src = result;
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-    
-    function bannerBtnClean() {
-        bannerFile.value = "";
-        imgBanner.src="<?= base_url('') ?>assets/img/banner.png";
-    }
-    
-</script>
