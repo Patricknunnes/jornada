@@ -119,6 +119,7 @@ $name = $session['name'];
                 <div class="row" id="row_mobile" style="position:relative; z-index: 0;">
 
                     <?php
+
                     // Recupera a quantidade exibida para o usuário
                     foreach ($pageaux as $pagesuxAtu) {
                         if ($pagesuxAtu["id_page"] == $page->id) {

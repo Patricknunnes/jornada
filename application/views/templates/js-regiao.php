@@ -26,7 +26,6 @@
     });
     
     function defaultBtnClean() {
-        alert(iconeRemover);
         iconeFile.value = "";
         iconeRemover.prop("checked", true);
         imgIcone.src="<?= base_url('') ?>assets/img/icones/regiao.png";

@@ -37,7 +37,17 @@ class Paginas extends CI_Controller {
         $this->load->view('templates/footer', $data);
         $this->load->view('templates/js', $data);
     }
-
+    public function atualizaRuns() {
+        
+        $quiz = $this->Quiz_model->showsRunsNaoUsados();
+        
+        $options = "<option></option>";
+        foreach ($quiz as $run) {
+            $options = $options . '\n' . '<option value="' . $run->run_id . '"   >' .$run->run_titulo . '</option>';
+        }
+        return $options;
+    }
+    
     public function cadastro() {
         $data["title"] = 'Cadastro - Pesquisa-r';
 //        $data["quiz"] = $this->Quiz_model->index();
@@ -73,7 +83,7 @@ class Paginas extends CI_Controller {
         $id = $_POST["id"];
         $pag_id = $_POST["pag_id"];
 
-        $this->load->model("Pages_model");
+        //$this->load->model("Pages_model");
         $this->Pages_model->destroyPesquisa($id, $pag_id);
     }
 
@@ -84,7 +94,7 @@ class Paginas extends CI_Controller {
         $data["questionarios"] = $this->Pages_model->showPesquisas($filter);
 
         $data["pages"] = $this->Pages_model->show($id);
-        $data["quiz"] = $this->Quiz_model->showsRuns();
+        $data["quiz"] = $this->Quiz_model->showsRunsNaoUsados();
         $response = file_get_contents('' . $this->config->base_url() . 'api/runs.php');
         $jsons = json_decode($response);
         foreach ($jsons as $json) {

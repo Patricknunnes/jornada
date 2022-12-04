@@ -215,6 +215,10 @@ document.querySelectorAll('img').forEach((item, index) => {
 
 	function adicionarPesquisa(id) {
 		$(document).ready(function(e) {
+                    if ($('#link_formr').val() == ""){
+                        alert("Deve ser selecionada uma Pesquisa.");
+                        return;
+                    }
 			$.ajax({
 				url: "<?php echo  base_url() ?>index.php/Paginas/setPesquisa",
 				type: "POST",
@@ -223,7 +227,8 @@ document.querySelectorAll('img').forEach((item, index) => {
 					$("#err").fadeOut();
 				},
 				success: function(data) {
-					$('#table-page').append(data);
+					$('#table-page').append(data);                                        
+                                        $("#link_formr option:selected").remove();
 					sendEmail();
 				},
 				error: function(e) {
@@ -256,6 +261,7 @@ document.querySelectorAll('img').forEach((item, index) => {
 				success: function(data) {
 					$('#msg-delete-regiao').show();
 					document.getElementById(id).remove();
+                                        
 				},
 				error: function(e) {
 					$("#err").html(e).fadeIn();

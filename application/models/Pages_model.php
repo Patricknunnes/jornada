@@ -484,7 +484,6 @@ class Pages_model extends CI_model {
         // Adiciona contador para todas as Regiões que o usuário não viu
         $this->db->query($sql);
 
-
         // Deve ser revisto quando puder cadastrar mais regiões
         // e configurar a apresentação ou não das regiões
         $sql = "UPDATE page_ux_user
@@ -495,7 +494,7 @@ class Pages_model extends CI_model {
                     AND id_pages = " . $id_pages;
         // Incrementa a quantidade
         $this->db->query($sql);
-
+        
         $sql = "SELECT id_page, cont_exibicao 
                 FROM page_ux_user 
                 WHERE id_user = " . $id_user . "
