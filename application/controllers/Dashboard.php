@@ -290,6 +290,14 @@ class Dashboard extends CI_Controller {
         $this->load->model("Users_model");
         $this->load->model("Pesquisas_model");
 
+        if ( $regiao < 6 ) {
+            $regiaoVet = ($this->Pages_model->gets($regiao));
+            $data["regiaoAtual"] = $regiaoVet[0];
+            
+        } else  {
+            redirect("/index.php/dashboard");
+        }
+        
         $data['regiao'] = $regiao;
         $data['usu_id'] = $this->session_data['id'];
 
@@ -300,13 +308,7 @@ class Dashboard extends CI_Controller {
         $regioes = ['use_id' => $id];
         $data["title"] = 'Resultados';
         $data["pages"] = $this->Pages_model->index();
-        $allRegioes = $this->Users_model->getsRegioes($regioes);
-        foreach ($allRegioes as $ret) {
-            if ($ret->tipo == $regiao) {
-                $data['regioes'] = $ret;
-            }
-        }
-
+        
         $questionsAll = $this->Pages_model->showQuestions(['pag_id' => $regiao, 'use_id' => $id]);
 
         $conta = 0;
@@ -320,9 +322,6 @@ class Dashboard extends CI_Controller {
             }
         }
 
-
-        //$filter['pag_id'] = $regiao;
-        //$results = $this->Pages_model->showQuestions($filter);
         $results = $this->Pages_model->showQuestionsUserStudiesId(
                 ['pag_id' => $regiao, 'use_id' => $id]);
 
@@ -357,9 +356,8 @@ class Dashboard extends CI_Controller {
                 $data['total_questoes'] = 0;
             }
         }
+        
 
-
-        $data["tipos"] = $this->tipo;
         $this->load->view('templates/mapas', $data);
         $this->load->view('templates/nav-top2', $data);
         $this->load->view('pages/mapas/resultados', $data);

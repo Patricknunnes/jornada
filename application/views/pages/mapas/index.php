@@ -193,7 +193,8 @@ $name = $session['name'];
                             echo "assets/img/icones/regiao";
                             if ($regiao['pertence_a_jornada']== 'S') {
                                 echo "_" . $regiao['id']; 
-                            }                         }
+                            }
+                        }
                         ?>.png?<?php echo mt_rand()?>">
 
                         <h5 class="mt-4" style="font-family: Exo, Sans-serif; font-weight: bold;"><?php echo($regiao['titulo']); ?></h5>

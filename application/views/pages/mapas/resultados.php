@@ -20,8 +20,22 @@ $name = $session['name'];
 		<div class="row" id="c-mobile">
 			<div class="col-12" style="text-align:center">
 
-				<img class="img-regiao mt-4" src="<?= base_url('') ?>assets/img/<?php echo $tipos[$regioes->tipo]['icone']; ?>" alt="" style="height: 180px; border: solid 4px #00009C; border-radius: 50%; padding: 25px;">
-				<h4 class="mt-1" style="color: #000; font-weight: bold; font-family: Exo, Sans-serif;"><?php echo $tipos[$regioes->tipo]['titulo']; ?></h4>
+				<img class="img-regiao mt-4" src="<?= base_url('') ?><?php 
+                                if( 
+                                    file_exists(
+                                                "uploads/icones/regiao_" . $regiaoAtual->id . ".png"
+                                                )
+                                    ){                            
+                                    echo "uploads/icones/regiao_" . $regiaoAtual->id;
+
+                                } else {
+                                    echo "assets/img/icones/regiao";
+                                    if ($regiaoAtual->pertence_a_jornada == 'S') {
+                                        echo "_" . $regiaoAtual->id; 
+                                    }
+                                }
+                                ?>.png?<?php echo mt_rand()?>" alt="" style="height: 180px; border: solid 4px #00009C; border-radius: 50%; padding: 25px;">
+				<h4 class="mt-1" style="color: #000; font-weight: bold; font-family: Exo, Sans-serif;"><?php echo $regiaoAtual->titulo; ?></h4>
 				<h5 class="mt-1 mb-5" style="color: #000; font-family: Exo, Sans-serif; font-weight: bold;">100%</h5>
 			</div>
 
