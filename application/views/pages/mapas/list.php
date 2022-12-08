@@ -55,7 +55,7 @@ $name = $session['name'];
                             if ($regiao->pertence_a_jornada == 'S') {
                                 echo "_" . $page_id; 
                             }                         }
-                        ?>.png" alt="" alt="">
+                        ?>.png?<?php echo mt_rand()?>" alt="" alt="">
             <div class="d-flex justify-content-start">
                     <!-- <a type="button" id="voltar-valores" class="icon1"><i class="fas fa-chevron-left"></i></a> -->
                 <!-- <a type="button" id="voltar-valores1" class="text-4">Voltar região</a> -->
@@ -98,7 +98,7 @@ $name = $session['name'];
                             if ($regiao->pertence_a_jornada == 'S') {
                                 echo "_" . $page_id; 
                             }                         }
-                        ?>.png" alt="">
+                        ?>.png?<?php echo mt_rand()?>" alt="">
                 </p>
             </div>
         </div>

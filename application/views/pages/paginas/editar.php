@@ -36,7 +36,7 @@
                         } else {
                             echo "assets/img/icones/regiao";
                         }
-                        ?>.png" height="200" width="200"></div>
+                        ?>.png?<?php echo mt_rand()?>" height="200" width="200"></div>
                     <input class="default-btn" id="img-upload-icone" name="img-upload-icone" type="file" hidden>
                     <input class="banner-btn" id="chk-icone-remover" name="chk-icone-remover" type="checkbox" hidden>
                     <button onclick="defaultBtnActive()" type="button" id="custom-btn" class="btn mt-3">Trocar Ícone</button>

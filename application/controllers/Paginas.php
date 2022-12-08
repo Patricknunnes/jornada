@@ -259,6 +259,7 @@ class Paginas extends CI_Controller {
         );
 
         $page = $this->Pages_model->setPage($page);
+        
         echo '<tr id=' . $_POST["id"] . '><th>' . $_POST["id"] . '</th>'
                 . '<td>' . $_POST["run_titulo"] . '</td>'
                 . '<td class="col-1">-1</td>'

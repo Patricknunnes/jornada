@@ -537,7 +537,7 @@ Balões
 @media (max-width: 294px) {
 
     .balao-qd {
-        background-image: url("../img/svg/balao04.svg");
+        background-image: url("../img/svg/balao04.svg?2");
         background-repeat: no-repeat;
         width: 180px; 
         height: 205px;
@@ -558,7 +558,7 @@ Balões
 @media (min-width: 295px) {
 
     .balao-qd {
-        background-image: url("../img/svg/balao04.svg");
+        background-image: url("../img/svg/balao04.svg?2");
         background-repeat: no-repeat;
         width: 180px; 
         height: 205px;
@@ -575,7 +575,7 @@ Balões
     }
     
     .balao-pq {
-        background-image: url("../img/svg/balaopq.svg");
+        background-image: url("../img/svg/balaopq.svg?2");
         background-repeat: no-repeat;
         width: 50px; 
         height: 60px;
@@ -594,7 +594,7 @@ Balões
 
 @media (min-width: 576px) {
     .balao-qd {
-        background-image: url("../img/svg/balao04.svg");
+        background-image: url("../img/svg/balao04.svg?2");
         background-repeat: no-repeat;
         width: 180px; 
         height: 205px;
@@ -617,7 +617,7 @@ Balões
 @media (min-width: 768px) {
 
     .balao-qd {
-        background-image: url("../img/svg/balao04.svg");
+        background-image: url("../img/svg/balao04.svg?2");
         background-repeat: no-repeat;
         width: 180px; 
         height: 205px;
@@ -640,7 +640,7 @@ Balões
 @media (min-width: 992px) {
 
     .balao-qd {
-        background-image: url("../img/svg/balao03.svg");
+        background-image: url("../img/svg/balao03.svg?2");
         background-repeat: no-repeat;
         width: 180px; 
         height: 205px;
@@ -661,7 +661,7 @@ Balões
 @media (min-width: 1200px) {
 
     .balao-qd {
-        background-image: url("../img/svg/balao02.svg");
+        background-image: url("../img/svg/balao02.svg?2");
         background-repeat: no-repeat;
         width: 210px; 
         height: 205px;
@@ -680,10 +680,9 @@ Balões
 }
 
 @media (min-width: 1400px) {
-
     
     .balao-qd {
-        background-image: url("../img/svg/balao01.svg");
+        background-image: url("../img/svg/balao01.svg?2");
         background-repeat: no-repeat;
         width: 220px; 
         height: 205px;
@@ -719,7 +718,7 @@ Balões
 
 @media (max-width: 575px) {
     .balao-ld {
-        background-image: url("../img/svg/balao_ld03.svg");
+        background-image: url("../img/svg/balao_ld03.svg?2");
         background-repeat: no-repeat;
         width: 200px !important; 
         height: 250px;
@@ -732,7 +731,7 @@ Balões
         display: none;           
     }    
     .balao-ld-pq {
-        background-image: url("../img/svg/balaopq.svg");
+        background-image: url("../img/svg/balaopq.svg?2");
         background-repeat: no-repeat;
         width: 50px; 
         height: 60px;
@@ -745,7 +744,7 @@ Balões
 
 @media (min-width: 576px) {
     .balao-ld {
-        background-image: url("../img/svg/balao_ld03.svg");
+        background-image: url("../img/svg/balao_ld03.svg?2");
         background-repeat: no-repeat;
         width: 200px !important; 
         height: 250px;
@@ -757,7 +756,7 @@ Balões
         display: none;           
     }    
     .balao-ld-pq {
-        background-image: url("../img/svg/balaopq.svg");
+        background-image: url("../img/svg/balaopq.svg?2");
         background-repeat: no-repeat;
         width: 50px; 
         height: 60px;
@@ -770,7 +769,7 @@ Balões
 
 @media (min-width: 768px) {
     .balao-ld {
-        background-image: url("../img/svg/balao_ld03.svg");
+        background-image: url("../img/svg/balao_ld03.svg?2");
         background-repeat: no-repeat;
         width: 200px !important; 
         height: 250px;
@@ -788,7 +787,7 @@ Balões
 
 @media (min-width: 992px) {
     .balao-ld {
-        background-image: url("../img/svg/balao_ld02.svg");
+        background-image: url("../img/svg/balao_ld02.svg?2");
         background-repeat: no-repeat;
         width: 270px !important; 
         height: 185px;
@@ -804,7 +803,7 @@ Balões
 
 @media (min-width: 1200px) {
     .balao-ld {
-        background-image: url("../img/svg/balao_ld01.svg");
+        background-image: url("../img/svg/balao_ld01.svg?2");
         background-repeat: no-repeat;
         width: 330px !important; 
         height: 150px;
@@ -820,7 +819,7 @@ Balões
 
 @media (min-width: 1400px) {
     .balao-ld {
-        background-image: url("../img/svg/balao_ld01.svg");
+        background-image: url("../img/svg/balao_ld01.svg?2");
         background-repeat: no-repeat;
         width: 330px !important; 
         height: 150px;
