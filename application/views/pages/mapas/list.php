@@ -11,8 +11,10 @@
                 <img class="img-fluid" src="<?= base_url() ?>/assets/img/gif.gif" />
                 <div class="text_gif">
                     <p>Parabéns!</p>
-                    <p> Você completou a região <?php echo $tipo ?>!</p>
+                    <p> Você completou a região <?php echo $regiao->titulo; ?>!</p>
+                    <?php if ( $regiao->pertence_a_jornada == 'S' ) {?>
                     <p> Acesse o <a href="<?= base_url() ?>index.php/dashboard/#dashboard">Dashboard</a> e veja os resultados!</p>
+                    <?php } ?>
                 </div>
             </div>
             <div class="container" style="position:absolute">
@@ -76,7 +78,7 @@ $name = $session['name'];
             </div>
             <div class="mt-3">
                 <p class="text-1" id="poppins_text">
-                    A <span id="poppins_title" style="color: #424f8b;">região <?php echo $regiao->titulo; ?></span> contém <?php echo $countpesquisa; ?> pesquisas.
+                    A <span id="poppins_title" style="color: #424f8b;">região <?php echo $regiao->titulo; ?></span> contém <?php echo $countpesquisa; ?> pesquisa<?php if ( $countpesquisa > 1){ ?>s<?php } ?>.
                 </p>
                 <p class="text-1" id="titles" style=" margin-top: -10px; padding: 0 15%; font-family: Poppins, sans-serif;">
                     <?php echo $regiao->descricao ?>

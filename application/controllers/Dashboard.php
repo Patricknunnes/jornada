@@ -84,10 +84,11 @@ class Dashboard extends CI_Controller {
         $data['usid'] = $this->loggedUser['id'];
         
         $regioes =  $this->Pages_model->gets($op);
-        
+
         if (count($regioes) <= 0) {
             redirect("/index.php/dashboard");
         }
+        
         $data['regiao'] = $regioes[0];
         
         $pagesOrdensConclusas = $this->Pages_model->getOrdensConclusasExibicao( $data['usid'], $op );
@@ -100,7 +101,7 @@ class Dashboard extends CI_Controller {
                 $cont100perc++;
             }
         }
-
+        
         if (
             ($pagesOrdensConclusas->necessita_regiao == 'S') && ( $pagesOrdensConclusas->perc < 100)
             ||
@@ -110,8 +111,6 @@ class Dashboard extends CI_Controller {
             ) {
            redirect("/index.php/dashboard"); 
         }
-
-
                             
         $data['page_id'] = $op;
         if (isset($_SESSION['unitid'])) {

@@ -119,7 +119,7 @@ $name = $session['name'];
                     ?>
 
                     <div class="pesquisas  " id="poppins_title"  >
-                        <div <?php
+                        <?php
                         if (
                                 ($OrdensConclusas->necessita_regiao == 'S') && ( $OrdensConclusas->perc < 100)
                                 ||
@@ -130,9 +130,25 @@ $name = $session['name'];
                                 &&
                                 count($jornada_percent) < 5 )
                                 ) {
-                        ?> class="bloqueio" <?php
+                        ?>
+                        <div class="bloqueio" >
+                            <p id="poppins_text" class="text-235 bloqueio-balao"
+                            <?php
+                            if (($atuPage['momento_exibicao_bl'] == 1) &&
+                                    (
+                                    ($atuPage['qtd_exibicao_bl'] == 0) || ( $puu['cont_exibicao'] <= $atuPage['qtd_exibicao_bl'] )
+                                    )
+                            ) {
+                                echo " onmouseenter='document.getElementById(\"bl" . $atuPage['id'] . "\").classList.remove(\"balao-mouse\") '";
+                                echo " onmouseout='document.getElementById(\"bl" . $atuPage['id'] . "\").classList.add(\"balao-mouse\")' ";
+                            }
+                            ?>                                                   
+                               >
+                            </p>                            
+                        </div>
+                        <?php
                         }
-                        ?> ></div>
+                        ?>
                         <?php
                         if ((($atuPage['qtd_exibicao_bl'] == 0) || ( $puu['cont_exibicao'] <= $atuPage['qtd_exibicao_bl'] )) && (strlen($atuPage['texto_balao']) > 1)) {
                             ?>
@@ -304,7 +320,7 @@ $name = $session['name'];
     <?php } else { ?>
         <?php
         $i = 0;
-        foreach ($regioes_percent as $regiao) {
+        foreach ($jornada_percent    as $regiao) {
             ?>
             <div class="content-perguntas-<?php echo $i ?> pb-5">
                 <div class="container text-center mt-3">
@@ -315,7 +331,7 @@ $name = $session['name'];
                         </div>
                     <?php } ?>
 
-                    <?php if (count($regioes_percent) - 1 > $i) { ?>
+                    <?php if (count($jornada_percent) - 1 > $i) { ?>
                         <div class="d-flex justify-content-end">
                             <a type="button" id="proximo-<?php echo $i ?>" class="icon"><i class="fas fa-chevron-right"></i></a>
                         </div>

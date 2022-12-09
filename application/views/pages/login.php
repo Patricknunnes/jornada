@@ -75,7 +75,7 @@
                                                                 margin-bottom: 5px;
                                                                 font-weight: bold;"><img class="img" style="margin-right: 11px;
                                                                 margin-top: -4px;" 
-                                                                src="https://static.xx.fbcdn.net/rsrc.php/v3/yN/r/szGrb_tkxMW.png" 
+                                                                src="<?= base_url()?>/assets/img/facebook_btn.png"
                                                                 alt="" width="24" height="24">Login com o Facebook</button>	
 
 								</center>

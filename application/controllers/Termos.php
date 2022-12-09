@@ -59,18 +59,7 @@ class Termos extends CI_Controller
 				"status" => $_POST["flexRadioDefault"],
 			);
 
-			$this->Termos_model->store($termo);
-                        
-                        $ordem = array( 2, 4, 1, 3, 5);
-			for ($i = 1; $i <= 5; $i++) {
-				$regioes = [
-					'use_id' => $id,
-					'orr_ordem' => $ordem[$i-1],
-					'tipo' => $i,
-				];
-
-				$this->Users_model->regioes($regioes);
-			}                        
+			$this->Termos_model->store($termo);                       
                         
 			//redirect("/index.php/dashboard/escolha");
                         redirect("index.php/dashboard");

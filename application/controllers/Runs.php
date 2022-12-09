@@ -45,7 +45,6 @@ class Runs extends CI_Controller
                             //echo $run[0]->run_id;
                         }
 		}
-
 		$data['pages'] = $this->Quiz_model->showsRuns();
 
 

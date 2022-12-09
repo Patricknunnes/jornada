@@ -140,15 +140,7 @@ class Pesquisas extends CI_Controller {
             $sessionId = $this->Pages_model->getEstudoSession($id_user, $id_page, $nr_pesquisa);
             $session_id = $sessionId["session_id"];
         }
-        
 
-//echo '$session_id: ' . $session_id;
-//echo "<br />";
-//echo '$_SESSION[\'unitid\']: ' . $_SESSION['unitid'] ;
-//echo "<br />";
-//echo '$studies_id: ' . $studies_id;
-//echo "<br />";
-//exit();        
         //$content = file_get_contents('http://54.164.116.69/formr_org/tests/teste1.php/' . $_SESSION['unitid'] . '/' . $studies_id);
         //$content = file_get_contents('http://54.164.116.69/formr_org/tests/teste1.php/' . $session_id . '/' . $studies_id);
 

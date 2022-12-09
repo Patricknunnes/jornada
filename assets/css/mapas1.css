@@ -537,7 +537,7 @@ Balões
 @media (max-width: 294px) {
 
     .balao-qd {
-        background-image: url("../img/svg/balao04.svg?2");
+        background-image: url("../img/svg/balao04.svg?3");
         background-repeat: no-repeat;
         width: 180px; 
         height: 205px;
@@ -558,7 +558,7 @@ Balões
 @media (min-width: 295px) {
 
     .balao-qd {
-        background-image: url("../img/svg/balao04.svg?2");
+        background-image: url("../img/svg/balao04.svg?3");
         background-repeat: no-repeat;
         width: 180px; 
         height: 205px;
@@ -575,7 +575,7 @@ Balões
     }
     
     .balao-pq {
-        background-image: url("../img/svg/balaopq.svg?2");
+        background-image: url("../img/svg/balaopq.svg?3");
         background-repeat: no-repeat;
         width: 50px; 
         height: 60px;
@@ -594,7 +594,7 @@ Balões
 
 @media (min-width: 576px) {
     .balao-qd {
-        background-image: url("../img/svg/balao04.svg?2");
+        background-image: url("../img/svg/balao04.svg?3");
         background-repeat: no-repeat;
         width: 180px; 
         height: 205px;
@@ -617,7 +617,7 @@ Balões
 @media (min-width: 768px) {
 
     .balao-qd {
-        background-image: url("../img/svg/balao04.svg?2");
+        background-image: url("../img/svg/balao04.svg?3");
         background-repeat: no-repeat;
         width: 180px; 
         height: 205px;
@@ -640,7 +640,7 @@ Balões
 @media (min-width: 992px) {
 
     .balao-qd {
-        background-image: url("../img/svg/balao03.svg?2");
+        background-image: url("../img/svg/balao03.svg?3");
         background-repeat: no-repeat;
         width: 180px; 
         height: 205px;
@@ -661,7 +661,7 @@ Balões
 @media (min-width: 1200px) {
 
     .balao-qd {
-        background-image: url("../img/svg/balao02.svg?2");
+        background-image: url("../img/svg/balao02.svg?3");
         background-repeat: no-repeat;
         width: 210px; 
         height: 205px;
@@ -682,7 +682,7 @@ Balões
 @media (min-width: 1400px) {
     
     .balao-qd {
-        background-image: url("../img/svg/balao01.svg?2");
+        background-image: url("../img/svg/balao01.svg?3");
         background-repeat: no-repeat;
         width: 220px; 
         height: 205px;
@@ -718,64 +718,68 @@ Balões
 
 @media (max-width: 575px) {
     .balao-ld {
-        background-image: url("../img/svg/balao_ld03.svg?2");
+        background-image: url("../img/svg/balao_ld03.svg?3");
         background-repeat: no-repeat;
         width: 200px !important; 
         height: 250px;
         position:absolute;
         top: -160px;
-        right: 10px;
+        right: -15px;
         left: auto;
         z-index: 200;
         margin-top: 40px !important;
         display: none;           
     }    
+
     .balao-ld-pq {
-        background-image: url("../img/svg/balaopq.svg?2");
+        background-image: url("../img/svg/balaopq.svg?3");
         background-repeat: no-repeat;
-        width: 50px; 
+        width: 50px !important; 
         height: 60px;
         position:absolute;
         z-index: 200;
         margin-top: -40px !important;
-        margin-left: 40px;
-    }    
+        margin-left: -40px;
+        display: flex;
+        align-self: flex-end;    }
+    
 }
 
 @media (min-width: 576px) {
     .balao-ld {
-        background-image: url("../img/svg/balao_ld03.svg?2");
+        background-image: url("../img/svg/balao_ld03.svg?3");
         background-repeat: no-repeat;
         width: 200px !important; 
         height: 250px;
         position:absolute;
         top: -160px;
-        left: 310px;
+        left: 295px;
         z-index: 200;
         margin-top: 40px !important;
         display: none;           
     }    
     .balao-ld-pq {
-        background-image: url("../img/svg/balaopq.svg?2");
+        background-image: url("../img/svg/balaopq.svg?3");
         background-repeat: no-repeat;
-        width: 50px; 
+        width: 50px !important; 
         height: 60px;
         position:absolute;
         z-index: 200;
         margin-top: -40px !important;
-        margin-left: 40px;
+        display: flex;
+        align-self: flex-end;
     }    
 }
 
 @media (min-width: 768px) {
     .balao-ld {
-        background-image: url("../img/svg/balao_ld03.svg?2");
+        background-image: url("../img/svg/balao_ld03.svg?3");
         background-repeat: no-repeat;
         width: 200px !important; 
         height: 250px;
         position:absolute;
         top: -160px;
-        left: 490px;
+        left: 475px;
         z-index: 200;
         margin-top: 40px !important;
         display: table;
@@ -787,13 +791,13 @@ Balões
 
 @media (min-width: 992px) {
     .balao-ld {
-        background-image: url("../img/svg/balao_ld02.svg?2");
+        background-image: url("../img/svg/balao_ld02.svg?3");
         background-repeat: no-repeat;
         width: 270px !important; 
         height: 185px;
         position:absolute;
         top: -160px;
-        left: 580px;
+        left: 565px;
         z-index: 200;
         margin-top: 40px !important;
         display: table;
@@ -803,13 +807,13 @@ Balões
 
 @media (min-width: 1200px) {
     .balao-ld {
-        background-image: url("../img/svg/balao_ld01.svg?2");
+        background-image: url("../img/svg/balao_ld01.svg?3");
         background-repeat: no-repeat;
         width: 330px !important; 
         height: 150px;
         position:absolute;
         top: -160px;
-        left: 700px;
+        left: 685px;
         z-index: 200;
         margin-top: 40px !important;
         display: table;
@@ -819,13 +823,13 @@ Balões
 
 @media (min-width: 1400px) {
     .balao-ld {
-        background-image: url("../img/svg/balao_ld01.svg?2");
+        background-image: url("../img/svg/balao_ld01.svg?3");
         background-repeat: no-repeat;
         width: 330px !important; 
         height: 150px;
         position:absolute;
         top: -160px;
-        left: 880px;
+        left: 865px;
         z-index: 200;
         margin-top: 40px !important;
         display: table;
@@ -881,6 +885,11 @@ Bloqueio de Região
     opacity: 0.2;
 }
 
+.bloqueio-balao {
+    z-index: 180;
+    position: relative;
+    margin-top: 147px;
+}
 
 @media (max-width: 294px) {
     .bloqueio {
