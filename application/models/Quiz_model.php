@@ -79,15 +79,31 @@ class Quiz_model extends CI_model
 
 	public function showsRuns()
 	{
-		$sql = "SELECT * FROM run where run_id != 6 and run_id != 7 and run_id != 9 "
-                        . " AND run_ativo = 'S'";
+		$sql = "SELECT * FROM run WHERE run_ativo = 'S'";
                 
                 $query = $this->db->query($sql);
         
 		$result = $query->result();
-        return $result; 
+                return $result; 
 	}
 
+	public function showsRunsNaoUsados()
+	{
+            $sql = "SELECT r.* 
+                    FROM run r
+
+                    WHERE run_ativo = 'S'
+                            AND NOT EXISTS (
+                                            SELECT *
+                                            FROM page p
+                                            WHERE p.id = r.run_id
+                                            );";                
+            $query = $this->db->query($sql);
+
+            $result = $query->result();
+            return $result; 
+	}
+        
 	public function storeRuns($quiz)
 	{
 		$this->db->insert("run", $quiz);

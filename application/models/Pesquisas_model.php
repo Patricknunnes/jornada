@@ -8,15 +8,22 @@ class Pesquisas_model extends CI_model
 		parent::__construct();
 		permission();
 
-                $mysqliConn = new mysqli("formr.ceopv2fs3ucf.us-east-1.rds.amazonaws.com", "admin", "FormR2021", "formr");
-                $mysqliConn->set_charset("utf8");
+                $this->banco = $this->load->database('formR', TRUE);
+                
+                //$mysqliConn = new mysqli("formr.ceopv2fs3ucf.us-east-1.rds.amazonaws.com", "admin", "FormR2021", "formr");
+                $mysqliConn = new mysqli( $this->banco->hostname, $this->banco->username, $this->banco->password, $this->banco->database);
+                //$mysqliConn->set_charset("utf8");
+                $mysqliConn->set_charset( $this->banco->char_set );
 	 	@$this->banco = $mysqliConn;
+                
+                //@$this->banco = $this->load->database('formR', TRUE);
+                        
                 //new mysqli("formr.ceopv2fs3ucf.us-east-1.rds.amazonaws.com", "admin", "FormR2021", "formr");
 		// $this->banco = new mysqli("157.245.219.190", "formr", "dev123", "formr");
                 
 	}
 
-	public function index($run_id , $studies_id = null)
+	public function index($run_id , $studies_id = null, $survey_runs_id = null )
 	{
 		$sql = "SELECT sis.*,sru.description, ss.id unit_id, sru.position 
 				FROM survey_runs sr 
@@ -25,9 +32,10 @@ class Pesquisas_model extends CI_model
 					INNER JOIN survey_items sis ON sis.study_id = ss.id 
 					where sr.id = {$run_id} and ss.id  = {$studies_id}
 					AND sis.name not LIKE '%_fb%'
+                                        AND sru.id = {$survey_runs_id}
 					order by sru.position, sis.item_order ";
 		$result = $this->banco->query($sql);
-		return $result;
+		return $result->fetch_all(MYSQLI_ASSOC);
 	}
 
 	public function indexResposta($run_id , $studies_id = null)
@@ -61,10 +69,14 @@ class Pesquisas_model extends CI_model
 	public function studies($study_id)
 	{
 		$result = $this->banco->query("SELECT sru.* FROM survey_runs sr 
-										INNER JOIN survey_run_units sru on sr.id = sru.run_id
-										INNER JOin survey_studies ss ON ss.id  = sru.unit_id   
-										where sr.id = {$study_id}
-										order by sru.position");
+                                                INNER JOIN survey_run_units sru 
+                                                    on sr.id = sru.run_id
+                                                INNER JOin survey_studies ss 
+                                                    ON ss.id  = sru.unit_id   
+                                                WHERE sr.id = {$study_id}
+                                                ORDER BY sru.position DESC
+                                                LIMIT 1;");
+                                                
 		$itens = $result->fetch_all(MYSQLI_ASSOC);									
 		return $itens;
 	}
@@ -95,6 +107,12 @@ class Pesquisas_model extends CI_model
 		
 	}
 
+	public function countPerceResp($data){
+		
+                return $this->db->get_where("survey_studies", $data)->num_rows();
+		
+	}
+        
 	public function storeAll($keys, $table, $resposts )
 	{
 		$coluns = null;
@@ -190,6 +208,29 @@ class Pesquisas_model extends CI_model
 		$sql = "SELECT distinct * FROM graficos 
 				WHERE regiao = {$pages['regiao']}  
 				AND   usu_id = {$pages['usu_id']}";
+        $query = $this->db->query($sql);
+		$result = $query->result();
+        return $result; 
+	}
+
+	public function graficos_survey_studies($pages)
+	{
+		$sql = "
+                            SELECT distinct * 
+                            FROM graficos g
+                            INNER JOIN survey_studies ss
+                                ON g.pesquisa = ss.id_page
+                                    AND g.usu_id = ss.use_id
+                                    AND g.session_id = ss.session_id
+                            WHERE regiao = {$pages['regiao']}  
+                                AND usu_id = {$pages['usu_id']}
+                            ORDER BY 
+                                    CASE
+                                        WHEN ss.nr_pesquisa = 1 THEN -1
+                                        ELSE 0
+                                    END,
+                                    g.pesquisa, ss.nr_pesquisa";
+                                
         $query = $this->db->query($sql);
 		$result = $query->result();
         return $result; 

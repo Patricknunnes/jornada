@@ -1,0 +1,19 @@
+<svg id="svg_balao" width="220" height="205" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <path 
+        d="
+                M 23,3
+                C 8,3 3,8 3,23
+                V 165
+                C 3,180 8,185 23,185
+                H 45
+                L 75,202
+                L 105,185
+                H 197
+                C 212,185 217,180 217,165
+                V 23
+                C 217,8 212,3 197,3
+                H 23
+
+                " fill="#EEEEFF" fill-opacity="0.75"
+        stroke="#667799" stroke-width="2" stroke-opacity="0.5" />
+</svg>

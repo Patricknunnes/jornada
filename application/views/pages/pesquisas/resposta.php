@@ -12,7 +12,7 @@
 				<h3 class="mt-5" style="color:#000; text-align: center; font-size: 30px; font-weight: bold; font-family: Exo, Sans-serif;"><?php echo $pager->run_titulo; ?></h3>
 			<?php } ?>
 			<?php } ?>
-			<form method="post" action="<?= base_url() ?>index.php/pesquisas/resultado/<?php echo $id_page; ?>/<?php echo $unit_id; ?>/<?php echo $id_page2; ?>" style="padding-top: 15%;    padding-bottom: 15%;">
+			<form method="post" action="<?= base_url() ?>index.php/pesquisas/resultado/<?php echo $id_page; ?>/<?php echo $unit_id; ?>/<?php echo $id_page2; ?>/<?= $nr_pesquisa?>" style="padding-top: 15%;    padding-bottom: 15%;">
 				<?php
 				$next = false;
 				foreach ($studies as $studie) { ?>
@@ -45,11 +45,11 @@
 									<?php foreach ($pergunta['list'] as $list) { ?>
 										<?php if ($resposta[$pergunta['name']] != $list['name']) { ?>
 											<div class="form-check form-check-inline d-flex align-items-center">
-												<input class="form-check-input" id="inlineRadioOptions" type="radio" name="<?php echo $list['list_name']  ?>" value="<?php echo $list['name']  ?>">&nbsp&nbsp&nbsp<?php echo /*utf8_encode(*/str_replace(array( chr(147), chr(148)), '"', $list['label'])/*)*/;  ?>
+                                                                                            <input class="form-check-input" id="inlineRadioOptions" type="radio" name="<?php echo $list['list_name']  ?>" value="<?php echo $list['name']  ?>">&nbsp&nbsp&nbsp<label><?php echo /*utf8_encode(*/str_replace(array( chr(147), chr(148)), '"', $list['label'])/*)*/;  ?></label>
 											</div>
 										<?php } else { ?>
 											<div class="form-check form-check-inline d-flex align-items-center">
-												<input class="form-check-input" id="inlineRadioOptions" type="radio" name="<?php echo $list['list_name']  ?>" value="<?php echo $list['name']  ?>" checked>&nbsp&nbsp&nbsp<?php echo /*utf8_encode(*/str_replace(array( chr(147), chr(148)), '"', $list['label'])/*)*/; ?>
+                                                                                            <input class="form-check-input" id="inlineRadioOptions" type="radio" name="<?php echo $list['list_name']  ?>" value="<?php echo $list['name']  ?>" checked>&nbsp&nbsp&nbsp<label><?php echo /*utf8_encode(*/str_replace(array( chr(147), chr(148)), '"', $list['label'])/*)*/; ?></label>
 											</div>
 										<?php } ?>
 									<?php } ?>

@@ -1,0 +1,28 @@
+
+<svg id="svg_balao_pq" width="50" height="60" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <path 
+        d="
+                M 10,3
+                C 4,3 3,4 3,10
+                V 35                
+                C 3,39 4,45 10,45                
+                H 15                
+                L 23,58
+                L 31,45
+                H 40
+                C 45,46 48,41 48,35
+                V 10
+                C 48,4 46,3 40,3
+                H 10
+
+                " fill="#EEEEFF" fill-opacity="0.7"
+        stroke="#667799" stroke-width="2" stroke-opacity="0.5" />
+    <text x="25" y="30" class="svg-fnt-pq" text-anchor="middle" >?</text>		
+    <style>
+        .svg-fnt-pq { 
+                        font: 20px Poppins, sans-serif;
+                        font-weight: bold;
+                    }
+    </style>    
+</svg>
+

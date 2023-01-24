@@ -82,3 +82,5 @@ $( "#voltar-bem4" ).click(function() {
   $(".content-perguntas-4").css("display","block");
 	$(".content-perguntas-5").css("display","none");
 });
+
+

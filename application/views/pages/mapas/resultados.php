@@ -20,8 +20,22 @@ $name = $session['name'];
 		<div class="row" id="c-mobile">
 			<div class="col-12" style="text-align:center">
 
-				<img class="img-regiao mt-4" src="<?= base_url('') ?>assets/img/<?php echo $tipos[$regioes->tipo]['icone']; ?>" alt="" style="height: 180px; border: solid 4px #00009C; border-radius: 50%; padding: 25px;">
-				<h4 class="mt-1" style="color: #000; font-weight: bold; font-family: Exo, Sans-serif;"><?php echo $tipos[$regioes->tipo]['titulo']; ?></h4>
+				<img class="img-regiao mt-4" src="<?= base_url('') ?><?php 
+                                if( 
+                                    file_exists(
+                                                "uploads/icones/regiao_" . $regiaoAtual->id . ".png"
+                                                )
+                                    ){                            
+                                    echo "uploads/icones/regiao_" . $regiaoAtual->id;
+
+                                } else {
+                                    echo "assets/img/icones/regiao";
+                                    if ($regiaoAtual->pertence_a_jornada == 'S') {
+                                        echo "_" . $regiaoAtual->id; 
+                                    }
+                                }
+                                ?>.png?<?php echo mt_rand()?>" alt="" style="height: 180px; border: solid 4px #00009C; border-radius: 50%; padding: 25px;">
+				<h4 class="mt-1" style="color: #000; font-weight: bold; font-family: Exo, Sans-serif;"><?php echo $regiaoAtual->titulo; ?></h4>
 				<h5 class="mt-1 mb-5" style="color: #000; font-family: Exo, Sans-serif; font-weight: bold;">100%</h5>
 			</div>
 
@@ -48,9 +62,11 @@ $name = $session['name'];
 		<div class="row" id='grafico_desk' style="justify-content: space-between; margin-top: 15px; row-gap: 15px;">
 			<?php foreach ($graficos as $grafico) { ?>
 				<div class="col-6" id='graf1_mobile' style="padding-left: 0;">
-					<div class="card col-12" id='sombra' style="border-radius: 6px;">
+					<div class="card col-12" id='sombra' style="border-radius: 6px; text-align: center;">
 						<div class="card-body" style="width: 100%; height: 100%;">
 							<img width="100%" class="img-fluid"  src="<?= base_url() ?>/uploads/graphic/<?php echo $grafico->imagem; ?>">
+                                                        <p style="color: #000; font-size:14px; font-family: Exo, Sans-serif;">Data de Preenchimento</p>
+                                                        <p style="color: #000; font-weight: bold;font-size:16px;"><?php echo  date_format( new DateTime($grafico->data_gravacao), 'd/m/Y'); ?></p>
 						</div>
 					</div>
 				</div>

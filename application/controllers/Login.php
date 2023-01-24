@@ -15,7 +15,8 @@ class Login extends CI_Controller
 
 	public function index()
 	{
-		@session_destroy($this->session_data);
+		//@session_destroy($this->session_data);
+                $this->session->unset_userdata($this->session_data);
 		$data['message'] = $this->session->flashdata('message');
 		$data['successLogin'] = $this->session->flashdata('successLogin');
 		//	print_r($data);
@@ -262,6 +263,7 @@ class Login extends CI_Controller
 	public function logout()
 	{
 		$this->session->unset_userdata("logged_user");
+                $this->session->unset_userdata(['message','success' ]);
 		redirect("index.php/login");
 	}
 

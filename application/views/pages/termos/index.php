@@ -15,7 +15,7 @@
 			<div class="login d-flex align-items-center ">
 				<div class="container">
 					<div class="row">
-                                            <p id="poppins_title" style="margin-top: 20px; color: #424f8b!important; text-align: center; font-weight: bold!important; font-size: 18px;">Informamos que o TERMO DE CONSENTIMENTO LIVRE E ESCLARECIDO abaixo será apresentado ao participante antes de ser direcionado aos questionários online do estudo.</p>
+                                            <p id="poppins_title" style="margin-top: 20px; color: #424f8b!important; text-align: center; font-weight: bold!important; font-size: 18px;">TERMO DE CONSENTIMENTO LIVRE E ESCLARECIDO</p>
                                             <div class="rolagem" >
 						<p class="texto-p" id="poppins_text">
 							Você está convidado (a) a participar de uma pesquisa realizada pelo Instituto D’Or de Pesquisa e Ensino (IDOR). Primeiro, gostaríamos de esclarecer que esta participação é inteiramente voluntária, isto é, você pode optar por não participar ou se retirar a qualquer momento do estudo.

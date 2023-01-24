@@ -6,7 +6,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <!-- <script type="text/javascript" src="<?= base_url() ?>assets/js/img-upload1.js"></script> -->
-<script type="text/javascript" src="<?= base_url() ?>assets/js/perguntas.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>assets/js/perguntas.js?<?php echo mt_rand()?>"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 function showif(campo){
@@ -15,7 +15,7 @@ $.ajax({
 				type: "POST",
 				data: 'campo='+campo,
 				beforeSend: function() {
-					console.log('Carregando')
+					console.log('Carregando');
 				},
 				success: function(data) {
 					var at = $("#div_"+data).attr('data-showif'); 
@@ -36,7 +36,9 @@ $.ajax({
 			});
 
 }
-<?php if(isset($page_id2) && isset($page_id)){ ?>
+<?php 
+if(isset($page_id2) && isset($page_id) && isset($rest)){ 
+    if (! $rest) {?>
 
 document.querySelectorAll('img').forEach((item, index) => {
     setTimeout(() => {
@@ -61,7 +63,11 @@ document.querySelectorAll('img').forEach((item, index) => {
 
     }, index * 200);
   });
-<?php } ?>
+<?php 
+
+    } 
+}
+?>
 
 	
 
@@ -201,12 +207,18 @@ document.querySelectorAll('img').forEach((item, index) => {
 				position: "none"
 			},
 		};
-		var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
-		chart.draw(view, options);
+                if (document.getElementById("barchart_values")){
+                    var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
+                    chart.draw(view, options);
+            }
 	}
 
 	function adicionarPesquisa(id) {
 		$(document).ready(function(e) {
+                    if ($('#link_formr').val() == ""){
+                        alert("Deve ser selecionada uma Pesquisa.");
+                        return;
+                    }
 			$.ajax({
 				url: "<?php echo  base_url() ?>index.php/Paginas/setPesquisa",
 				type: "POST",
@@ -215,7 +227,8 @@ document.querySelectorAll('img').forEach((item, index) => {
 					$("#err").fadeOut();
 				},
 				success: function(data) {
-					$('#table-page').append(data);
+					$('#table-page').append(data);                                        
+                                        $("#link_formr option:selected").remove();
 					sendEmail();
 				},
 				error: function(e) {
@@ -239,7 +252,7 @@ document.querySelectorAll('img').forEach((item, index) => {
 	function deletarRegiaoPage(id, pag_id) {
 		$(document).ready(function(e) {
 			$.ajax({
-				url: "<?php echo  base_url() ?>index.php/paginas/destroyRegiao",
+				url: "<?php echo  base_url() ?>index.php/paginas/destroyPesquisa",
 				type: "POST",
 				data: 'id=' + id + '&pag_id=' + pag_id,
 				beforeSend: function() {
@@ -248,6 +261,7 @@ document.querySelectorAll('img').forEach((item, index) => {
 				success: function(data) {
 					$('#msg-delete-regiao').show();
 					document.getElementById(id).remove();
+                                        
 				},
 				error: function(e) {
 					$("#err").html(e).fadeIn();
@@ -311,6 +325,146 @@ document.querySelectorAll('img').forEach((item, index) => {
 			type: "POST",
 		});
 	}
+
+        var processandoORP = false;
+        function OrdenarRegiaoPages( ordem1, ordem2, jornada) {
+            if (processandoORP) {
+                alert("Aguarde a ordenação anterior");
+                return;
+            }
+            var regiao1 = $("#regiao"+jornada+ordem1); 
+            var regiao2 = $("#regiao"+jornada+ordem2);
+                        
+            processandoORP = true;
+            
+            $.ajax({
+                url: "<?php echo  base_url() ?>index.php/paginas/ordenarProcessa",
+                type: "POST",
+                data: 'ordem1='+ordem1 + '&ordem2=' + ordem2 + '&jornada=' + jornada,
+                beforeSend: function() {
+
+                },
+                success: function(data) {
+                    var textTemp = regiao1.text();
+                    regiao1.text(regiao2.text());
+                    regiao2.text(textTemp);
+                    
+                    if (jornada == 'N'){
+                        //Guardar valores
+                        var aguardar1I = $("#aguardar"+ ordem1 + " input").is(':checked');
+                        var aguardar2I = $("#aguardar"+ ordem2 + " input").is(':checked');
+                        //Trocar HTML
+                        var aguardar1 = $("#aguardar"+ ordem1 );
+                        var aguardar2 = $("#aguardar"+ ordem2);
+                        var aguardaTemp = aguardar1.html();
+                        aguardar1.html(aguardar2.html());
+                        aguardar2.html(aguardaTemp);
+                        //Ajustar checked
+                        var aguardar1 = $("#aguardar"+ ordem1 + " input");
+                        var aguardar2 = $("#aguardar"+ ordem2 + " input");                        
+                        aguardar1.prop('checked', aguardar2I);
+                        aguardar2.prop('checked', aguardar1I);
+                        
+                        //Guardar valores
+                        var visivel1I = $("#visivel"+ ordem1 + " input").is(':checked');
+                        var visivel2I = $("#visivel"+ ordem2 + " input").is(':checked');
+                        //Trocar HTML
+                        var visivel1 = $("#visivel"+ ordem1 );
+                        var visivel2 = $("#visivel"+ ordem2 );
+                        var visivelTemp = visivel1.html();
+                        visivel1.html( visivel2.html());
+                        visivel2.html( visivelTemp);
+                        //Ajustar checked
+                        var visivel1 = $("#visivel"+ ordem1 + " input");
+                        var visivel2 = $("#visivel"+ ordem2 + " input");
+                        visivel1.prop('checked', visivel2I);
+                        visivel2.prop('checked', visivel1I);
+                                                
+                    }
+
+                    processandoORP = false;
+
+                },
+                error: function(e) {
+                    alert("Ocorreu um erro ao tentar mudar a ordenação!");
+                    processandoORP = false;
+                }
+            });
+        }
+        
+        function AlterarAguardaJornada( regiaoId) {
+            var aguardaJornada = 'N';
+            if ($("#aguardarCH" + regiaoId).is(':checked')) {
+                aguardaJornada = 'S';
+            }
+
+            $.ajax({
+                url: "<?php echo  base_url() ?>index.php/paginas/storeAguardaJornada",
+                type: "POST",
+                data: 'regiaoId='+regiaoId + '&aguardaJornada=' + aguardaJornada,
+                beforeSend: function() {
+
+                },
+                success: function() {
+
+                },
+                error: function(e) {
+                    alert("Ocorreu um erro ao tentar salvar aguarda Jornada!");
+                    processandoORP = false;
+                }
+            });
+        }
+
+        function AlterarSempreVisivel( regiaoId){
+            var sempreVisivel = 'N';
+            if ($("#visivelCH" + regiaoId).is(':checked')) {
+                sempreVisivel = 'S';
+            }
+
+            $.ajax({
+                url: "<?php echo  base_url() ?>index.php/paginas/storeSempreVisivel",
+                type: "POST",
+                data: 'regiaoId='+regiaoId + '&sempreVisivel=' + sempreVisivel,
+                beforeSend: function() {
+
+                },
+                success: function() {
+
+                },
+                error: function(e) {
+                    alert("Ocorreu um erro ao tentar salvar sempre visível!");
+                    processandoORP = false;
+                }
+            });
+        }
+        
+        function salvarOrdemConclusa( ordemAtual, ordemAnt, jornada ) {
+        
+            var aguardaConclusa = 'N';
+            if ($("#conclusa" + jornada + ordemAtual + "_" + ordemAnt).is(':checked')) {
+                aguardaConclusa = 'S';
+            }
+            
+            $.ajax({
+                url: "<?php echo  base_url() ?>index.php/paginas/storeOrdemConclusa",
+                type: "POST",
+                data: 'ordemAtual='+ordemAtual + '&ordemAnt=' + ordemAnt + 
+                        '&aguardaConclusa=' + aguardaConclusa + '&jornada=' + jornada,
+                beforeSend: function() {
+
+                },
+                success: function() {
+
+                },
+                error: function(e) {
+                    alert("Ocorreu um erro ao tentar mudar a ordenação!");
+                    processandoORP = false;
+                }
+            });
+        
+        }
+
+    
 </script>
 
 </html>

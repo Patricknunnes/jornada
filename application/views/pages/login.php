@@ -16,7 +16,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-md-10 col-lg-6 mx-auto">
-							<h3 class="login-heading mb-4" style="text-align: center;">Bem-vindo(a)! Faça login ou <a href="/index.php/login/register">crie uma conta</a></h3>
+							<h3 class="login-heading mb-4" style="text-align: center;">Bem-vindo(a)! Faça login ou <a href="<?= base_url() ?>index.php/login/register">crie uma conta</a></h3>
 							<?php if ($message && empty($successLogin)) : ?>
 								<div class="alert alert-danger alert-dismissible fade show mb-2" role="alert" style="display: flex; justify-content: space-between; margin-top: 10px; padding-right: 1rem!important; align-items: center;">
 									<?php print_r($message); ?>
@@ -75,12 +75,14 @@
                                                                 margin-bottom: 5px;
                                                                 font-weight: bold;"><img class="img" style="margin-right: 11px;
                                                                 margin-top: -4px;" 
-                                                                src="https://static.xx.fbcdn.net/rsrc.php/v3/yN/r/szGrb_tkxMW.png" 
+                                                                src="<?= base_url()?>/assets/img/facebook_btn.png"
                                                                 alt="" width="24" height="24">Login com o Facebook</button>	
 
 								</center>
 								<div class="text-center" style="margin-top: 14px;">
-									<a class="button" href="<?= base_url()?>index.php/login/register" style="text-decoration:none;">Criar uma conta</a>  | <a class="button" href="<?= base_url()?>index.php/login/forgot" style="text-decoration:none;">Esqueci minha senha</a>
+									<a class="button" href="<?= base_url()?>index.php/login/register" style="text-decoration:none;">Criar uma conta</a>
+                                                                        | <a class="button" href="<?= base_url()?>index.php/login/forgot" style="text-decoration:none;">Esqueci minha senha</a>
+                                                                          | <a class="button" href="<?= base_url()?>index.php/termos/exibir" style="text-decoration:none;">Termo de Consentimento</a>
 								</div>
 							</form>
 						</div>

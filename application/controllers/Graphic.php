@@ -23,6 +23,7 @@ class Graphic extends CI_Controller
             $data['usu_id'] = $logged_user['id']; 
             $data['pesquisa'] = $_POST['pesquisa']; 
             $data['imagem'] = $logged_user['id']."_".$_POST['pesquisa']."_".$_POST['page_id2']."_".$_SESSION['unitid'].'.png'; 
+            $data['session_id'] = $_SESSION['unitid'];
 
             $this->Pesquisas_model->graficos_insert($data);
 			

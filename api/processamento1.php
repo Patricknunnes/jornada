@@ -16,7 +16,7 @@ if (!$db_selected) {
 /// --------- FIM FORMR ------------------
 
 /// -------------- PESQUISA -------------
-$link1 = mysqli_connect('mysql.devcodes.com.br', 'devcodes29', 'dev123');;
+$link1 = mysqli_connect('mysql.devcodes.com.br', 'devcodes29', 'dev123_erro');;
 
 if (!$link1) {
     die('Não conseguiu conectar: ' . mysqli_error());

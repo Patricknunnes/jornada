@@ -1,13 +1,19 @@
 <?php 
 
-$link = mysqli_connect('formr.ceopv2fs3ucf.us-east-1.rds.amazonaws.com', 'admin', 'FormR2021');
+define('BASEPATH',"https://" . $_SERVER['HTTP_HOST']);
+
+include_once '../application/config/database.php';
+
+//$link = mysqli_connect('formr.ceopv2fs3ucf.us-east-1.rds.amazonaws.com', 'admin', 'FormR2021');
+$link = mysqli_connect( $db['formR']['hostname'], $db['formR']['username'], $db['formR']['password']);
 
 if (!$link) {
     die('Não conseguiu conectar: ' . mysqli_error());
 }
 
 // seleciona o banco devcodes
-$db_selected = mysqli_select_db( $link,'formr');
+//$db_selected = mysqli_select_db( $link, 'formr'); 
+$db_selected = mysqli_select_db( $link, $db['formR']['database'] );
 
 if (!$db_selected) {
     die ('Não pode selecionar o banco devcodes : ' . mysqli_error());
